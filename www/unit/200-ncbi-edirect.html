@@ -1,0 +1,34 @@
+{% extends "unitbase.html" %}
+{% load pytags %}
+{# title = Automating Data Access #}
+{# subtitle = NCBI, Ensemble, UCSC #}
+{# name = Automating Data Access: NCBI - Entrez #}
+
+{% block body %}
+
+{% markdown %}
+
+EFetch:
+
+    # Returns the virus data in the FASTA format
+    curl -s http://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?id=AF086833.2\&db=nuccore\&rettype=fasta | head
+
+    # Change returns the virus information in the GenBank format
+    curl -s http://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?id=AF086833.2\&db=nuccore\&rettype=gb | head
+
+Taxonomy searches with Entrez
+
+    # Matching partial words.
+    esearch -db taxonomy -query "Sacch*" | efetch -format text
+
+    # Produce taxonomical information on an organism.
+    # The results may need postprocessing via XML tools
+    esearch -db taxonomy -query "Gardnerella vaginalis" | efetch -format xml
+
+    #
+    esearch -db taxonomy -query "Gardnerella vaginalis" | efetch -format xml
+
+{% endmarkdown %}
+
+
+{% endblock %}

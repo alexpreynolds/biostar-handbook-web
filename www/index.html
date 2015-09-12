@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% load pytags %}
+{# title = Biostar Handbook #}
+{# subtitle = Your Bioinformatics Survival Guide #}
+{# navtab = index #}
+{# name = Home #}
+
+{% block body %}
+
+{% markdown %}
+
+This website is an online companion for the Biostar Handbook.
+
+Chapters in the book have a corresponding webpage that
+demonstrate the commands and their outputs in more detailed
+manner than what was appropriate for the the book.
+
+The content of this website may change more frequently
+than there are updates to the book. The site
+will be updated to correct errors, add more elegant and
+efficient solutions and to expand on the content.
+
+### Book Chapters
+
+Supporting material for book chapters:
+
+{% for url, tab, label in context.CHAPTERS %}
+1. {% link url %}
+{% endfor %}
+
+
+
+{% endmarkdown %}
+
+{% endblock %}

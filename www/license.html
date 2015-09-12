@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% load pytags %}
+{# title = Biostar Handbook #}
+{# subtitle = License #}
+{# navtab = license #}
+{# name = license #}
+
+{% block body %}
+
+{% markdown %}
+
+Ownership of the [Biostar Handbook][bh] is required to use the
+content on this website.
+
+That ownership gives the owners of the book permanent and irrevokable rights
+to use, modify, alter, redistribute and resell
+new products derived from using content on this site.
+
+Contributing to the [Bioinformatics Handbook][bh] in any manner
+that is accepted by the editors automatically grants these rights.
+
+The earnings from this book are used to maintain this site as well as the
+<a href="https://www.biostars.org">Biostars.org Q&A</a> site.
+These earnings will ensure that the content on this site is maintained and updated, the information is accurate,
+the errors are addressed and new content is added regularly.
+
+[bh]: http://www.biostarhandbook.com
+
+{% endmarkdown %}
+
+{% endblock %}

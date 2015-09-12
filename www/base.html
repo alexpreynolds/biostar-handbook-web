@@ -1,0 +1,91 @@
+{% load pytags %}
+{# navtab = base #}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>
+        {{ page.title }}
+    </title>
+
+    <link href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css" rel="stylesheet">
+
+    <link rel="stylesheet" type="text/css" href="/style.css">
+
+    {% pygments_css %}
+
+    {% block head %}
+
+    {% endblock %}
+
+
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
+
+</head>
+<body>
+
+<div class="container-fluid">
+
+    <div class="row">
+        <div class="col-sm-10 col-sm-offset-1">
+            <div>
+                <h2>{{ page.title|safe }}{% if page.subtitle != '?' %} &bull;
+                    <span class="muted">{{ page.subtitle }}</span>{% endif %}
+                </h2>
+            </div>
+
+            <div>
+
+                <ul class="nav nav-tabs" role="tablist">
+                    {% for path, label in context.NAVBAR %}
+                        {% if page.fname == path  %}
+                            <li class="active">{% link path label %}</li>
+                        {% else %}
+                            <li>{% link path label %}</li>
+                        {% endif %}
+                    {% endfor %}
+                </ul>
+            </div>
+
+            {% block bodyhead %}
+            {% endblock %}
+
+            <div class="row" id="body">
+                <div class="col-md-12 top">
+                    {% block body %}
+                        BODY
+                    {% endblock %}
+                </div>
+            </div>
+
+            <div>
+                <div class="hr">&nbsp;</div>
+                <p class="muted text-center"> Last updated
+                    on {{ page.last_modified }} &bull; Generated with <a
+                            href="https://github.com/ialbert/pyblue">PyBlue</a></p>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-101522-1']);
+    _gaq.push(['_trackPageview']);
+
+    (function () {
+        var ga = document.createElement('script');
+        ga.type = 'text/javascript';
+        ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0];
+        s.parentNode.insertBefore(ga, s);
+    })();
+
+</script>
+
+
+</body>
+</html>
