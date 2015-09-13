@@ -6,28 +6,34 @@
 
 {% block body %}
 
-    <p>These are pages that may contain
-        plain html, markdown (see below) and can operate as
-        django templates.</p>
-
     <p>
-        The django templates can access data loaded from <code>context.py</code>
+        A web page that may be a plain html, may have markdown (see below) and
+        can be accessed as a django template.
     </p>
 
     <p>
-        For example <code>context.say_hello</code> will be rendered as: {{ context.say_hello }}
+        The django template can access data loaded from a special file in the root folder
+        called <code>context.py</code>. The content of this module will be available
+        as a template variable called <code>context</code>. Anything is now possible ;-).
+        The current <code>context.py</code> for example loads the table of contents and helps to generate
+        the navigation bar on top.
     </p>
 
     <p>
-        Restart the server if you alter context.py or if you add a new file. Pyblue will
+        For example the function <code>context.say_hello</code> will be rendered as: {{ context.say_hello }}
+    </p>
+
+    <p> Or it can read the <code>context.numbers</code>: {{ context.numbers }} in a for loop like so:
+        {% for value in context.numbers %}
+            {{ value }} mississippi,
+        {% endfor %}
+    </p>
+
+    <p>
+        Restart the server if you alter <code>context.py</code> or if you add a new file. Pyblue will
         reload changes in existing files but won't pick up new files or a changed context.py
     </p>
 
-    <p> Or it can read the <code>context.numbers</code> in a for loop here:
-        {% for value in context.numbers %}
-            {{ value }}
-        {% endfor %}
-    </p>
 
 {% markdown %}
 
@@ -39,6 +45,15 @@ Markdown input needs to be placed between these tags.
 * two
 * three
 
+You also have access to all Django Templating goodies.
+
 {% endmarkdown %}
+
+<p>
+    Pyblue supports code embedding from other files.
+    When we do so the code gets syntax highlighted.
+</p>
+
+    {% code "code/helloworld.sh" %}
 
 {% endblock %}

@@ -30,7 +30,7 @@ NAVBAR = [
 
 
 # Example numbers.
-numbers = range(5)
+numbers = range(1, 4)
 
 # Example function call.
 def say_hello():

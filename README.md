@@ -62,8 +62,8 @@ Web units are stored in the `www/unit` directory.
 1. A web unit can be a plain HTML file,
    may contain markdown as well as Django Templating specific commands.
 1. Start with the [example.html](https://github.com/ialbert/biostar-handbook-web/blob/master/www/unit/example.html) 
-   file. Then, when the server is running examine how it gets rendered at
-   [http://localhost:8080/example.html](http://localhost:8080/example.html)
+   file in the repository. Now examine how this file gets rendered at
+   [http://biostarhandbook.com/unit/example.html](http://biostarhandbook.com/unit/example.html)
 1. Code can be embedded into pages 
    (will be automatically syntax highlighted) or can be linked to as a file.
 1. Bootstrap 2.3 styling is enabled.
