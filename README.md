@@ -54,15 +54,18 @@ All book chapters should be written in Markdown. A few guidelines:
   
 ### Web Content
 
-Each book chapter typically has at least on web unit associated with it in  
-`www/unit` directory. This file can be a plain HTML file,
-may contain markdown as well as Django specific commands.
- 
-Start with the `example.html` file, take a look of how it gets rendered at
-`http://localhost:8080/example.html`
+Each book chapter typically has at least on web unit associated with it.
+Web units are stored in the `www/unit` directory. 
 
-Scripts can be embedded into pages (will be automatically syntax highlighted) or can be linked to.
-
-Bootstrap 2.3 styling is enabled.
+1. Web units need to contain all commands used to generate a result.
+1. Comments should be used to explain the purpose of each command
+1. A web unit can be a plain HTML file,
+   may contain markdown as well as Django Templating specific commands.
+1. Start with the [example.html](https://github.com/ialbert/biostar-handbook-web/blob/master/www/unit/example.html) 
+   file. Then, when the server is running examine how it gets rendered at
+   [http://localhost:8080/example.html](http://localhost:8080/example.html)
+1. Code can be embedded into pages 
+   (will be automatically syntax highlighted) or can be linked to as a file.
+1. Bootstrap 2.3 styling is enabled.
 
 You can also consult the [pyblue documentation](http://ialbert.github.io/pyblue/) for more details.
