@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% load pytags %}
+{# title = Contribute #}
+{# subtitle = Add your expertise #}
+{# navtab = index #}
+{# name = Contribute #}
+
+{% block body %}
+
+{%  include "book_link.html" %}
+
+{% markdown %}
+
+{%  include "README.md" %}
+
+{% endmarkdown %}
+
+{% endblock %}

@@ -24,6 +24,7 @@ NAVBAR = [
                 ("index.html", '<span class="glyphicon glyphicon-home" aria-hidden="true"></span> Home'),
          ] + CHAPTERS + [
                 ("license.html",  '<span class="glyphicon glyphicon-copyright-mark" aria-hidden="true"></span> License'),
+                ("contribute.html",  '<span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Contribute'),
                 ("about.html",  '<span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span> About'),
          ]
 
