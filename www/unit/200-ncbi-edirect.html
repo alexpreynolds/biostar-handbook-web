@@ -8,25 +8,26 @@
 
 {% markdown %}
 
-EFetch:
 
-    # Returns the virus data in the FASTA format
-    curl -s http://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?id=AF086833.2\&db=nuccore\&rettype=fasta | head
+### Install Edirect
 
-    # Change returns the virus information in the GenBank format
-    curl -s http://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?id=AF086833.2\&db=nuccore\&rettype=gb | head
+### Using Edirect
 
-Taxonomy searches with Entrez
+Short intro to efetc, esearch and elink
 
-    # Matching partial words.
-    esearch -db taxonomy -query "Sacch*" | efetch -format text
+{% code "unit/code/ncbi-edirect-basics.sh" %}
 
-    # Produce taxonomical information on an organism.
-    # The results may need postprocessing via XML tools
-    esearch -db taxonomy -query "Gardnerella vaginalis" | efetch -format xml
+### Taxonomy searches with Entrez
 
-    #
-    esearch -db taxonomy -query "Gardnerella vaginalis" | efetch -format xml
+On the NCBI taxonomy
+
+{% code "unit/code/ncbi-edirect-taxonomy.sh" %}
+
+### Getting data from SRA
+
+Short read archive is
+
+{% code "unit/code/ncbi-edirect-sra.sh" %}
 
 {% endmarkdown %}
 
