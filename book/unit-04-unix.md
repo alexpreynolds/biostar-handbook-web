@@ -47,7 +47,7 @@ just type a command that we believe should work, for example -
     -bash: hello: command not found
     
 and then turns out it doesn't work at all. That is still good news. 
-If you can do that you are alreadt well on your way to becoming an expert. 
+If you can do it, you are already well on your way to becoming an expert. 
 It is our empirical 
 observation that more than half of all commands typed into a terminal
 will error out for some reason.
@@ -55,10 +55,10 @@ will error out for some reason.
 A> Get used to errors. They will occur all the time. It
 A> does not matter how good you become at it, everyone
 A> makes the errors all the time. The difference 
-A> between a novice and an expert are the speeds and
+A> between a novice and an expert are the speed and
 A> efficiency at which they diagnose and correct their errors.
 
-We think this is great news. Stop fretting about errors and start
+Think this is great news. Stop fretting about errors and start
 thinking about correcting them. Recognize that you can only learn 
 how to correct errors if you make some. So the best
 way to become an expert is to start producing those errors.
