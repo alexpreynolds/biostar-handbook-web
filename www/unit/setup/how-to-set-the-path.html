@@ -1,0 +1,37 @@
+{% extends "unitbase.html" %}
+{% load pytags %}
+{# title =  How to set the PATH #}
+{# subtitle = how to run tools you have installed #}
+{# name = How to set the PATH #}
+
+{% block body %}
+
+{% markdown %}
+
+One of the most frustrating issues face by newcomers. How to run a tool.
+
+TODO: Explain the following:
+
+Why did it end up so suprisingly complex to set up?
+
+What is the PATH?
+
+
+Run a tool giving it the full path name
+
+Run a tool by linking it into a directoy that is already in the executable path
+
+Append the tool exectuable to the PATH variable
+
+Why are there so many ways to do this?
+
+How to get this applied automatically.
+
+How do I modify the bash initialization script?
+
+Which bash init script: .bash_profile .bashrc .profile .bash_login
+
+Why are there so many different ways to initialize a profile?
+
+{% endmarkdown %}
+{% endblock %}

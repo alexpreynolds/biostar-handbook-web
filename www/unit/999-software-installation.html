@@ -24,86 +24,27 @@ such as git.
 The final and often most challenging complexity to installation are the so called
 "requirements" and "dependencies" that a software may need to function.
 These mean other software functionality that the new software expects to be present on
-the system.
+the system. Notably the quality of software often correlates directly with the ease
+of installation, a corrolaly of which is that when it is difficult to install
+software it is probably not worth the trouble to begin with.
 
-Notably the quality of software often correlates directly with the ease of installation, a corrolaly
-of which is that difficult to install software is probably not worth the trouble to begin with.
-
-### Project layout
+### Directory layout
 
 We recommend that all tools be placed under the same directory so that it is easy to find them
 by name. We like to use the `~/src` directory. This means all external softare
 code will be installed there. We also recommend that you create a `~/bin` directory
-that is added to the execution path. This avoids having to extende the path for each tool
+that is added to the execution path. This avoids having to extend the path for each tool
 
     mkdir -p ~/src
     mkdir -p ~/bin
 
-### Binary code installation
 
-Code that comes in binary form can be downloaded and expanded into the src directory. For example
-installing TopHat RNA-seq aligner would take the following instructions:
+### Software installation
 
-    # Go to website to find the URL to the downloads for the right platform
+* {% link "setup/how-to-install-everything" %} - installation instruction for every tool
+* {% link "setup/how-to-set-the-path" %} - to ensure that your environment finds the tools.
+* {% link "setup/bash-profile" %} - to ensure that your settings are applied automatically.
 
-    cd ~/src
-
-    # We are getting the Mac version
-    curl -O https://ccb.jhu.edu/software/tophat/downloads/tophat-2.1.0.OSX_x86_64.tar.gz
-
-    # this would be the Linux version
-    # curl -O https://ccb.jhu.edu/software/tophat/downloads/tophat-2.1.0.Linux_x86_64.tar.gz
-
-    # Unpack the archive:
-    tar xzvf tophat-2.1.0.OSX_x86_64.tar.gz
-
-    # The progam is installed and can be run as
-    ~/src/tophat-2.1.0.OSX_x86_64/tophat
-
-    # Tophat is a suite of programs and we wish to have all tools available
-    # without having to type the lengthy paths.
-    #
-    # Append the path to the tophat directory to the $PATH variable
-    #
-    # Read the "How to set the Path section" below on where your profile file is.
-    #
-    echo 'export PATH=~/src/tophat-2.1.0.OSX_x86_64;$PATH' >> ~/.bash_profile
-
-    # Optionally remove the downloaded file
-    rm tophat-2.1.0.OSX_x86_64.tar.gz
-
-
-### How to set the path
-
-
-### Shell initialization
-
-The need to have certain settings applied
-automatically when a terminal is opened is very common.
-It is achieved by creating a file with a special name
-placed in the home directory. All commands listed
-in this so called profile file will be applied when
-a terminal is initialized.
-
-Below is what we consider a minimal bash configuration file
-that is still universally useful. Add the
-content below into a file located in your home
-directory called:
-
-* `.profile` on Mac OSX
-* `.bashrc` on Linux and Cygwin
-
-As you gain more expertise expand the list with commands
-that are useful in your work.
-Note: this file is read only once when you open a new terminal
-changes to it will not apply retroactively to terminals
-that are aready open.
-
-*Note*: do yourself a favor and customize the way
-the terminal looks. You can vary font sizes, colors. It makes
-a tremendous difference.
 {% endmarkdown %}
-
-{% code "unit/code/bash-profile.sh" %}
 
 {% endblock %}

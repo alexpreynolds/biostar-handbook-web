@@ -1,0 +1,58 @@
+{% extends "unitbase.html" %}
+{% load pytags %}
+{# title =  How to install everything #}
+{# subtitle = install every piece of code in the book #}
+{# name = How to install every tool in this book #}
+
+{% block body %}
+{% markdown %}
+
+### How to use this page
+
+This page lists the installation instruction for every tool in the book.
+The instructions are comprehensive and can be copy pasted into a terminal.
+
+**Important**:
+
+* We follow the directory layout described in {% link "unit/999-software-installation" %}
+* See the {% link "how-to-set-the-path" %} if you are having trouble running tools.
+* {% link "setup/bash-profile" %} - to ensure that your settings are applied automatically.
+
+Note that for each installation step we disable the command of writing to the bash profile.
+This is because there are many ways to set that up and we don't want to accidentally
+overwrite that for you. Uncomment that line to execute that instruction.
+
+### TopHat
+
+Website: https://ccb.jhu.edu/software/tophat/index.shtml
+
+    # Start in the code sources
+    cd ~/src
+
+    # We are getting the Mac version
+    curl -O https://ccb.jhu.edu/software/tophat/downloads/tophat-2.1.0.OSX_x86_64.tar.gz
+
+    # this would be the Linux version
+    # curl -O https://ccb.jhu.edu/software/tophat/downloads/tophat-2.1.0.Linux_x86_64.tar.gz
+
+    # Unpack the archive:
+    tar xzvf tophat-2.1.0.OSX_x86_64.tar.gz
+
+    # The progam is installed and can be run as
+    # ~/src/tophat-2.1.0.OSX_x86_64/tophat
+
+    # Tophat is a suite of programs and we wish to have all tools available
+    # without having to type the lengthy paths.
+    #
+    # Append the path to the tophat directory to the $PATH variable
+    #
+    # echo 'export PATH=~/src/tophat-2.1.0.OSX_x86_64;$PATH' >> ~/.bash_profile
+
+    # Optionally remove the downloaded file
+    rm tophat-2.1.0.OSX_x86_64.tar.gz
+
+    # Apply the settings to the current shell
+    # source ~/.bash_profile
+
+{% endmarkdown %}
+{% endblock %}

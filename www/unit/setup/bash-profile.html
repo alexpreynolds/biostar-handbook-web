@@ -1,0 +1,44 @@
+{% extends "unitbase.html" %}
+{% load pytags %}
+{# title =  How to set the shell profile #}
+{# subtitle = apply your settings automatically #}
+{# name = How to set the shell profile  #}
+
+{% block body %}
+
+{% markdown %}
+
+* See the {% link "how-to-set-the-path" %} if you are having trouble running tools.
+
+### Shell initialization
+
+The need to have certain settings applied
+automatically when a terminal is opened is very common.
+It is achieved by creating a file with a special name
+placed in the home directory. All commands listed
+in this so called profile file will be applied when
+a terminal is initialized.
+
+Below is what we consider a minimal bash configuration file
+that is still universally useful. Add the
+content below into a file located in your home
+directory called:
+
+* `.profile` on Mac OSX
+* `.bashrc` on Linux and Cygwin
+
+As you gain more expertise expand the list with commands
+that are useful in your work.
+Note: this file is read only once when you open a new terminal
+changes to it will not apply retroactively to terminals
+that are aready open.
+
+*Note*: do yourself a favor and customize the way
+the terminal looks. You can vary font sizes, colors. It makes
+a tremendous difference.
+
+{% code "unit/setup/bash-profile.sh" %}
+
+{% endmarkdown %}
+
+{% endblock %}
