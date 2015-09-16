@@ -52,6 +52,12 @@ All book chapters should be written in Markdown. A few guidelines:
 1. Don't add data to the github repository, send a link to the data to the maintainer
    and they will move it to the `www/data` directory of the main site.
   
+The pages you add above and the changes to them are proposed work.
+The book itself is written from markdown documents in a different repository 
+that is connected directly to the publishing system.
+Once a book chapter is accepted and you wish to participate as an author you 
+can request to work directly from the book's git repository. 
+
 ### Web Content
 
 Each book chapter typically has at least on web unit associated with it.
