@@ -34,6 +34,20 @@ Philosophy][unix-philosophy], which is stated as following:
 * Write programs to work together. 
 * Write programs to handle text streams, because that is a universal interface.
 
+We will see how most of the command line tools follow the first of this
+statements (Write programs that do one thing and do it well). Writing small
+programs is also a smart approach in developing new scripts and for organizing
+a data analysis task. 
+
+Later in the chapter we will also see how to make the command line tools "work
+together", as in the second statement, using the Unix piping system.
+
+Finally, the third statement (handle text streams) may be a bit outdated in the
+modern world, where databases and compressed formats are needed for high
+performance computing. However, handling text files is a very common task in
+bioinformatics, and we will see how the Unix environment provides many tools to
+do that.
+
 In the book called [The Art of Unix Programming][taop] Eric Steven Raymond
 discusses in great detail the driving principles of Unix. 
 Only fifty or so years later is the genius of the design behind
