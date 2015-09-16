@@ -3,18 +3,50 @@
 
 [unit-04]: http://bioinformaticshandbook.com/book/unit-03.html
 
-The ability to use simple Unix commands is a fundamental
-requirement to performing bioinformatics data analysis with command line tools. 
 
-The Unix world of knowledge is gigantic - the beauty of it
-is that unlike other field of knowledge understanding even 
-a tiny amounts of it can make someone exceedingly 
-more productive. This has to do with the so called [Unix Philosophy][unix-philosophy]
-that requires that the contributors to it should:
+The ability to use simple Unix commands is a fundamental
+requirement to performing bioinformatics data analysis with command line tools.
+In fact, for historical and practical reasons most of the bioinformatics
+nowadays is done by running commands on a terminal, and this is one
+of the most common bottlenecks for scientists wishing to start in
+bioinformatics. 
+
+Despite being hard to learn at the beginning, the command line is a very
+powerful tool, and learning the story of the Unix systems itself can teach very
+important lessons on how to organize files and scripts for data analysis. In
+this chapter we will see how to start using these systems, and what can we
+learn from them.
+
+## Why do bioinformaticians use Unix systems and not Windows?
+
+Unix is an operating system developed in the '80s, at a time when most
+computers were big as entire rooms, and each manufacturer was in war with the
+others and had a different operating system.
+
+When Unix was introduced many innovations and helped standardizing the world of
+computing. However, what concerns us the most for bioinformatics is that the
+Unix system also introduced a novel approach to managing files and programs. 
+
+In particular, the Unix systems introduced to so called [Unix
+Philosophy][unix-philosophy], which is stated as following:
 
 * Write programs that do one thing and do it well.
 * Write programs to work together. 
 * Write programs to handle text streams, because that is a universal interface.
+
+We will see how most of the command line tools follow the first of these
+statements (Write programs that do one thing and do it well). Writing small
+programs is also a smart approach in developing new scripts and for organizing
+a data analysis task. 
+
+Later in the chapter we will also see how to make the command line tools "work
+together", as in the second statement, using the Unix piping system.
+
+Finally, the third statement (handle text streams) may be a bit outdated in the
+modern world, where databases and compressed formats are needed for high
+performance computing. However, handling text files is a very common task in
+bioinformatics, and we will see how the Unix environment provides many tools to
+do that.
 
 In the book called [The Art of Unix Programming][taop] Eric Steven Raymond
 discusses in great detail the driving principles of Unix. 
@@ -23,9 +55,22 @@ Unix becoming obvious, these are the principles
 that made it the most ubiquitous computing platform in 
 the world - just about all smartphones run Unix. 
 
-That being said over the past fifty or so years the operating system
-has also accrued a number of idiosyncrasies and cruft that often
-can make it feel very confusing to novices.
+
+
+## What is Linux? What is Bash? Can I use a Mac?
+
+The original Unix system developed in the '80s does no exists anymore, and it
+would not run on any modern computer. However, during time many other operating
+systems have been developed based on the original Unix characteristics.
+
+One of the most popular descendant of Unix is Linux, a free and open-source
+operating system developed in 1992, and maintained by a large community. Linux
+is free to use and over many years, large efforts have been done in making it
+user friendly. 
+
+# TODO: explain Ubuntu and BioLinux
+
+
 
 ## Essential Unix concept and commands
 
