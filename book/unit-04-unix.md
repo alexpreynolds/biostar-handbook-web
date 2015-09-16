@@ -34,7 +34,7 @@ Philosophy][unix-philosophy], which is stated as following:
 * Write programs to work together. 
 * Write programs to handle text streams, because that is a universal interface.
 
-We will see how most of the command line tools follow the first of this
+We will see how most of the command line tools follow the first of these
 statements (Write programs that do one thing and do it well). Writing small
 programs is also a smart approach in developing new scripts and for organizing
 a data analysis task. 
