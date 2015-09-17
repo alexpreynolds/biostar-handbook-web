@@ -21,9 +21,10 @@ We follow the directory layout described in {% link "unit/999-software-installat
 Note that for each installation step we show the update command to the `PATH`
 command but we won't apply it permanently to your shell profile.
 There are many ways to make use of these profiles and there is no universal way to
-apply the change for everyone. See the links on top for information on where to place this command.
+apply the change for everyone. See the links on top for information on where to place this command
+to have it loaded automatically.
 
-#### Mac OS X
+### Mac OS X
 
 Mac OSX users need to install XCode from the AppStore. In addition the may
 need also need to occasionally launch XCode after a service update to agree to
@@ -35,8 +36,13 @@ tools are installed with:
 The Mac OSX instructions will use [HomeBrew](http://brew.sh/) whenever the tool has a corresponding
 recipe. Ocassionally when using `brew` the version of the software may older than the latest release.
 In that case users should follow the Unix instructions on Mac OSX as well.
+When using homebrew we need to tap the science formulas then
+regularly update the formulas, especially after an XCode update.
 
-#### Linux
+    brew tap homebrew/science
+    brew update
+
+### Linux
 
 There are numerous Linux distributions with various naming schemes. To set up a system users
 need to install packages via a so called package manager: `apt-get`, `yum` and others.
@@ -54,13 +60,15 @@ errors via the ticketing system. For Ubuntu linux the following instructions wer
     sudo perl -MCPAN -e 'install "LWP::Simple"'
     sudo perl -MCPAN -e 'install "HTML::Entities"'
 
-#### Windows/Cygwin
+### Windows/Cygwin
 
 TODO
 
+- - -
+
 ## SRA toolkit
 
-The SRA tookit allow us to access the Short Read Archive. It is a suite of tools
+The SRA tookit allow us to access the Short Read Archive. It is a suite of tools,
 the most used among them are: `prefetch`, `fastq-dump`. The SRA toolkit is
 distributed as binary programs for each platform.
 
@@ -68,8 +76,21 @@ Webpage: http://www.ncbi.nlm.nih.gov/Traces/sra/?view=software
 
 **MacOSX**:
 
+    brew update
     brew info sratoolkit
     brew install sratoolkit
+
+alternatively we can install the binaries like so:
+
+    cd ~/src
+    curl -OL http://ftp-trace.ncbi.nlm.nih.gov/sra/sdk/2.5.2/sratoolkit.2.5.2-mac64.tar.gz
+    tar xzvf sratoolkit.2.5.2-mac64.tar.gz
+
+    # Update the PATH
+    export PATH=~/src/sratoolkit.2.5.2-mac64.tar.gz/bin:$PATH
+
+    # The tools that can be run are visible in
+    ls ~/src/sratoolkit.2.5.2-mac64/bin/
 
 **Unix**:
 
@@ -83,15 +104,26 @@ Webpage: http://www.ncbi.nlm.nih.gov/Traces/sra/?view=software
     # The tools that can be run are visible in
     ls ~/src/sratoolkit.2.5.2-ubuntu64/bin/
 
-**Cygwin**:
+**Windows/Cygwin**:
 
-Follow the Unix instructions replacing the url with `http://ftp-trace.ncbi.nlm.nih.gov/sra/sdk/2.5.2/sratoolkit.2.5.2-win64.zip`
+    cd ~/src
+    curl -OL http://ftp-trace.ncbi.nlm.nih.gov/sra/sdk/2.5.2/sratoolkit.2.5.2-win64.zip
+    unzip sratoolkit.2.5.2-win64.zip
 
+    # Update the PATH
+    export PATH=~/src/sratoolkit.2.5.2-win64/bin:$PATH
+
+    # The tools that can be run are visible in
+    ls ~/src/sratoolkit.2.5.2-win64/bin/
+
+- - -
 ## Edirect
 
 Entrez direct are a suite of tools used to connect to the NCBI Entrez data interfaces.
 
 Webpage:
+
+- - -
 
 ## TopHat
 
