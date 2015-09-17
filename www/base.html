@@ -38,11 +38,11 @@
 
                 <ul class="nav nav-tabs" role="tablist">
                     {% for path, label in context.NAVBAR %}
-                        {% if page.fname == path  %}
-                            <li class="active">{% link path label %}</li>
-                        {% else %}
-                            <li>{% link path label %}</li>
-                        {% endif %}
+                    {% if page.fname == path %}
+                    <li class="active">{% link path label %}</li>
+                    {% else %}
+                    <li>{% link path label %}</li>
+                    {% endif %}
                     {% endfor %}
                 </ul>
             </div>
@@ -53,16 +53,24 @@
             <div class="row" id="body">
                 <div class="col-md-12 top">
                     {% block body %}
-                        BODY
+                    BODY
                     {% endblock %}
                 </div>
             </div>
 
             <div>
                 <div class="hr">&nbsp;</div>
-                <p class="muted text-center"> Last updated
+
+
+                <p class="muted text-center">
+
+                    Last updated
                     on {{ page.last_modified }} &bull; Generated with <a
-                            href="https://github.com/ialbert/pyblue">PyBlue</a></p>
+                href="https://github.com/ialbert/pyblue">PyBlue</a>
+                    from the <a href="https://github.com/ialbert/biostar-handbook-web">Biostar Handbook Repository</a>
+                    &bull; <a href="https://github.com/ialbert/biostar-handbook-web/tree/master/www/{{page.fname}}">
+                        <span class="glyphicon glyphicon-edit" aria-hidden="true"></span> Edit page </a>
+                </p>
             </div>
 
         </div>
