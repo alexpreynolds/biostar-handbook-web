@@ -16,11 +16,59 @@ The instructions are comprehensive and can be copy pasted into a terminal.
 
 * We follow the directory layout described in {% link "unit/999-software-installation" %}
 * See the {% link "how-to-set-the-path" %} if you are having trouble running tools.
-* {% link "setup/bash-profile" %} - to ensure that your settings are applied automatically.
+* {% link "bash-profile.html" %} - to ensure that your settings are applied automatically.
 
 Note that for each installation step we disable the command of writing to the bash profile.
 This is because there are many ways to set that up and we don't want to accidentally
 overwrite that for you. Uncomment that line to execute that instruction.
+
+### Mac OS X
+
+Mac OSX users need to install XCode from the AppStore. In addition the may
+need also need to occasionally launch XCode after a service update to agree to
+terms of license that may change in time. In addition ensure that command line
+tools are installed with:
+
+    xcode-select --install
+
+The Mac OSX instructions will use [HomeBrew](http://brew.sh/) whenever the tool has a corresponding
+recipe. Ocassionally when using `brew` the version of the software may older than the latest release.
+In that case users should follow the Unix instructions on Mac OSX as well.
+
+### SRA toolkit
+
+The SRA tookit allow us to access the Short Read Archive. It is a suite of tools
+the most used among them are: `prefetch`, `fastq-dump`. The SRA toolkit is
+distributed as binary programs for each platform.
+
+Webpage: http://www.ncbi.nlm.nih.gov/Traces/sra/?view=software
+
+**MacOSX**:
+
+    brew info sratoolkit
+    brew install sratoolkit
+
+**Unix**:
+
+    cd ~/src
+    curl -OL http://ftp-trace.ncbi.nlm.nih.gov/sra/sdk/2.5.2/sratoolkit.2.5.2-ubuntu64.tar.gz
+    tar xzvf sratoolkit.2.5.2-ubuntu64.tar.gz
+
+    # Update the PATH
+    export PATH=~/src/sratoolkit.2.5.2-ubuntu64/bin:$PATH
+
+    # The tools that can be run are visible in
+    ls ~/src/sratoolkit.2.5.2-ubuntu64/bin/
+
+**Cygwin**:
+
+Follow the Unix instructions replacing the url with `http://ftp-trace.ncbi.nlm.nih.gov/sra/sdk/2.5.2/sratoolkit.2.5.2-win64.zip`
+
+### Edirect
+
+Entrez direct are a suite of tools used to connect to the NCBI Entrez data interfaces.
+
+Webpage:
 
 ### TopHat
 
