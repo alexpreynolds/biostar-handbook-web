@@ -8,13 +8,6 @@
 
 {% markdown %}
 
-### Software installation
-
-Shortcuts to installation related information:
-
-* {% link "how-to-install-everything" %} - installation instruction for every tool
-* {% link "how-to-set-the-path" %} - to ensure that your environment finds the tools.
-* {% link "bash-profile.html" %} - to ensure that your settings are applied automatically.
 
 ### Basic Concepts
 
@@ -46,9 +39,31 @@ that is added to the execution path. This avoids having to extend the path for e
     mkdir -p ~/src
     mkdir -p ~/bin
 
+### Software installation
 
+The rest of information is divided into the following sections:
 
+* {% link "how-to-install-everything" %} - installation instruction for every tool
+* {% link "how-to-set-the-path" %} - to ensure that your environment finds the tools.
+* {% link "bash-profile.html" %} - to ensure that your settings are applied automatically.
 
+### Install a good editor
+
+Microsoft Word is NOT a text editor. Sooner or later will it cause you problems.
+Best if you start using a real text editor. Essential features:
+
+* Be able to visualize the TAB character vs the multiple SPACE characters.
+  Mixing up TAB and SPACES is a very common error. Copy-pasting from a web
+  page will turn TABs into SPACE characters (very annoying).
+* Line numbering. Lets us to identify the line where the error is reported.
+* Be able to switch line endings. Line endings have variants: Unix, Windows or Mac OS 9 endings.
+  (Mac OSX uses Unix line endings). All files should have a  Unix line ending mode.
+
+Recommendation: [Sublime Text 2](http://www.sublimetext.com/2) but there are many others.
+
+As it turns out  the choice of a text editor often ends up feeling like a deeply personal choice
+- people can get overly attached to them. I happen to use
+ [PyCharm](https://www.jetbrains.com/pycharm/) for text editing and programming.
 {% endmarkdown %}
 
 {% endblock %}
