@@ -10,3 +10,4 @@ flexbar -r SRR519926_1.fastq -q 30 -f sanger --adapter-min-overlap 7 --adapter-t
 
 # Run the quality control plot again.
 fastqc flexbar.fastq
+
