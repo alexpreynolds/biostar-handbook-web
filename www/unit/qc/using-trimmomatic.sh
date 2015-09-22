@@ -3,6 +3,7 @@
 fastq-dump --split-files SRR519926
 
 # Run fastqc reports on the data
+fastqc SRR519926_1.fastq
 
 # Trim with trimmomatic Single END mode
 trimmomatic SE -phred33 SRR519926_1.fastq trimmomatic_1.fq SLIDINGWINDOW:4:30 MINLEN:35 TRAILING:3
