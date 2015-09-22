@@ -8,7 +8,31 @@
 
 {% markdown %}
 
-One of the most frustrating issues face by newcomers. How to run a tool.
+One of the most frustrating issues faced by newcomers is how to run a program
+they have just installed.
+
+Follow the following strategies:
+
+1. Run the program by its fully qualified path (location):
+
+    ~/src/sratoolkit.2.5.2-mac64/bin/fastq-dump
+
+2. Add the location of the program to the search path of the shell:
+
+    export PATH=~/src/sratoolkit.2.5.2-mac64/bin:$PATH
+
+3. Create a symbolic link (a shortcut) to the program to a
+    location that is already on the search PATH
+
+    ln -s ~/src/sratoolkit.2.5.2-mac64/bin/fastq-dump ~/bin
+
+This latter assumes that you have added `~/bin` to you path.
+
+    export PATH=~/bin:$PATH
+
+The advantage here is that you can link multiple tools into the `~/bin` and you
+    don't have to alter the path.
+
 
 TODO: Explain the following:
 
