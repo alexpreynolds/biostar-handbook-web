@@ -21,7 +21,6 @@ for idx, fname in zip(count(1), names):
 
 MINI_NAVBAR = [
     ("index.html", '<span class="glyphicon glyphicon-home" aria-hidden="true"></span> Home'),
-
     ("contribute.html", '<span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Add'),
     ("about.html", '<span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span> About'),
 ]
