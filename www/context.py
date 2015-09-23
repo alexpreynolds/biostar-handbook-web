@@ -19,18 +19,20 @@ for idx, fname in zip(count(1), names):
         (fname, ICON_PATT % idx)
     )
 
+MINI_NAVBAR = [
+    ("index.html", '<span class="glyphicon glyphicon-home" aria-hidden="true"></span> Home'),
+
+    ("contribute.html", '<span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Add'),
+    ("about.html", '<span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span> About'),
+]
+
 # This is the navigation bar on top.
-NAVBAR = [
-                ("index.html", '<span class="glyphicon glyphicon-home" aria-hidden="true"></span> Home'),
-         ] + CHAPTERS + [
-                ("license.html",  '<span class="glyphicon glyphicon-copyright-mark" aria-hidden="true"></span> License'),
-                ("contribute.html",  '<span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Contribute'),
-                ("about.html",  '<span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span> About'),
-         ]
+NAVBAR = MINI_NAVBAR[:1] + CHAPTERS + MINI_NAVBAR[2:]
 
 
 # Example numbers.
 numbers = range(1, 4)
+
 
 # Example function call.
 def say_hello():

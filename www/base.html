@@ -4,6 +4,10 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
     <title>
         {{ page.title }}
     </title>
@@ -24,20 +28,36 @@
 </head>
 <body>
 
-<div class="container-fluid">
+<div class="container">
 
     <div class="row">
         <div class="col-sm-10 col-sm-offset-1">
             <div>
-                <h2>{{ page.title|safe }}{% if page.subtitle != '?' %} &bull;
-                    <span class="muted">{{ page.subtitle }}</span>{% endif %}
+                <h2>{{ page.title|safe }}
+                    {% if page.subtitle != '?' %}
+                    <span class="hidden-xs hidden-sm"> &bull;
+                        <span class="muted">{{ page.subtitle }}</span>
+                    </span>
+                    {% endif %}
+
                 </h2>
             </div>
 
-            <div>
-
+            <div class="hidden-xs hidden-sm">
                 <ul class="nav nav-tabs" role="tablist">
                     {% for path, label in context.NAVBAR %}
+                    {% if page.fname == path %}
+                    <li class="active">{% link path label %}</li>
+                    {% else %}
+                    <li>{% link path label %}</li>
+                    {% endif %}
+                    {% endfor %}
+                </ul>
+            </div>
+
+            <div class="hidden-md hidden-lg">
+                <ul class="nav nav-tabs" role="tablist">
+                    {% for path, label in context.MINI_NAVBAR %}
                     {% if page.fname == path %}
                     <li class="active">{% link path label %}</li>
                     {% else %}
@@ -61,16 +81,18 @@
             <div>
                 <div class="hr">&nbsp;</div>
 
+                <div class="text-center">
+                    <p class="muted">
+                        Last updated
+                        on {{ page.last_modified }} &bull; {% link "license.html" %}
+                    </p>
 
-                <p class="muted text-center">
-
-                    Last updated
-                    on {{ page.last_modified }} &bull; Generated with <a
-                href="https://github.com/ialbert/pyblue">PyBlue</a>
-                    from the <a href="https://github.com/ialbert/biostar-handbook-web">Biostar Handbook Repository</a>
-                    &bull; <a href="https://github.com/ialbert/biostar-handbook-web/tree/master/www/{{page.fname}}">
-                        <span class="glyphicon glyphicon-edit" aria-hidden="true"></span> Edit page </a>
-                </p>
+                    <p class="muted">Generated with <a
+                    href="https://github.com/ialbert/pyblue">PyBlue</a>
+                        from the <a href="https://github.com/ialbert/biostar-handbook-web">Biostar&nbsp;Handbook&nbsp;Repository</a>
+                        <a href="https://github.com/ialbert/biostar-handbook-web/tree/master/www/{{page.fname}}"></a>
+                    </p>
+                </div>
             </div>
 
         </div>
@@ -78,13 +100,20 @@
 </div>
 
 <script>
-  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+    (function (i, s, o, g, r, a, m) {
+        i['GoogleAnalyticsObject'] = r;
+        i[r] = i[r] || function () {
+            (i[r].q = i[r].q || []).push(arguments)
+        }, i[r].l = 1 * new Date();
+        a = s.createElement(o),
+        m = s.getElementsByTagName(o)[0];
+        a.async = 1;
+        a.src = g;
+        m.parentNode.insertBefore(a, m)
+    })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
 
-  ga('create', 'UA-101522-16', 'auto');
-  ga('send', 'pageview');
+    ga('create', 'UA-101522-16', 'auto');
+    ga('send', 'pageview');
 
 </script>
 

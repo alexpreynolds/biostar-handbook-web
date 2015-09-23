@@ -3,12 +3,14 @@
     -moz-box-sizing: border-box;
     box-sizing: border-box;
     color: #363636;
-    font-family: 'Open Sans', sans-serif;
+    //font-family: 'Open Sans', sans-serif;
 }
 
 .muted {
     color: #666666;
 }
+
+
 
 .hr {
     margin-bottom: 1ex;
