@@ -1,0 +1,34 @@
+{% extends "unitbase.html" %}
+{% load pytags %}
+{# title =  Automating with shell scripts #}
+{# subtitle = reproducible analytics #}
+{# name = Automating data analysis with shell scripts #}
+
+{% block body %}
+
+{% markdown %}
+
+Shell scripts are the lab-books of a data analytics.
+They are meant to store and preserve the actions performed during an
+analysis procedure.
+
+### Writing scripts
+
+Documenting scripts is essential:
+
+* What is the purpose of the script?
+* What type of inputs it takes?
+* What type of output it produces?
+
+A script is a file that can be run from the command line. For example:
+
+    bash sra-download.sh
+
+Where the contents of `sra-download.sh` is:
+
+
+{% code "unit/code/sra-download.sh" %}
+
+{% endmarkdown %}
+
+{% endblock %}

@@ -26,7 +26,7 @@ MINI_NAVBAR = [
 ]
 
 # This is the navigation bar on top.
-NAVBAR = MINI_NAVBAR[:1] + CHAPTERS + MINI_NAVBAR[2:]
+NAVBAR = MINI_NAVBAR[:1] + CHAPTERS + MINI_NAVBAR[1:]
 
 
 # Example numbers.
