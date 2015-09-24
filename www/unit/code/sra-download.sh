@@ -1,6 +1,6 @@
 #
-# This script downloads data from the an SRA Bioproject.
-# and runs FastQC quality reports the first 10 data sets that it obtains.
+# This script downloads data from an SRA Bioproject
+# and then runs FastQC quality reports on a subset of the data.
 #
 # Required script parameter is an SRA BioProject ID.
 #
@@ -8,7 +8,7 @@
 #
 # For example PRJNA257197
 
-# First parameter is the run id.
+# The required parameter is the run id.
 PROJECT_ID=$1
 
 # How many datasets to download.
@@ -27,7 +27,7 @@ echo "Downloading from BioProject=$PROJECT_ID"
 # bioproject you may comment it out.
 esearch -db sra -query $PROJECT_ID  | efetch -format runinfo > runinfo.txt
 
-# Select 3 runs from Aug 19, 2014 and cut out the SRR run ids only.
+# Select $LIMIT runs and cut out the SRR run ids.
 cat runinfo.txt | cut -f 1 -d ',' | grep SRR | head -$LIMIT > $SRA_IDS
 
 #

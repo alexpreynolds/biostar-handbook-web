@@ -13,34 +13,67 @@ Shortcuts to installation related information:
 * {% link "how-to-install-everything" %} - installation instruction for every tool
 * {% link "how-to-set-the-path" %} - to ensure that your environment finds the tools.
 
-### Shell initialization
+#### Shell initialization
 
 The need to have certain settings applied
 automatically when a terminal is opened is very common.
 It is achieved by creating a file with a special name
-placed in the home directory. All commands listed
-in this so called profile file will be applied when
-a terminal is initialized.
+placed in the home directory. All the commands listed
+in this so called *shell profile** file will be applied when
+a new shell is initialized.
 
-Below is what we consider a minimal bash configuration file
-that is still universally useful. Add the
-content below into a file located in your home
-directory called:
+Alas there are complications. As it turns out there are multiple
+files that could be loaded and due to historical reasons
+there is a priority of order in which files may be loaded
+if they exists. The names of the files that you should
+use are:
 
-* `.profile` on Mac OSX
+* `.bash_profile` on Mac OSX
 * `.bashrc` on Linux and Cygwin
 
-As you gain more expertise expand the list with commands
-that are useful in your work.
-Note: this file is read only once when you open a new terminal
-changes to it will not apply retroactively to terminals
-that are aready open.
+Note that both of these need to be in your home directory: `~/.bash_profile`
+
+The file may already exists on your system if not you need
+to create them. If the files exists make sure to edit
+and append to them.
+
+To add to the mysery Mac OSX will
+hide the file from your view because the name starts with a period
+`.` and traditionally in UNIX that indicates that the file should be
+*hidden*
+
+To edit the file in a text editor on a Mac OSX you need
+to either reconfigure the Finder via an arcane incantation or
+(and this is easier) create a shortcut with a different name to the file.
+
+    # This creates your bash profile if it did not exist.
+    touch ~/.bash_profile
+
+    # Create a non-hidden shortcut to the profile file
+    ln -s ~/.bash_profile ~/bash_profile
+
+Note that editing the file will not apply these settings
+to terminals that have arealy been opened. The file
+is read only once on startup. New terminals will inherit
+the settings but an old terminal needs to be *sourced*
+to the settings like so:
+
+    source ~/.bash_profile
+
+#### A Minimal bash profile
+
+Below is what we consider a minimal bash configuration file
+that is still universally useful.
+
+As you gain more expertise expand the file with commands
+that are useful in your work. Here is where you would add
+`PATH` settings.
+
+{% code "scripts/profile-example.sh" %}
 
 *Note*: do yourself a favor and customize the way
 the terminal looks. You can vary font sizes, colors. It makes
 a tremendous difference.
-
-{% code "scripts/bash-profile.sh" %}
 
 {% endmarkdown %}
 

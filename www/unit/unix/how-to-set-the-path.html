@@ -1,61 +1,80 @@
 {% extends "unitbase.html" %}
 {% load pytags %}
-{# title =  How to set the PATH #}
-{# subtitle = how to run tools you have installed #}
-{# name = How to set the PATH #}
+{# title =  Setting up the path #}
+{# subtitle = running tools you have installed #}
+{# name = Why can't I run a tool I've just installed? #}
 
 {% block body %}
 
 {% markdown %}
 
 One of the most frustrating issues faced by newcomers is how to run a program
-they have just installed.
+they have just installed. The main concept to remember here is that our computers
+typically searche only some locations when looking for an executable. We need
+to tell it how to find a new program. Here are the solutions
 
-Follow the following strategies:
+- - -
 
-1. Run the program by its fully qualified path (location):
+#### Solution 1: Use the fully qualified name.
+
+Run the program by its fully qualified path (location). Of course you need to know what that is.
+From the software directory type `pwd` and that will tell you the full path that you can then use:
+
+    /Users/ialbert/src/sratoolkit.2.5.2-mac64/bin/fastq-dump
+
+we may use a shorter form when the program is in our home directory:
 
     ~/src/sratoolkit.2.5.2-mac64/bin/fastq-dump
 
-2. Add the location of the program to the search path of the shell:
+If that works then we can always invoke the program by its name. It is a bit hard on eyes,
+see the next solution.
+- - -
+
+#### Solution 2: Extend the search PATH
+
+It is a bit unwieldy to type the above each time.
+If we wanted to be able to run the program just by typing its name say `fastq-dump` we
+need instruct the computer to also look for the program in the `/Users/ialbert/src/sratoolkit.2.5.2-mac64/bin/`
+directory. To do so
+we need add the location of the program to the so called *search path* of the shell:
 
     export PATH=~/src/sratoolkit.2.5.2-mac64/bin:$PATH
 
-3. Create a symbolic link (a shortcut) to the program to a
-    location that is already on the search PATH
+The new `PATH` will be constructed as the new directory + `:` + old value of the `PATH`.
+Now we should be able to run the program as
 
-    ln -s ~/src/sratoolkit.2.5.2-mac64/bin/fastq-dump ~/bin
+    fastq-dump
 
-This latter assumes that you have added `~/bin` to you path.
+Now the above is great solution but typing the export into each terminal is tedious.
+We want to apply the setting automatically. In this case you need to append this information
+to the so called *shell profile*. See the page {% link "bash-profile.html" %}
+
+- - -
+
+#### Alternate solution: create shortcuts
+
+There are many cases when we only need to access a single program
+and adding directories to the path is tedious and error prone. A bioinformatician could
+have dozens or even hundreds of tools installed. In this case the solution is to create
+one directory and add it to the search path, typically `~/bin` and then
+create symbolic links (shortcuts) from the programs into this `~/bin` directory.
+
+    # Creates the ~/bin directory if it did not exists
+    mkdir -p ~/bin
+
+    # Link fastq-dump program into the ~/bin folder
+    # Syntax: ln -s source destination
+    # Note that you could rename the program in the link if we wanted so
+    #
+    ln -s ~/src/sratoolkit.2.5.2-mac64/bin/fastq-dump ~/bin/fastq-dump
+
+Of course we still need to add `~/bin` to our path. But this then only needs to
+be done once. After that simply linking the program into `~/bin` will make it available
+everywhere:
 
     export PATH=~/bin:$PATH
 
-The advantage here is that you can link multiple tools into the `~/bin` and you
-    don't have to alter the path.
-
-
-TODO: Explain the following:
-
-Why did it end up so suprisingly complex to set up?
-
-What is the PATH?
-
-
-Run a tool giving it the full path name
-
-Run a tool by linking it into a directoy that is already in the executable path
-
-Append the tool exectuable to the PATH variable
-
-Why are there so many ways to do this?
-
-How to get this applied automatically.
-
-How do I modify the bash initialization script?
-
-Which bash init script: .bash_profile .bashrc .profile .bash_login
-
-Why are there so many different ways to initialize a profile?
+To load these settings automatically see the page {% link "bash-profile.html" %}
 
 {% endmarkdown %}
 {% endblock %}
