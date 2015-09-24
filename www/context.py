@@ -26,7 +26,10 @@ MINI_NAVBAR = [
 ]
 
 # This is the navigation bar on top.
-NAVBAR = MINI_NAVBAR[:1] + CHAPTERS + MINI_NAVBAR[1:]
+# NAVBAR = MINI_NAVBAR[:1] + CHAPTERS + MINI_NAVBAR[1:]
+
+# Too many chapters. Need to rethink what will be shown as shortcuts.
+NAVBAR = MINI_NAVBAR
 
 
 # Example numbers.
