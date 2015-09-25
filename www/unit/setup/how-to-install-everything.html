@@ -7,64 +7,17 @@
 {% block body %}
 {% markdown %}
 
-Shortcuts to installation related information:
-
-* {% link "how-to-set-the-path" %} - to ensure that your environment finds the tools.
-* {% link "bash-profile.html" %} - to ensure that your settings are applied automatically.
-
 ### How to use this page
 
 This page lists the installation instruction for every tool in the book.
 The instructions are comprehensive and can be copy pasted into a terminal.
-We follow the directory layout described in {% link "unit/999-software-installation" %}
+We follow the directory layout described in {% link "software-installation-guide" %}
 
 Note that for each installation step we show the update command to the `PATH`
 command but we won't apply it permanently to your shell profile.
 There are many ways to make use of these profiles and there is no universal way to
 apply the change for everyone. See the links on top for information on where to place this command
 to have it loaded automatically.
-
-### Mac OS X
-
-Mac OSX users need to install XCode from the AppStore. In addition users may
-need also need to occasionally launch XCode manually after certain updates to agree to
-changes in the license. In addition ensure that command line tools are installed with:
-
-    xcode-select --install
-
-The Mac OSX instructions will use [HomeBrew](http://brew.sh/) whenever the tool has a corresponding
-formulat. Ocassionally when using `brew` the version of the software may older than the latest release.
-In that case users should follow the Unix instructions on Mac OSX as well.
-When using homebrew users need to tap the science formulas then
-regularly update the formulas, especially after an XCode update.
-
-    brew tap homebrew/science
-    brew update
-
-**Note:** even when regularly updated the brewed formulas may install
-older versions of the software.
-
-### Linux
-
-There are numerous Linux distributions with various naming schemes. To set up a system users
-need to install packages via a so called package managers: `apt-get`, `yum` and others.
-Depending on the Linux distribution's intial configuration one may install some, all or none of the
-package shown below. Moreover the naming of these libraries occasionally changes. Please report
-errors via the ticketing system. For Ubuntu Linux the following instructions were required.
-
-    # Install a number of required libraries.
-    sudo apt-get install -y curl build-essential ncurses-dev byacc zlib1g-dev python-dev git cmake
-
-    # Install java and python libraries.
-    sudo apt-get install -y unzip default-jre python-pip
-
-    # You may also need to install common perl modules that are not always included.
-    sudo perl -MCPAN -e 'install "LWP::Simple"'
-    sudo perl -MCPAN -e 'install "HTML::Entities"'
-
-### Windows/Cygwin
-
-TODO
 
 - - -
 
@@ -118,6 +71,10 @@ Webpage: http://www.ncbi.nlm.nih.gov/Traces/sra/?view=software
     # The tools that can be run are visible in:
     ls ~/src/sratoolkit.2.5.2-win64/bin/
 
+Test installation by running:
+
+    fastq-dump -h
+
 - - -
 
 ## FastQC
@@ -153,6 +110,10 @@ Webpage: http://www.bioinformatics.babraham.ac.uk/projects/fastqc/
     # of interest that can be customized if needed.
     ls ~/src/FastQC/Configuration/
 
+Test installation by running:
+
+    fastqc -h
+
 - - -
 
 ## EDirect
@@ -183,6 +144,10 @@ Webpage: http://www.ncbi.nlm.nih.gov/books/NBK179288/
 
     # The tools that can be run are visible in source folder.
     ls ~/src/edirect
+
+Test installation by running:
+
+    einfo --help
 
 - - -
 
@@ -226,6 +191,10 @@ platforms. MDPI Biology 2012, 1(3):895-905.
 
 **Windows/Cygwin**: Not available.
 
+Test installation by running:
+
+    flexbar
+
 - - -
 
 ## Trimmomatic
@@ -235,8 +204,10 @@ and single ended data.  The software requires java to operate.
 
 Website: http://www.usadellab.org/cms/?page=trimmomatic
 
-Cite: Bolger, A. M., Lohse, M., & Usadel, B. (2014).
-Trimmomatic: A flexible trimmer for Illumina Sequence Data. Bioinformatics, btu170.
+Publication: [Bolger, A. M., Lohse, M., & Usadel, B. (2014).
+Trimmomatic: A flexible trimmer for Illumina Sequence Data. Bioinformatics][trimmomatic].
+
+[trimmomatic]: http://bioinformatics.oxfordjournals.org/content/30/15/2114
 
 **Works on all platforms that support java**
 
@@ -265,9 +236,9 @@ Trimmomatic: A flexible trimmer for Illumina Sequence Data. Bioinformatics, btu1
     # Illumina specific adapter sequences.
     ls ~/src/Trimmomatic-0.33/adapters/
 
+Test installation by running:
 
-{% code "scripts/bash-profile.sh" %}
-
+    trimmomatic
 
 - - -
 
@@ -280,8 +251,11 @@ graphical and tabular format. Note: much slower than FlexBar or Trimmomatic.
 
 Web: http://prinseq.sourceforge.net/
 
-Cite: Schmieder R and Edwards R: Quality control and preprocessing of metagenomic
-datasets. Bioinformatics 2011, 27:863-864.
+Publication: [Schmieder R and Edwards R: Quality control and preprocessing of metagenomic
+datasets. Bioinformatics 2011, 27:863-864][prinseq]
+
+[prinseq]: http://bioinformatics.oxfordjournals.org/content/27/6/863.long
+
 
 **Available on all platforms that run Perl**:
 
@@ -294,6 +268,50 @@ datasets. Bioinformatics 2011, 27:863-864.
 
     # Set the executable flag on the script/
     chmod +x ~/bin/prinseq-lite
+
+Test installation by running:
+
+    prinseq-lite
+
+- - -
+
+## EMBOSS
+
+EMBOSS is **The European Molecular Biology Open Software Suite**
+an open source software analysis package specially developed for the needs
+of the molecular biology. EMBOSS offers programs covering areas such as:
+
+* Sequence alignment
+* Rapid database searching with sequence patterns
+* Protein motif identification, including domain analysis
+* Nucleotide sequence pattern analysis: for example to identify CpG islands or repeats
+* Codon usage analysis for small genomes
+* Rapid identification of sequence patterns in large scale sequence sets
+
+Web: http://emboss.sourceforge.net/
+
+Publication: [EMBOSS: The European Molecular Biology Open Software Suite (2000) Rice,P. Longden,I. and Bleasby,A.
+Trends in Genetics 16][emboss]
+
+[emboss]: http://www.ncbi.nlm.nih.gov/pubmed/10827456
+
+**Mac OSX**:
+
+    brew update
+    brew info emboss
+    brew install emboss
+
+**Linux (Ubuntu)**:
+
+    sudo apt-get install emboss
+
+**Windows/Cygwin)**:
+
+    # test the download procedure
+
+Test installation by running:
+
+    needle -h
 
 - - -
 
@@ -338,6 +356,14 @@ Website: https://ccb.jhu.edu/software/tophat/index.shtml
 **Windows/Cygwin**:
 
 The program is not available for Cygwin/Windows.
+
+- - -
+
+Shortcuts to other installation related information:
+
+* {% link "computer-setup" %} - hardware setup.
+* {% link "how-to-set-the-path" %} - to ensure that your environment finds the tools.
+* {% link "bash-profile.html" %} - to ensure that your settings are applied automatically.
 
 {% endmarkdown %}
 {% endblock %}

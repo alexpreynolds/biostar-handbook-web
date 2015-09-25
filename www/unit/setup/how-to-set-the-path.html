@@ -2,7 +2,7 @@
 {% load pytags %}
 {# title =  Setting up the path #}
 {# subtitle = running tools you have installed #}
-{# name = Why can't I run a tool I've just installed? #}
+{# name = Why can't I run a tool I have just installed? #}
 
 {% block body %}
 
@@ -12,8 +12,6 @@ One of the most frustrating issues faced by newcomers is how to run a program
 they have just installed. The main concept to remember here is that our computers
 typically searche only some locations when looking for an executable. We need
 to tell it how to find a new program. Here are the solutions
-
-- - -
 
 #### Solution 1: Use the fully qualified name.
 
@@ -75,6 +73,14 @@ everywhere:
     export PATH=~/bin:$PATH
 
 To load these settings automatically see the page {% link "bash-profile.html" %}
+
+- - -
+
+Shortcuts to other installation related information:
+
+* {% link "computer-setup" %} - hardware setup.
+* {% link "how-to-install-everything" %} - to install every tool in this book.
+* {% link "bash-profile.html" %} - to ensure that your settings are applied automatically.
 
 {% endmarkdown %}
 {% endblock %}

@@ -1,0 +1,64 @@
+{% extends "unitbase.html" %}
+{% load pytags %}
+{# title =  How to set up your computer #}
+{# subtitle = needs to be done once #}
+{# name = How to set up your computer #}
+
+{% block body %}
+{% markdown %}
+
+### Mac OS X
+
+Mac OSX users need to install XCode from the AppStore. In addition users may
+need also need to occasionally launch XCode manually after certain updates to agree to
+changes in the license. In addition ensure that command line tools are installed with:
+
+    xcode-select --install
+
+The Mac OSX instructions will use [HomeBrew](http://brew.sh/) whenever the tool has a corresponding
+formula. Ocassionally when using `brew` the version of the software may older than the latest release.
+In that case users should follow the Unix instructions on Mac OSX as well.
+When using homebrew users need to tap the science formulas then
+regularly update the formulas, especially after an XCode update.
+
+    brew tap homebrew/science
+    brew update
+
+**Note:** even when regularly updated the brewed formulas may install
+older versions of the software.
+
+Install Java for Mac OS X: https://www.java.com/en/download/help/mac_install.xml
+
+### Linux
+
+There are numerous Linux distributions with various naming schemes. To set up a system users
+need to install packages via a so called package managers: `apt-get`, `yum` and others.
+Depending on the Linux distribution's intial configuration one may install some, all or none of the
+package shown below. Moreover the naming of these libraries occasionally changes. Please report
+errors via the ticketing system. For Ubuntu Linux the following instructions were required.
+
+    # Install a number of required libraries.
+    sudo apt-get install -y curl build-essential ncurses-dev byacc zlib1g-dev python-dev git cmake
+
+    # Install java and python libraries.
+    sudo apt-get install -y unzip default-jre python-pip
+
+    # You may also need to install common perl modules that are not always included.
+    sudo perl -MCPAN -e 'install "LWP::Simple"'
+    sudo perl -MCPAN -e 'install "HTML::Entities"'
+
+### Windows/Cygwin
+
+Ensure that you have selected all packages during installation. This is a bit counterintuitive
+in the setup interface. You need to click the "plus" icon twice until all packages are selected.
+
+- - -
+
+Shortcuts to other installation related information:
+
+* {% link "how-to-install-everything" %} - to install every tool in this book.
+* {% link "how-to-set-the-path" %} - to ensure that your environment finds the tools.
+* {% link "bash-profile.html" %} - to ensure that your settings are applied automatically.
+
+{% endmarkdown %}
+{% endblock %}

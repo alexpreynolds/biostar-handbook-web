@@ -11,10 +11,10 @@
 
 {% markdown %}
 
-**Note**: This is work in progress estimated to be completed by the end 2015.
-[Click here to register](https://leanpub.com/biostarhandbook)
-on the book website to be informed of preview releases.
-We will release partial versions of the book to collect feedback and suggestions.
+**Note**: Work in progress. Estimated to be completed by the end of 2015.
+
+[<span class="glyphicon glyphicon-star" aria-hidden="true"></span> Click here to register](https://leanpub.com/biostarhandbook)
+on the book website to be informed of preview releases used to collect feedback and suggestions.
 
 - - -
 
@@ -38,7 +38,7 @@ efficient solutions and to expand the material.
 
 Supporting material for book chapters:
 
-{% for url, tab, label in context.CHAPTERS %}
+{% for url in context.CHAPTERS %}
 1. {% link url %}
 {% endfor %}
 
@@ -46,6 +46,8 @@ Supporting material for book chapters:
 ### Software Installation Help
 
 Shortcuts to installation related information:
+
+* {% link "computer-setup" %} - hardware setup.
 
 * {% link "how-to-install-everything" %} - installation instruction for every tool in the book.
 

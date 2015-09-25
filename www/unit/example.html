@@ -7,15 +7,16 @@
 {% block body %}
 
     <p>
-        A web page that may be a plain html, may have markdown (see below) and
-        can be accessed as a django template.
+        A pyblue web page may be a simple, plain html page, it may contain markdown markup and
+        it can be processed as a django template.
     </p>
 
     <p>
-        The django template can access data loaded from a special file in the root folder
+        When processed as a django template it can access data loaded from a special file in the root folder
         called <code>context.py</code>. The content of this module will be available
-        as a template variable called <code>context</code>. Anything is now possible ;-).
-        The current <code>context.py</code> for example loads the table of contents and helps to generate
+        as a template variable called <code>context</code>. This allows users to add
+        any type of data into every template.
+        The current <a href="https://github.com/ialbert/biostar-handbook-web/blob/master/www/context.py">context.py</a> for example loads the table of contents and helps to generate
         the navigation bar on top.
     </p>
 
@@ -23,10 +24,23 @@
         For example the function <code>context.say_hello</code> will be rendered as: {{ context.say_hello }}
     </p>
 
-    <p> Or it can read the <code>context.numbers</code>: {{ context.numbers }} in a for loop like so:
-        {% for value in context.numbers %}
-            {{ value }} mississippi,
+    <p>
+        Or it can read the <code>context.NUMBERS</code>: {{ context.NUMBERS }} in a for loop like so:
+
+<pre>{% verbatim %}
+{% for value in context.NUMBERS %}
+    {{ value }} Mississippi,
+{% endfor %}
+{% endverbatim %}</pre>
+
+        to produce:
+
+        {% for value in context.NUMBERS %}
+            {{ value }} Mississippi,
         {% endfor %}
+
+        See the <a href="https://docs.djangoproject.com/en/1.8/topics/templates/#the-django-template-language">Django Template Language</a>
+        for what is possible to achieve with templating.
     </p>
 
     <p>
@@ -37,23 +51,37 @@
 
 {% markdown %}
 
-### Hello Markdown
+#### Hello Markdown
 
-Markdown input needs to be placed between these tags.
+Markdown input needs to be placed between the {% verbatim %}`{% markdown %}/{% endmarkdown %}`{% endverbatim %}
+tags.
+
+Here is how to make lists:
 
 * one
 * two
 * three
 
-You also have access to all Django Templating goodies.
+You also have access to all [Django Templating][django] features.
+
+[django]: https://docs.djangoproject.com/en/1.8/topics/templates/#the-django-template-language
 
 {% endmarkdown %}
 
 <p>
-    Pyblue supports code embedding from other files.
-    When we do so the code gets syntax highlighted.
+    Pyblue supports code embedding from other files:
+
+    <p>{% verbatim %}
+    <code>{% code "helloworld.sh" %}</code>
+    {% endverbatim %}
+    </p>
+
+    Pyblue is smart when linking and will find the correct location just by the name,
+    so you can move objects around
+    withouth breaking links.
+    When the file is included the code contained in it gets syntax highlighted:
 </p>
 
-    {% code "code/helloworld.sh" %}
+    {% code "helloworld.sh" %}
 
 {% endblock %}
