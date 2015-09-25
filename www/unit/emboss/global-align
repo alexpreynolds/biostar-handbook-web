@@ -1,0 +1,24 @@
+#!/bin/bash
+#
+# Performs a local alignment on two sequences pass from the command line.
+#
+# global-align ATGCA CTGAA
+#
+
+# Run in strict mode.
+set -ue
+
+# Create files from the parameter input.
+# Using prinf to be able to print new lines.
+printf ">a\n$1" > a.fa
+printf ">b\n$2" > b.fa
+
+# Remove parameters $1 and $2 from the command line paramters.
+shift;
+shift;
+
+# Run the emboss tool and pass all remaining paramters to it.
+needle a.fa b.fa $@ --auto --stdout
+
+# Remove the intermediate files.
+rm -f a.fa b.fa

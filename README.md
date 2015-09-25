@@ -2,7 +2,7 @@
 
 Contributions need to be made via GitHub: https://github.com/ialbert/biostar-handbook-web
 
-## Requirements
+### Requirements
 
 The web pages are generated with the [pyblue](https://github.com/ialbert/pyblue) 
 static site generator from the git repository above. Install pyblue:
@@ -19,7 +19,7 @@ Visit `http://localhost:8080` to see the site.
 Restart the server if you add a new file as the directory tree is scanned only once
 on startup. Changes to files however will be visible right away.
     
-## Guidelines
+### Guidelines
 
 Book chapters and web pages are complementary. 
 The content on the web needs to provide complete instructions 
