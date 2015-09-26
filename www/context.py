@@ -28,7 +28,24 @@ NAVBAR = [
 # Example numbers. Used for testing.
 NUMBERS = range(1, 4)
 
-
 # Example function call. Used for testing.
 def say_hello():
     return "Hello World!"
+
+# Generate the sitemap automatically.
+SKIP = set("500.html 404.html base.html unitbase.html search.html book_link.html".split())
+stream = open("sitemap.txt", "wt")
+for dirpath, dirnames, files in os.walk(__this):
+    for name in files:
+        name = name.lower()
+        if name in SKIP:
+            continue
+        if name.endswith(".html"):
+            path = os.path.relpath(dirpath, __this)
+            if path == ".":
+                url = "https://www.biostarhandbook.com/%s" % name
+            else:
+                url = "https://www.biostarhandbook.com/%s/%s" % (path, name)
+            stream.write("%s\n" % url)
+print ("sitemap generated")
+stream.close()

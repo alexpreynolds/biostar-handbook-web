@@ -1,0 +1,16 @@
+https://www.biostarhandbook.com/about.html
+https://www.biostarhandbook.com/contribute.html
+https://www.biostarhandbook.com/data.html
+https://www.biostarhandbook.com/index.html
+https://www.biostarhandbook.com/license.html
+https://www.biostarhandbook.com/unit/example.html
+https://www.biostarhandbook.com/unit/fastq-quality-control.html
+https://www.biostarhandbook.com/unit/ncbi-entrez.html
+https://www.biostarhandbook.com/unit/short-read-archive.html
+https://www.biostarhandbook.com/unit/software-installation-guide.html
+https://www.biostarhandbook.com/unit/unix-intro.html
+https://www.biostarhandbook.com/unit/unix-shell-scripts.html
+https://www.biostarhandbook.com/unit/setup/computer-setup.html
+https://www.biostarhandbook.com/unit/setup/how-to-install-everything.html
+https://www.biostarhandbook.com/unit/setup/how-to-set-the-path.html
+https://www.biostarhandbook.com/unit/unix/bash-profile.html
