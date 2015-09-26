@@ -54,9 +54,9 @@
                 <ul class="nav nav-tabs" role="tablist">
                     {% for path, label in context.NAVBAR %}
                     {% if page.fname == path %}
-                    <li class="active"><a href="{{path|safe}}">{{label|safe}}</a></li>
+                    <li class="active"><a href="/{{path|safe}}">{{label|safe}}</a></li>
                     {% else %}
-                    <li><a href="{{path|safe}}">{{label|safe}}</a></li>
+                    <li><a href="/{{path|safe}}">{{label|safe}}</a></li>
                     {% endif %}
                     {% endfor %}
                 </ul>

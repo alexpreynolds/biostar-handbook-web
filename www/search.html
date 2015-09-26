@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% load pytags %}
+{# title = Search #}
+{# subtitle = find content on the site #}
+{# name = Search #}
+
+{% block body %}
+
+
+<script>
+    (function () {
+        var cx = '003596843386727440968:j-lp1ql4bw4';
+        var gcse = document.createElement('script');
+        gcse.type = 'text/javascript';
+        gcse.async = true;
+        gcse.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') +
+        '//cse.google.com/cse.js?cx=' + cx;
+        var s = document.getElementsByTagName('script')[0];
+        s.parentNode.insertBefore(gcse, s);
+    })();
+</script>
+<gcse:search></gcse:search>
+
+
+{% endblock %}
