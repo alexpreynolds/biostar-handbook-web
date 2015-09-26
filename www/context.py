@@ -36,16 +36,27 @@ def say_hello():
 SKIP = set("500.html 404.html base.html unitbase.html search.html book_link.html".split())
 stream = open("sitemap.txt", "wt")
 for dirpath, dirnames, files in os.walk(__this):
+    files = [_.lower() for _ in files]
+    files = filter(lambda x: x not in SKIP, files)
+    files = filter(lambda x: x.endswith(".html"), files)
+
     for name in files:
-        name = name.lower()
-        if name in SKIP:
-            continue
-        if name.endswith(".html"):
-            path = os.path.relpath(dirpath, __this)
-            if path == ".":
-                url = "https://www.biostarhandbook.com/%s" % name
-            else:
-                url = "https://www.biostarhandbook.com/%s/%s" % (path, name)
-            stream.write("%s\n" % url)
+        path = os.path.relpath(dirpath, __this)
+        if path == ".":
+            url = "https://www.biostarhandbook.com/%s" % name
+        else:
+            url = "https://www.biostarhandbook.com/%s/%s" % (path, name)
+
+        stream.write("%s\n" % url)
+
 print ("sitemap generated")
 stream.close()
+
+# Setup markdown files.
+__PATHS  = glob.glob("unit/setup/install/*.md")
+
+__NAMES = [os.path.split(p)[-1] for p in __PATHS]
+
+SETUP_FILES = zip(__NAMES, __PATHS)
+
+
