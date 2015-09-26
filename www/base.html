@@ -7,7 +7,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="icon" href="img/favicon4.ico" type="image/x-icon"/>
+    <link rel="icon" href="/img/favicon4.ico" type="image/x-icon"/>
 
     <script type="text/javascript"> //<![CDATA[
     var tlJsHost = ((window.location.protocol == "https:") ? "https://secure.comodo.com/" : "http://www.trustlogo.com/");
@@ -50,25 +50,13 @@
                 </h2>
             </div>
 
-            <div class="hidden-xs hidden-sm">
+            <div>
                 <ul class="nav nav-tabs" role="tablist">
                     {% for path, label in context.NAVBAR %}
                     {% if page.fname == path %}
-                    <li class="active">{% link path label %}</li>
+                    <li class="active"><a href="{{path|safe}}">{{label|safe}}</a></li>
                     {% else %}
-                    <li>{% link path label %}</li>
-                    {% endif %}
-                    {% endfor %}
-                </ul>
-            </div>
-
-            <div class="hidden-md hidden-lg">
-                <ul class="nav nav-tabs" role="tablist">
-                    {% for path, label in context.MINI_NAVBAR %}
-                    {% if page.fname == path %}
-                    <li class="active">{% link path label %}</li>
-                    {% else %}
-                    <li>{% link path label %}</li>
+                    <li><a href="{{path|safe}}">{{label|safe}}</a></li>
                     {% endif %}
                     {% endfor %}
                 </ul>

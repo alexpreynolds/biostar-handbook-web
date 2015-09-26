@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% load pytags %}
+{# title = Missing Page #}
+{# subtitle = error code 404 #}
+{# navtab = error #}
+{# name = Missing Page #}
+
+{% block body %}
+
+{% markdown %}
+
+**Sorry!** The page you are trying to access does not seem to exist.
+
+We may have renamed it and that may have caused on older link to be off.
+
+Please visit the [<span class="glyphicon glyphicon-home" aria-hidden="true"></span> Home Page](/index.html) to find the right destination.
+
+{% endmarkdown %}
+
+{% endblock %}
