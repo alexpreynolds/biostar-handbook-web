@@ -24,6 +24,21 @@ regularly update the formulas, especially after an XCode update.
     brew tap homebrew/science
     brew update
 
+There are a number of important libraries that tools may require:
+
+    # Install the X11 libraries. Will take a long time
+    # to finish and it will ask for a root password.
+    brew install Caskroom/cask/xquartz
+
+    # Installs graphics libraries.
+    brew install gd
+
+    # Installs PDF generation libraries.
+    brew install libharu
+
+    # Installs Image conversion.
+    brew install imagemagick
+
 **Note:** even when regularly updated the brewed formulas may install
 older versions of the software.
 
