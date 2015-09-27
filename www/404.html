@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% load pytags %}
+{# title = Missing Page #}
+{# subtitle = error code 404 #}
+{# navtab = error #}
+{# name = Missing Page #}
+
+{% block body %}
+
+{% markdown %}
+
+**Sorry!** The page you are trying to access does not seem to exist.
+
+We may have renamed it and that may have caused on older link to be off.
+
+Please visit the [<span class="glyphicon glyphicon-home" aria-hidden="true"></span> Home Page](/index.html) to find the right destination.
+
+Alternatively try to find the page via the a search of our site
+
+{% endmarkdown %}
+
+
+<div class="row">
+    <div class="col-sm-12">
+        <script>
+            (function () {
+                var cx = '003596843386727440968:j-lp1ql4bw4';
+                var gcse = document.createElement('script');
+                gcse.type = 'text/javascript';
+                gcse.async = true;
+                gcse.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') +
+                '//cse.google.com/cse.js?cx=' + cx;
+                var s = document.getElementsByTagName('script')[0];
+                s.parentNode.insertBefore(gcse, s);
+            })();
+        </script>
+        <gcse:search></gcse:search>
+    </div>
+</div>
+{% endblock %}

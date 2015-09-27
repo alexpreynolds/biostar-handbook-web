@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% load pytags %}
+{# title = Error page #}
+{# subtitle = error code 500 #}
+{# navtab = error #}
+{# name = Error Page #}
+
+{% block body %}
+
+{% markdown %}
+
+**Sorry!** The page you are trying to access generated an error.
+
+If the problem persists please contact us.
+
+Please visit the [<span class="glyphicon glyphicon-home" aria-hidden="true"></span> Home Page](/index.html) to find the right destination.
+
+{% endmarkdown %}
+
+{% endblock %}
