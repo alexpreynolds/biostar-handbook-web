@@ -2,11 +2,15 @@
 # This script downloads data from an SRA Bioproject
 # and then runs FastQC quality reports on a subset of the data.
 #
-# Required script parameter is an SRA BioProject ID.
+# Required script parameter is an SRA BioProject ID
+# for example PRJNA257197.
 #
 # It produces fastq files and fastqc reports.
 #
-# For example PRJNA257197
+
+# Run the script with strict settings
+# to immediately stop on errors.
+set -ue
 
 # The required parameter is the run id.
 PROJECT_ID=$1
@@ -15,20 +19,18 @@ PROJECT_ID=$1
 LIMIT=3
 
 # This variable is used internally to store the run ids.
-SRA_IDS=sraids.txt
-
-# Run the script with strict settings to immediately stop on errors.
-set -ue
+SRA=sraids.txt
 
 # Remind the user what is going on.
 echo "Downloading from BioProject=$PROJECT_ID"
 
-# Depending on the project this step may take a bit. If you need to rerun for same
+# Depending on the project this step may take a bit.
+# If you need to rerun for same
 # bioproject you may comment it out.
 esearch -db sra -query $PROJECT_ID  | efetch -format runinfo > runinfo.txt
 
 # Select $LIMIT runs and cut out the SRR run ids.
-cat runinfo.txt | cut -f 1 -d ',' | grep SRR | head -$LIMIT > $SRA_IDS
+cat runinfo.txt | cut -f 1 -d ',' | grep SRR | head -$LIMIT > $SRA
 
 #
 # Get data for each id in the file then run fastqc on it.
@@ -44,4 +46,4 @@ while read -r LINE; do
     # Run fastqc on each dataset.
     fastqc ${LINE}_1.fastq ${LINE}_2.fastq
 
-done < $SRA_IDS
+done < $SRA
