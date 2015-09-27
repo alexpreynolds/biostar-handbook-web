@@ -8,8 +8,49 @@
 
 {% markdown %}
 
+The list of Fastq QC software is quite large:
+
+* [Trimmomatic][trimmomatic] published in Bioinformatics, 2014
+* [FlexBar, Flexible barcode and adapter removal][flexbar] published in [Biology, 2012](http://www.mdpi.com/2079-7737/1/3/895)
+* [CutAdapt][cutadapt] application note in [Embnet Journal, 2011](http://journal.embnet.org/index.php/embnetjournal/article/view/200)
+* [Fastx Toolkit][fastx] - one of the first tools dedicated to QC
+* [Skewer: a fast and accurate adapter trimmer for next-generation sequencing paired-end reads.][skewer] BMC Bioinformatics 2014.
+* [PrinSeq][prinseq] application note in [Bioinformatics, 2011](http://www.ncbi.nlm.nih.gov/pubmed/21278185)
+* [fastq-mcf][fastqmcf] published in [The Open Bioinformatics Journal, 2013](http://benthamscience.com/open/openaccess.php?tobioij/articles/V007/1TOBIOIJ.htm)
+* [NGS Toolkit][ngstoolkit] published in [Plos One, 2012](http://www.plosone.org/article/info:doi/10.1371/journal.pone.0030619)
+* [BioPieces][biopieces] a suite of programs for sequence preprocessing
+* [Scythe][scythe] a bayesian adaptor trimmer
+* [SeqPrep][seqprep] - a tool for stripping adaptors and/or merging paired reads with overlap into single reads.
+* [TagDust][tagdust] published in [Bioinformatics, 2009](http://www.ncbi.nlm.nih.gov/pubmed/19737799)
+* [TagCleaner][tagcleaner] published in [BMC Bioinformatics, 2010](http://www.biomedcentral.com/1471-2105/11/341)
+* [Trim Galore][trimgalore] - a wrapper tool around Cutadapt and FastQC
+* Libraries via R (Bioconductor): [PIQA][piqa], [ShortRead][shortread]
+
+[shootout]: http://www.biostars.org/p/53528/
+[cutadapt]: http://code.google.com/p/cutadapt/
+[flexbar]: http://sourceforge.net/projects/flexbar/
+[fastqmcf]: http://code.google.com/p/ea-utils/
+[prinseq]: http://prinseq.sourceforge.net/
+[trimmomatic]: http://www.usadellab.org/cms/index.php?page=trimmomatic
+[trimgalore]: http://www.bioinformatics.babraham.ac.uk/projects/trim_galore/
+[ngstoolkit]: http://www.nipgr.res.in/ngsqctoolkit.html
+[fastx]: http://hannonlab.cshl.edu/fastx_toolkit/
+[biopieces]: https://code.google.com/p/biopieces/
+[scythe]: https://github.com/vsbuffalo/scythe
+[seqprep]: https://github.com/jstjohn/SeqPrep
+[tagdust]: http://genome.gsc.riken.jp/osc/english/software/
+[tagcleaner]: http://tagcleaner.sourceforge.net/
+[piqa]: http://www.bioinfo.uh.edu/PIQA/
+[shortread]: http://www.bioconductor.org/packages/2.12/bioc/html/ShortRead.html
+[seqtk]: https://github.com/lh3/seqtk
+[ssuite]: http://www.bioinformatics.org/sms2/
+[skewer]: https://www.biostars.org/p/104320/
+[trimal]: http://trimal.cgenomics.org/
+
+- - -
+
 We assume that you have installed the `trimmomatic`,
-`flexbar` and `prinseq` in {% link "how-to-install-everything" %}
+`flexbar` and `prinseq` as described in {% link "how-to-install-everything" %}
 
 #### Set up Trimmomatic
 
@@ -28,7 +69,7 @@ You could even create this file from the command line like so:
     echo 'java -jar ~/src/Trimmomatic-0.33/trimmomatic-0.33.jar $@' >> ~/bin/trimmomatic
     chmod +x ~/bin/trimmomatic
 
-#### Using Trimmomatic:
+#### Using Trimmomatic
 
 {% code "qc/using-trimmomatic.sh" %}
 
