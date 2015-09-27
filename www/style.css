@@ -11,6 +11,12 @@ body {
     line-height: normal;
 }
 
+blockquote {
+    font-size: 16px;
+    background-color: #EFEFEF;
+    border-left: 10px solid #CECECE;
+}
+
 pre {
     font-size: 16px;
 }
