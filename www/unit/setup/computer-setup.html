@@ -1,11 +1,14 @@
 {% extends "unitbase.html" %}
 {% load pytags %}
-{# title =  Setup #}
+{# title =  System Setup #}
 {# subtitle = needs to be done once #}
-{# name = How to set up your computer #}
+{# name = How to initialize your computer #}
 
 {% block body %}
 {% markdown %}
+
+
+These tasks only need to be done once for each platform.
 
 ### Mac OS X
 
@@ -42,7 +45,7 @@ There are a number of important libraries that tools may require:
 **Note:** even when regularly updated the brewed formulas may install
 older versions of the software.
 
-Install Java for Mac OS X: https://www.java.com/en/download/help/mac_install.xml
+Install [Java for Mac OS X](https://www.java.com/en/download/help/mac_install.xml)
 
 ### Linux
 
@@ -66,14 +69,6 @@ errors via the ticketing system. For Ubuntu Linux the following instructions wer
 
 Ensure that you have selected all packages during installation. This is a bit counterintuitive
 in the setup interface. You need to click the "plus" icon twice until all packages are selected.
-
-- - -
-
-Shortcuts to other installation related information:
-
-* {% link "how-to-install-everything" %} - to install every tool in this book.
-* {% link "how-to-set-the-path" %} - to ensure that your environment finds the tools.
-* {% link "bash-profile.html" %} - to ensure that your settings are applied automatically.
 
 {% endmarkdown %}
 {% endblock %}

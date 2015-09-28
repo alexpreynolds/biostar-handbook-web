@@ -29,4 +29,4 @@ Webpage: http://www.ncbi.nlm.nih.gov/books/NBK179288/
 
 Test installation by running:
 
-    einfo --help
+    efetch -db=nuccore -format=fasta -id=AF086833 | head 

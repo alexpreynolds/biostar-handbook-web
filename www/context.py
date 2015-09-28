@@ -7,14 +7,16 @@ __this = os.path.dirname(__file__)
 os.chdir(__this)
 
 CHAPTERS = [
+     # Keep this last chapter.
+    "software-installation-guide.html",
+    "setup/how-to-install-everything.html",
     "unix-intro.html",
     "ncbi-entrez.html",
+    "emboss-intro.html",
     "short-read-archive.html",
     "fastq-quality-control.html",
     "unix-shell-scripts.html",
 
-    # Keep this last chapter.
-    "software-installation-guide.html",
 ]
 
 NAVBAR = [

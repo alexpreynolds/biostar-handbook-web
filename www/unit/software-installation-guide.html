@@ -1,58 +1,47 @@
 {% extends "unitbase.html" %}
 {% load pytags %}
-{# title =  Software Installation #}
-{# subtitle = your computer a computational beast #}
-{# name = Software installation and computer setup #}
+{# title =  Setup #}
+{# subtitle = a computational beast #}
+{# name = Get your computer ready for bioinformatics #}
 
 {% block body %}
 
 {% markdown %}
 
+### Required steps
 
-### Basic Concepts
+* {% link "computer-setup" %} - set up your hardware.
+* {% link "how-to-install-everything" %} - installation instruction for every tool.
+* {% link "how-to-set-the-path" %} - make your environment find the programs.
+* {% link "bash-profile.html" %} - make your settings apply automatically.
+
+### Basic concepts
 
 Bioinformatics requires the installation of many software tools that usually are distributed in
 various formats:
 
-* "binaries" that can be run directly on the target computer
-* programs that require the presence of another programming language: `java`, `python`, `ruby` or `perl`
+* "binary code" that can be run directly on the target computer.
+* programs that require the presence of another programming language: `java`, `python`, `ruby` or `perl`.
 * source code that needs to be "compiled" to create a "binary" program.
 
-In addition programs may have installers, other programs that make the tool available on the system,
-they may come in archives (files packed and compressed together) or in a source code versioning system
-such as git.
-
-The final and often most challenging complexity to installation are the so called
-"requirements" and "dependencies" that a software may need to function.
-These mean other software functionality that the new software expects to be present on
-the system. Notably the quality of software often correlates directly with the ease
-of installation, a corrolaly of which is that when it is difficult to install
-software it is probably not worth the trouble to begin with.
+In additions programs may have so called "dependencies" other additional software
+that needs to be present.
 
 ### Directory layout
 
-We recommend that all tools be placed under the same directory so that it is easy to find them
-by name. We like to use the `~/src` directory. This means all external softare
-code will be installed there. We also recommend that you create a `~/bin` directory
-that is added to the execution path. This avoids having to extend the path for each tool
+We recommend that all tools be placed under the same directory. We recommend
+to use the `~/src` for all downloaded tools. We also recommend that you
+create a `~/bin` directory that is added to the execution path. This
+avoids having to extend the path for each tool.
 
     mkdir -p ~/src
     mkdir -p ~/bin
 
 
-### Software installation
-
-The rest of information is divided into the following sections:
-
-* {% link "computer-setup" %} - hardware setup.
-* {% link "how-to-install-everything" %} - installation instruction for every tool.
-* {% link "how-to-set-the-path" %} - to ensure that your environment finds the tools.
-* {% link "bash-profile.html" %} - to ensure that your settings are applied automatically.
-
 ### Install a good editor
 
-Microsoft Word is NOT a text editor. Sooner or later will it cause you problems.
-Best if you start using a real text editor. Essential features:
+Microsoft Word is NOT a text editor. Sooner or later it will  cause (devious) problems.
+Best if you start using a proper text editor. Essential features:
 
 * Be able to visualize the TAB character vs the multiple SPACE characters.
   Mixing up TAB and SPACES is a very common error. Copy-pasting from a web
@@ -61,15 +50,9 @@ Best if you start using a real text editor. Essential features:
 * Be able to switch line endings. Line endings have variants: Unix, Windows or Mac OS 9 endings.
   (Mac OSX uses Unix line endings). All files should have a  Unix line ending mode.
 
-Recommendation: [Sublime Text 2](http://www.sublimetext.com/2) but there are many others.
-
-As it turns out  the choice of a text editor often ends up manifesting itself as
-a deeply personal choice
-- people can get overly attached to the way their editor works and behaves and preach
-that as the one true way. I happen to use
- [PyCharm](https://www.jetbrains.com/pycharm/) for text editing and programming. It is actually
-the bee's knees.
-
+Recommendation: [Sublime Text 2](http://www.sublimetext.com/2) but there are many other options
+with different tradeoffs.
+We use [PyCharm](https://www.jetbrains.com/pycharm/) for text editing and programming.
 
 {% endmarkdown %}
 

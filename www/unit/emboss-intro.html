@@ -1,0 +1,35 @@
+{% extends "unitbase.html" %}
+{% load pytags %}
+{# title =  Emboss #}
+{# subtitle = biology at the command line #}
+{# name = Sequence analysis with EMBOSS #}
+
+{% block body %}
+
+{% markdown %}
+
+The best way to tame the EMBOSS tools is to add the `-filter` parameter to each
+invocation, hence making the tool accept all defaults and print to the screen.
+We have also created two shell script around EMBOSS aligners to
+make runinng them easier. See {% link "local-align" "local-align.sh" %} and {% link "global-align" "global-align.sh" %}
+
+    # Install the wrappers for the EMBOSS aligners.
+    curl https://www.biostarhandbook.com/unit/emboss/global-align.sh > ~/bin/global-align.sh
+    curl https://www.biostarhandbook.com/unit/emboss/local-align.sh > ~/bin/local-align.sh
+
+    # Make the scripts executable.
+    chmod +x ~/bin/*-align.sh
+
+[emboss]: http://emboss.sourceforge.net/
+
+Using EMBOSS tools:
+
+{% code "emboss/emboss-intro.sh" %}
+
+Local and global alignments
+
+{% code "emboss/emboss-align.sh" %}
+
+{% endmarkdown %}
+
+{% endblock %}

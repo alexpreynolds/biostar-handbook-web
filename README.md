@@ -1,4 +1,4 @@
-## Contributing to the Biostar Handbook
+### Contributing to the Biostar Handbook
 
 Contributions need to be made via GitHub: https://github.com/ialbert/biostar-handbook-web
 
@@ -9,15 +9,20 @@ static site generator from the git repository above. Install pyblue:
 
     pip install pyblue
 
-To serve the site on localhost run `make` in the repository. This will
-start the pyblue server instance and will serve the pages
+To view and edit the site run `make` in the repository. The default action
+in the `make` file supports the main usecase of developing new content.
+It will start the pyblue server instance and will allow you
+to view the result of any changes you make to the pages.
 
     make
     
-Visit `http://localhost:8080` to see the site.
+Visit `http://localhost:8080` to see the site. Edit any page in
+an editor then reload in web browser. See the pyblue docs for
+other details.
 
-Restart the server if you add a new file as the directory tree is scanned only once
-on startup. Changes to files however will be visible right away.
+Restart the server if you add a new file as the directory tree 
+is scanned only once on startup. Changes to files however will 
+be visible right away.
     
 ### Guidelines
 

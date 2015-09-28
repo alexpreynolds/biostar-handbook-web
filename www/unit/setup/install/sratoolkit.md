@@ -36,6 +36,7 @@ Webpage: http://www.ncbi.nlm.nih.gov/Traces/sra/?view=software
     # The tools that can be run are visible in:
     ls ~/src/sratoolkit.2.5.2-ubuntu64/bin/
 
+
 **Windows/Cygwin binary**:
 
     cd ~/src
@@ -48,6 +49,12 @@ Webpage: http://www.ncbi.nlm.nih.gov/Traces/sra/?view=software
     # The tools that can be run are visible in:
     ls ~/src/sratoolkit.2.5.2-win64/bin/
 
+**Troubleshooting**. This SRA toolkit is notoriously obtuse in its error reporting. Invalid
+run IDs will produce a convoluted error message about *virtual database modules* etc.
+On some systems the default installation will fail and one needs to run:
+
+    vdb-config --restore-defaults
+
 Test installation by running:
 
-    fastq-dump -h
+    fastq-dump -X 5 -Z SRR390728
