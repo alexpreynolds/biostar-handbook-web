@@ -2,7 +2,7 @@
 {% load pytags %}
 {# title =  System Setup #}
 {# subtitle = needs to be done once #}
-{# name = How to initialize your computer #}
+{# name = How do I set up my computer? #}
 
 {% block body %}
 {% markdown %}
@@ -24,6 +24,8 @@ In that case users should follow the Unix instructions on Mac OSX as well.
 When using homebrew users need to tap the science formulas then
 regularly update the formulas, especially after an XCode update.
 
+Here is a list of all [science formulas](https://github.com/Homebrew/homebrew-science)
+
     brew tap homebrew/science
     brew update
 
@@ -41,6 +43,12 @@ There are a number of important libraries that tools may require:
 
     # Installs Image conversion.
     brew install imagemagick
+
+Occasionally the `brew` command may fail to install a tool when some parts of the system do not have write access.
+You will receive "permission errors" for example `/usr/local/man/ is not writable`.
+In those cases you need to set write permissions to those directories with:
+
+    sudo chmod 777 /usr/local/man/
 
 **Note:** even when regularly updated the brewed formulas may install
 older versions of the software.

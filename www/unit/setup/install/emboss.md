@@ -22,7 +22,18 @@ Trends in Genetics 16][emboss]
 
     brew update
     brew info emboss
+    
+    # You need to install a dependency called X11.
+    # The command may take 
+    # quite a bit of time. It will also require a password as well.
+    brew install Caskroom/cask/xquartz
+    
+    # Install the EMBOSS package.
     brew install emboss
+    
+    # Advanced installation 
+    # brew install libharu gd
+    # brew install emboss --with-gd --with-libharu
 
 **Linux (Ubuntu)**:
 

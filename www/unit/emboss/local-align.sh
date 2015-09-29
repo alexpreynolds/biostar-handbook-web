@@ -12,7 +12,7 @@ set -ue
 
 # Brad Pedersen: https://www.biostars.org/p/100676/#100689
 # Pass the remainder of the parameters at the with ${@:3}
-water <(echo -e ">a\n$1") <(echo -e ">a\n$2") "${@:3}" -filter
+water <(echo -e ">a\n$1") <(echo -e ">b\n$2") "${@:3}" -filter
 
 # Note: use the tool named: matcher
 # for a less rigorous but better performing algorithm.

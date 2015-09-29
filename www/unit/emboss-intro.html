@@ -1,7 +1,7 @@
 {% extends "unitbase.html" %}
 {% load pytags %}
 {# title =  Emboss #}
-{# subtitle = biology at the command line #}
+{# subtitle = sequence manipulations #}
 {# name = Sequence analysis with EMBOSS #}
 
 {% block body %}
@@ -10,23 +10,27 @@
 
 The best way to tame the EMBOSS tools is to add the `-filter` parameter to each
 invocation, hence making the tool accept all defaults and print to the screen.
-We have also created two shell script around EMBOSS aligners to
-make runinng them easier. See {% link "local-align" "local-align.sh" %} and {% link "global-align" "global-align.sh" %}
 
-    # Install the wrappers for the EMBOSS aligners.
-    curl https://www.biostarhandbook.com/unit/emboss/global-align.sh > ~/bin/global-align.sh
-    curl https://www.biostarhandbook.com/unit/emboss/local-align.sh > ~/bin/local-align.sh
-
-    # Make the scripts executable.
-    chmod +x ~/bin/*-align.sh
 
 [emboss]: http://emboss.sourceforge.net/
 
-Using EMBOSS tools:
+### Sequence manipulation
 
 {% code "emboss/emboss-intro.sh" %}
 
-Local and global alignments
+### Local and global alignments
+
+We have created two shell scripts around EMBOSS aligners to
+make exploratory alignments easier.
+
+See {% link "global-align" "global-align.sh" %} and {% link "local-align" "local-align.sh" %}
+
+{% code "emboss/install-wrappers.sh" %}
+
+Note: The wrappers above use the optimal versions of the aligners: `needle` (for global alignment) and `water`
+(for local alignment). In practice we make use of the better perfoming and
+near-optimal implementations of the same algorithms
+called `stretcher` (global alignment) and `matcher` (local alignment).
 
 {% code "emboss/emboss-align.sh" %}
 
