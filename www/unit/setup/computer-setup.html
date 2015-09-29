@@ -10,13 +10,20 @@
 
 These tasks only need to be done once for each platform.
 
+- - -
+
 ### Mac OS X
+
+
+#### Install XCode
 
 Mac OSX users need to install XCode from the AppStore. In addition users may
 need also need to occasionally launch XCode manually after certain updates to agree to
 changes in the license. In addition ensure that command line tools are installed with:
 
     xcode-select --install
+
+#### Install Homebrew
 
 The Mac OSX instructions will use [HomeBrew](http://brew.sh/) whenever the tool has a corresponding
 formula. Ocassionally when using `brew` the version of the software may older than the latest release.
@@ -35,14 +42,9 @@ There are a number of important libraries that tools may require:
     # to finish and it will ask for a root password.
     brew install Caskroom/cask/xquartz
 
-    # Installs graphics libraries.
-    brew install gd
-
-    # Installs PDF generation libraries.
-    brew install libharu
-
-    # Installs Image conversion.
-    brew install imagemagick
+    # Installs graphics, pdf generation,
+    # image manipulation libraries
+    brew install gd libharu git imagemagick
 
 Occasionally the `brew` command may fail to install a tool when some parts of the system do not have write access.
 You will receive "permission errors" for example `/usr/local/man/ is not writable`.
@@ -53,9 +55,15 @@ In those cases you need to set write permissions to those directories with:
 **Note:** even when regularly updated the brewed formulas may install
 older versions of the software.
 
+#### Install Java
+
 Install [Java for Mac OS X](https://www.java.com/en/download/help/mac_install.xml)
 
+- - -
+
 ### Linux
+
+Select a well established Linux distribution: Ubuntu
 
 There are numerous Linux distributions with various naming schemes. To set up a system users
 need to install packages via a so called package managers: `apt-get`, `yum` and others.
@@ -73,10 +81,16 @@ errors via the ticketing system. For Ubuntu Linux the following instructions wer
     sudo perl -MCPAN -e 'install "LWP::Simple"'
     sudo perl -MCPAN -e 'install "HTML::Entities"'
 
+- - -
+
 ### Windows/Cygwin
+
+#### Install Cygwin
 
 Ensure that you have selected all packages during installation. This is a bit counterintuitive
 in the setup interface. You need to click the "plus" icon twice until all packages are selected.
+
+#### Install Java
 
 {% endmarkdown %}
 {% endblock %}
