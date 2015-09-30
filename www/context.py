@@ -1,10 +1,17 @@
 __author__ = 'ialbert'
 
 from itertools import *
-import os, csv, glob
+import django
+from django.template.loader import get_template
+import sys, os, csv, glob
 
-__this = os.path.dirname(__file__)
+__this = os.path.dirname(__file__) or "."
+
 os.chdir(__this)
+
+# Allow the django template engine to load the custom tags.
+sys.path.append(__this)
+django.template.base.add_to_builtins("tags.handbook")
 
 CHAPTERS = [
      # Keep this last chapter.

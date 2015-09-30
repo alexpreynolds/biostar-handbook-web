@@ -1,5 +1,6 @@
 {% extends "unitbase.html" %}
 {% load pytags %}
+{% load handbook %}
 {# title =  Install Everything #}
 {# subtitle = install every piece of code in the book #}
 {# name = How to install every tool in this book #}
@@ -31,7 +32,7 @@ Shortcuts: {% for name, path in context.SETUP_FILES %}<a href="#{{name}}">{{name
 <a name="{{name}}">&nbsp;</a>
 {% include path %}
 
-<a href="#top">&laquo; back to top</a>
+{% top %}
 - - -
 {% endfor %}
 

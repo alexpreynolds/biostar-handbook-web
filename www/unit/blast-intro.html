@@ -1,5 +1,6 @@
 {% extends "unitbase.html" %}
 {% load pytags %}
+{% load handbook %}
 {# title =  BLAST #}
 {# subtitle = the one and ultimate #}
 {# name = Searching sequence databases with BLAST #}
@@ -7,16 +8,26 @@
 {% block body %}
 
 {% markdown %}
+Shortcuts: [Using BLAST](#intro) &bull; [BlastDB commands](#blastdbcmd)
+{% endmarkdown %}
 
-[blast-ncbi]: http://blast.ncbi.nlm.nih.gov/Blast.cgi
+{% anchor "intro" %}
 
-### Running BLAST
-
+{% markdown %}
+- - -
 #### Using BLAST
-
 {% code "blast/blast-intro.sh" %}
+{% endmarkdown %}
+{% top %}
 
+{% anchor "blastdbcmd" %}
+
+{% markdown %}
+- - -
+#### Using BLASTDB commands
 
 {% endmarkdown %}
+{% top %}
+
 
 {% endblock %}

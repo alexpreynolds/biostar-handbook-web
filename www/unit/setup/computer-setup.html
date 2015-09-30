@@ -12,10 +12,10 @@ These tasks only need to be done once for each platform.
 
 - - -
 
-### Mac OS X
+## Mac OS X
 
 
-#### Install XCode
+### Install XCode
 
 Mac OSX users need to install XCode from the AppStore. In addition users may
 need also need to occasionally launch XCode manually after certain updates to agree to
@@ -23,7 +23,7 @@ changes in the license. In addition ensure that command line tools are installed
 
     xcode-select --install
 
-#### Install Homebrew
+### Install Homebrew
 
 The Mac OSX instructions will use [HomeBrew](http://brew.sh/) whenever the tool has a corresponding
 formula. Ocassionally when using `brew` the version of the software may older than the latest release.
@@ -59,13 +59,13 @@ In those cases you need to set write permissions to those directories with:
 **Note:** even when regularly updated the brewed formulas may install
 older versions of the software.
 
-#### Install Java
+### Install Java
 
 Install [Java for Mac OS X](https://www.java.com/en/download/help/mac_install.xml)
 
 - - -
 
-### Linux
+## Linux
 
 Select a well established Linux distribution: Ubuntu
 
@@ -85,16 +85,22 @@ errors via the ticketing system. For Ubuntu Linux the following instructions wer
     sudo perl -MCPAN -e 'install "LWP::Simple"'
     sudo perl -MCPAN -e 'install "HTML::Entities"'
 
+Depending on your linux distribution software may be prepackaged. Typically
+however these prepackaged versions lag the current versions.  For example
+you may be able to install the EMBOSS tools with:
+
+    sudo apt-get install emboss
+
 - - -
 
-### Windows/Cygwin
+## Windows/Cygwin
 
-#### Install Cygwin
+### Install Cygwin
 
 Ensure that you have selected all packages during installation. This is a bit counterintuitive
 in the setup interface. You need to click the "plus" icon twice until all packages are selected.
 
-#### Install Java
+### Install Java
 
 {% endmarkdown %}
 {% endblock %}
