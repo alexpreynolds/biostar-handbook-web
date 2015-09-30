@@ -42,9 +42,13 @@ There are a number of important libraries that tools may require:
     # to finish and it will ask for a root password.
     brew install Caskroom/cask/xquartz
 
-    # Installs graphics, pdf generation,
-    # image manipulation libraries
-    brew install gd libharu git imagemagick
+    # Installs required libraries.
+    brew install gd libharu git imagemagick lzo hdf5
+
+A library may become outdated in which case it needs to be upgraded. For example:
+
+    brew update
+    brew upgrade gd libharu git imagemagick lzo hdf5
 
 Occasionally the `brew` command may fail to install a tool when some parts of the system do not have write access.
 You will receive "permission errors" for example `/usr/local/man/ is not writable`.

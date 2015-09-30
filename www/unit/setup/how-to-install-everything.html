@@ -20,17 +20,19 @@ environment variable but don't apply it to the shell profile. See also:
 * {% link "how-to-set-the-path.html" %}
 * {% link "bash-profile.html" %}
 
-pages for information on where to place this instruction
-to have it loaded automatically.
-
-{# the context.SETUP_FILES contains the list of files in /unit/setup/install/*.md #}
-
-{% for names, path in context.SETUP_FILES %}
-
 - - -
 
+Shortcuts: {% for name, path in context.SETUP_FILES %}<a href="#{{name}}">{{name|upper}}</a> &bull; {% endfor %}
+- - -
+
+{# the context.SETUP_FILES contains the list of files in /unit/setup/install/*.md #}
+{% for name, path in context.SETUP_FILES %}
+
+<a name="{{name}}">&nbsp;</a>
 {% include path %}
 
+<a href="#top">&laquo; back to top</a>
+- - -
 {% endfor %}
 
 - - -

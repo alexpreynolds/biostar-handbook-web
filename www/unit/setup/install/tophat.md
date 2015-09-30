@@ -18,7 +18,7 @@ Website: https://ccb.jhu.edu/software/tophat/index.shtml
 
     # This is a suite of tools thus is best to
     # add the entire directory to the search path.
-    export PATH=~/src/tophat-2.1.0.OSX_x86_64;$PATH'
+    export PATH=~/src/tophat-2.1.0.OSX_x86_64:$PATH
 
     # See the progams included with TopHat.
     ls ~/src/tophat-2.1.0.OSX_x86_64
@@ -31,7 +31,7 @@ Website: https://ccb.jhu.edu/software/tophat/index.shtml
 
     # This is a suite of tools thus is best to
     # add the entire directory to the search path.
-    export PATH=~/src/tophat-2.1.0.Linux_x86_64;$PATH'
+    export PATH=~/src/tophat-2.1.0.Linux_x86_64:$PATH
 
     # See the progams included with TopHat.
     ls ~/src/tophat-2.1.0.Linux_x86_64

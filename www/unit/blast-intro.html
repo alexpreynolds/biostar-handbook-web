@@ -1,0 +1,20 @@
+{% extends "unitbase.html" %}
+{% load pytags %}
+{# title =  BLAST #}
+{# subtitle = the one and ultimate #}
+{# name = Searching sequence databases with BLAST #}
+
+{% block body %}
+
+{% markdown %}
+
+[blast-ncbi]: http://blast.ncbi.nlm.nih.gov/Blast.cgi
+
+### Running BLAST
+
+{% code "blast/blast-intro.sh" %}
+
+
+{% endmarkdown %}
+
+{% endblock %}

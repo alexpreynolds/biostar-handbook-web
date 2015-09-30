@@ -13,6 +13,7 @@ CHAPTERS = [
     "unix-intro.html",
     "ncbi-entrez.html",
     "emboss-intro.html",
+    "blast-intro.html",
     "short-read-archive.html",
     "fastq-quality-control.html",
     "unix-shell-scripts.html",
@@ -57,8 +58,8 @@ stream.close()
 # Setup markdown files.
 __PATHS  = glob.glob("unit/setup/install/*.md")
 
+# Get just the name with no extension.
 __NAMES = [os.path.split(p)[-1] for p in __PATHS]
+__NAMES = [ os.path.splitext(p)[0] for p in __NAMES ]
 
 SETUP_FILES = zip(__NAMES, __PATHS)
-
-
