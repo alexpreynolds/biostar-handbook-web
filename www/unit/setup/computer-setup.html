@@ -56,6 +56,10 @@ In those cases you need to set write permissions to those directories with:
 
     sudo chmod 777 /usr/local/man/
 
+the following command may need to be also run:
+
+        sudo chown -R $(whoami):admin /usr/local
+
 **Note:** even when regularly updated the brewed formulas may install
 older versions of the software.
 
