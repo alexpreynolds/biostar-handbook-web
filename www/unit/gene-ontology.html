@@ -1,0 +1,15 @@
+{% extends "unitbase.html" %}
+{% load pytags %}
+{# title = Making sense of data #}
+{# subtitle = GO, GO, pathways #}
+{# name = Making sense of data: functional annotations, pathways  #}
+
+{% block body %}
+
+{% markdown %}
+
+{% code "ontology/gene-ontology.sh" %}
+
+{%  endmarkdown %}
+
+{% endblock %}
