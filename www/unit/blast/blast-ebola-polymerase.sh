@@ -1,6 +1,6 @@
 #
 # Find the mutations in the polymerase gene between
-# the 1976 and 2014 outbreak.
+# the 1976 and the many strains of the 2014 outbreak.
 #
 # Get the ebola genome for the 1976 outbreak.
 efetch -db nuccore -id AF086833 -format gb  > AF086833.gb
@@ -28,12 +28,16 @@ extractfeat AF086833.gb -filter -type CDS -tag gene -value L | transeq -filter >
 mkdir -p index
 esearch -db protein -query PRJNA257197 | efetch -format fasta > index/all-proteins.fa
 
-# With EMBOSS installed you can get information 
-# on the file.
+# With EMBOSS installed you can get information on a sequence file.
 infoseq index/all-proteins.fa
+# USA   Database   Name  Accession  Type  Length  Organism  Description
+# fasta::index/all-proteins.fa:AKC37233.1 -  AKC37233.1  AKC37233  P  2212   polymerase [Zaire ebolavirus]
+# fasta::index/all-proteins.fa:AKC37232.1 -  AKC37232.1  AKC37232  P   251   VP24 [Zaire ebolavirus]
+# fasta::index/all-proteins.fa:AKC37231.1 -  AKC37231.1  AKC37231  P   288   VP30 [Zaire ebolavirus]
 
-# How many sequences match the word.
+# How many sequences match the word polymerase?
 infoseq index/all-proteins.fa | grep polymerase | wc -l
+# 264
 
 # Build the blast index.
 makeblastdb -in index/all-proteins.fa -dbtype prot -out index/all
