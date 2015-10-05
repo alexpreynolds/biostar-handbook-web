@@ -1,0 +1,30 @@
+{% extends "unitbase.html" %}
+{% load pytags %}
+{% load handbook %}
+{# title = Making sense of data #}
+{# subtitle = GO, GO, pathways #}
+{# name = Making sense of data: functional annotations, pathways  #}
+
+{% block body %}
+
+{% markdown %}
+Shortcuts: [Gene Ontology](#ontology) &bull; [Genset Enrichment](#enrichment)
+{% endmarkdown %}
+
+{% anchor "ontology" %}
+
+{% markdown %}
+## Gene Ontology
+{% code "ontology/gene-ontology.sh" %}
+{%  endmarkdown %}
+{%  top %}
+
+{% anchor "enrichment" %}
+
+{% markdown %}
+## Geneset Enrichment
+{% code "ontology/geneset-enrichment" %}
+{%  endmarkdown %}
+{%  top %}
+
+{% endblock %}

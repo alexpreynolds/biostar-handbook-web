@@ -19,12 +19,12 @@ CHAPTERS = [
     "setup/how-to-install-everything.html",
     "unix-intro.html",
     "ncbi-entrez.html",
+    "gene-ontology.html",
     "emboss-intro.html",
     "blast-intro.html",
     "short-read-archive.html",
     "fastq-quality-control.html",
     "unix-shell-scripts.html",
-
 ]
 
 NAVBAR = [
