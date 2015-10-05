@@ -1,0 +1,78 @@
+{% extends "unitbase.html" %}
+{% load pytags %}
+{# title =  Troubles in your PATH  #}
+{# subtitle = when good PATHs go bad #}
+{# name = What to do when you accidentally nuke your PATH #}
+
+{% block body %}
+
+{% markdown %}
+
+If you mistype the `PATH` variable while
+putting it into the `.bash_profile` you can end up
+in the unenviable situation of applying an incorrect
+setting every time your terminal initializes. For example
+on a beautiful morning you'll do a:
+
+    echo 'export PATH=~/bin:PATH' >> ~/.bash_profile
+
+Then after that nothing works.
+Congratulations! You've just nuked your `PATH`. You forgot the
+`$` sign on the right hand side in the `PATH` variable. Instead
+of substituting the new `PATH` with the value of `$PATH` you are setting it
+to be the word `PATH`.
+Your command should have looked like this:
+
+    echo 'export PATH=~/bin:$PATH' >> ~/.bash_profile
+
+The net effect of this is that even simple system programs
+that used to work won't do so anymore:
+
+    $ ls
+    -bash: ls: command not found
+
+Oops!
+
+- - -
+
+### Explanation
+
+> The `PATH` to any righteous tool is beset on all sides by the
+> inequities of the selfish and the tyranny of environment variables.
+
+Good news: there is probably no command line guru that did not do this at one point
+in their lives. So you are well on your way to guru-ness.
+
+- - -
+
+### How to fix it
+
+Open a terminal. Oh yes, it is still broken. Fix the `PATH` within the terminal.
+
+    export PATH=/bin:/usr/bin
+
+Edit your `.bash_profile` with `nano` and remove the lines that cause the trouble:
+
+    nano ~/.bash_profile
+
+`nano` is very quirky. Take it as punishment meted out for clobbering your path.
+It could be worse. At least your don't have to use `vi`.
+
+Edit the file, correct the offending line(s) then save the file
+with `crtl + O` (that is capital letter O) then exit the editor.
+
+Open a NEW terminal window and verify that your "corrections" make sense.
+Rinse and repeat until it works.
+
+**Good luck comrade!**
+
+- - -
+
+Shortcuts to other installation related information:
+
+* {% link "computer-setup" %} - hardware setup.
+* {% link "how-to-install-everything" %} - to install every tool in this book.
+* {% link "bash-profile.html" %} - to ensure that your settings are applied automatically.
+
+{% endmarkdown %}
+{% endblock %}
