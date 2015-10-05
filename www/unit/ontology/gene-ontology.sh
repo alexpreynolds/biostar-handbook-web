@@ -4,7 +4,7 @@
 # Tabulates an sorts single column to compute occurrances 
 # of each element in the column. You could add it to your profile as well.
 #
-alias tabulate="sort | uniq -c | sort -k1,1 -rn | awk ' { print \$2, \$1 } ' "
+alias tabulate="sort | uniq -c | sort -k1,1 -rn | awk -v OFS='\t' '{ print \$2, \$1 }'"
 
 # If test.txt contains
 # A
@@ -72,7 +72,9 @@ cat assoc.txt | cut -f 2,3 | awk ' $2=="TP53" { print }'  | cut -f 1 | tabulate
 # E9PFT5 18
 # ...
 
+#
 # How many annotations per year?
+#
 # Column 14 contains the date in the format YYYYMMDD example: `20140313`
 # Extract and transform that column, then tabulate it.
 # We cannot use the original tabulation as now we need to sort on years not counts.
@@ -94,25 +96,3 @@ cat assoc.txt | cut -f 14 | awk '{ print substr($1, 1, 4) }' | sort | uniq -c | 
 # 2014 55464
 # 2015 246799
 
-# Find the PubMed ID for the DAVID publication in Nat Protoc.
-esearch -db pubmed -query "DAVID Bioinformatics Resources[title] AND Nat Protoc. [journal]" | efetch
-# PMID: 19131956
-
-# Find all publications that link to this paper.
-
-# Obtain the publications from PubMed.
-esearch -db pubmed -query 19131956 | elink -name pubmed_pubmed_citedin -related | efetch -format docsum > citations.xml
-# This will download information on 4886 papers
-
-# Take the citations and extract only the year from the PubDate elements.
-cat citations.xml | xtract -pattern DocumentSummary -element PubDate | cut -f 1 -d ' ' > cited_years.txt
-
-# To find the way these are distributed over the years (ignoring 2015 as 
-# the year is not over yet:
-cat cited_years.txt | sort | uniq -c | sort -k2,2 -n | awk '{ print $2, $1 }'
-# 2009   55
-# 2010  287
-# 2011  554
-# 2012  832
-# 2013 1066
-# 2014 1169
