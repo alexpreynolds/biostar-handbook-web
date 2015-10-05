@@ -9,6 +9,7 @@ https://www.biostarhandbook.com/unit/example.html
 https://www.biostarhandbook.com/unit/fastq-quality-control.html
 https://www.biostarhandbook.com/unit/gene-ontology.html
 https://www.biostarhandbook.com/unit/ncbi-entrez.html
+https://www.biostarhandbook.com/unit/rnaseq-quant.html
 https://www.biostarhandbook.com/unit/short-read-archive.html
 https://www.biostarhandbook.com/unit/software-installation-guide.html
 https://www.biostarhandbook.com/unit/unix-intro.html
