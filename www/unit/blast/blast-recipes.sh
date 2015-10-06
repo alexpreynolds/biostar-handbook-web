@@ -1,14 +1,21 @@
-# NT is  the entire nucleotide database
-# You could download multiple files by
-# passing patterns into a url downloaded with curl
-mkdir -p ~/refs/nt
-curl -O ftp://ftp.ncbi.nlm.nih.gov/blast/db/nt.[00-39].tar.gz -o ~/refs/nt
 
-# Since blast database downloads are so common
-# the blast package includes an update script.
-update_blastdb.pl --showall
+# The first entry in the nt database
+blastdbcmd -db ~/refs/refseq/nt -entry 'all' | head
 
-# Download the nt database.
-update_blastdb.pl nt
+# Find the paper that has
+esearch -db nuccore -query X17276.1 | elink -target pubmed | efetch
 
 
+# Dumpint the entire nt blast database.
+# Takes 22 minutes on an iMac and about 4 hours on a MacBook Air.
+# time blastdbcmd -db ~/refs/refseq/nt -entry 'all' -outfmt '%a,%l,%T,%L' | tr ',' '\t' > all.txt
+
+#
+# The file is
+split -l 1000000 all.txt parts/
+
+# Sort each piece individually
+time ls parts/* | parallel --verbose --progress sort {} -o {}
+
+# Merge the pieces back together.
+ma
