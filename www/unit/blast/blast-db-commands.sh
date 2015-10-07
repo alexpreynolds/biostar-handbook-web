@@ -1,6 +1,5 @@
-# NT is  the entire nucleotide database
-# You could download multiple files by
-# passing patterns into a url downloaded with curl
+# Store your blast databases in
+# a dedicated folder. 
 mkdir -p ~/refs/refseq
 cd ~/refs/refseq/
 
