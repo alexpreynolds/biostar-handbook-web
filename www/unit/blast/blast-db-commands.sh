@@ -1,5 +1,5 @@
 # Store your blast databases in
-# a dedicated folder. 
+# a dedicated folder.
 mkdir -p ~/refs/refseq
 cd ~/refs/refseq/
 

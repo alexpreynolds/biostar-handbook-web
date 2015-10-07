@@ -31,8 +31,8 @@ Alternatively one may install the binaries
 **Linux**:
 
 	cd ~/src
-	curl -O  ftp://ftp.ncbi.nlm.nih.gov/blast/executables/blast+/LATEST/ncbi-blast-2.2.31+-universal-macosx.tar.gz
-	tar zxvf ncbi-blast-2.2.31+-universal-macosx.tar.gz
+	curl -O  ftp://ftp.ncbi.nlm.nih.gov/blast/executables/blast+/LATEST/ncbi-blast-2.2.31+-x64-linux.tar.gz
+	tar zxvf ncbi-blast-2.2.31+-x64-linux.tar.gz
 	export PATH=~/src/ncbi-blast-2.2.31+/bin:$PATH
 	
 	# See the programs that are available
