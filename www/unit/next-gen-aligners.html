@@ -9,7 +9,7 @@
 
 {% markdown %}
 
-**Shortcuts:** [Using BWA](#intro) &bull; [Using Bowtie](#bowtie) &bull; [Using BBMap](#bbmap)
+**Shortcuts:** [Using BWA](#intro) &bull; [Using Bowtie](#bowtie) &bull; [Using BBMap](#bbmap) &bull; [Sequence Alignment Maps](#sam)
 
 - - -
 
@@ -32,7 +32,7 @@ options is that the output of tools needs to be different across different appli
 
 Before running any of the intros do the following:
 
-{% code "bwa/test-query.sh" %}
+{% code "sam/create-reference.sh" %}
 
 {% endmarkdown %}
 
@@ -54,5 +54,11 @@ Before running any of the intros do the following:
 {% code "bbmap/bbmap-intro.sh" %}
 {% endmd %}
 
+
+{% md sam %}
+- - -
+#### Investigate how mutations alter the output
+{% code "sam/sam-intro.sh" %}
+{% endmd %}
 
 {% endblock %}
