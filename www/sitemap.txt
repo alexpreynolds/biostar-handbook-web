@@ -3,6 +3,7 @@ https://www.biostarhandbook.com/contribute.html
 https://www.biostarhandbook.com/data.html
 https://www.biostarhandbook.com/index.html
 https://www.biostarhandbook.com/license.html
+https://www.biostarhandbook.com/unit/bbmap-help-seqanswers.html
 https://www.biostarhandbook.com/unit/bbmap-help.html
 https://www.biostarhandbook.com/unit/blast-intro.html
 https://www.biostarhandbook.com/unit/emboss-intro.html
