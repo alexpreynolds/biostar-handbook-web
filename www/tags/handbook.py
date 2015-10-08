@@ -53,7 +53,7 @@ def top_level_only(attrs, new=False):
     return attrs
 
 ANCHOR_PATTERN = '<a name="%s">&nbsp;</a>'
-TOP_LINK = '<a href="#top">&laquo; back to top</a>'
+TOP_LINK = '<a class="btn btn-default btn-xs btn-info" href="#top">&laquo; back to top</a>'
 
 class MarkDownNode(template.Node):
     CALLBACKS = [ top_level_only ]
