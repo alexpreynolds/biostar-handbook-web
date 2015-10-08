@@ -30,9 +30,8 @@ CHAPTERS = [
 
 NAVBAR = [
     ("index.html", '<span class="glyphicon glyphicon-home" aria-hidden="true"></span> Home'),
-    ("about.html", '<span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>'),
-    ("contribute.html", '<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>'),
-     ("search.html", '<span class="glyphicon glyphicon-search" aria-hidden="true"></span>'),
+    ("search.html", '<span class="glyphicon glyphicon-search" aria-hidden="true"></span> Search'),
+    ("about.html", '<span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span> Info'),
 ]
 
 

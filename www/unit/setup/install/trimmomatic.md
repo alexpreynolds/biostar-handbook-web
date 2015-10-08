@@ -19,23 +19,30 @@ Trimmomatic: A flexible trimmer for Illumina Sequence Data. Bioinformatics][trim
     # The program can be invoked via
     java -jar ~/src/Trimmomatic-0.33/trimmomatic-0.33.jar
 
-    # To shorten the invocation above we can use command aliases or write a shell script.
-
-    # Creating an alias.
-    alias trimmomatic='java -jar ~/src/Trimmomatic-0.33/trimmomatic-0.33.jar'
-
-    # Creating a shell script under ~/bin/trimmomatic
-    # This will be a shell script that passes all command line
-    # parameters to the java program with the $@ construct
-    echo '#!/bin/bash' > ~/bin/trimmomatic
-    echo 'java -jar ~/src/Trimmomatic-0.33/trimmomatic-0.33.jar $@' >> ~/bin/trimmomatic
-
-    # make the shell script executable
-    chmod +x ~/bin/trimmomatic
-
     # The ~/src/Trimmomatic-0.33/adapters/ directory contains
     # Illumina specific adapter sequences.
     ls ~/src/Trimmomatic-0.33/adapters/
+
+#### Set up Trimmomatic
+
+The way trimmomatic is invoked is a bit awkward:
+
+    java -jar ~/src/Trimmomatic-0.33/trimmomatic-0.33.jar
+
+You can use that invocation or shorten it by creating an executable
+script in a file `~/bin/trimmomatic` that looks like this:
+
+    #!/bin/bash
+    #
+    # The symbol $@ indicates passing all arguments of the script to the program
+    #
+    java -jar ~/src/Trimmomatic-0.33/trimmomatic-0.33.jar $@
+
+You could even create this file from the command line like so:
+
+    echo '#!/bin/bash' > ~/bin/trimmomatic
+    echo 'java -jar ~/src/Trimmomatic-0.33/trimmomatic-0.33.jar $@' >> ~/bin/trimmomatic
+    chmod +x ~/bin/trimmomatic
 
 Test installation by running:
 

@@ -52,23 +52,6 @@ The list of Fastq QC software is quite large:
 We assume that you have installed the `trimmomatic`,
 `flexbar` and `prinseq` as described in {% link "how-to-install-everything" %}
 
-#### Set up Trimmomatic
-
-The way trimmomatic is invoked is a bit awkward:
-
-    java -jar ~/src/Trimmomatic-0.33/trimmomatic-0.33.jar
-
-You can use that invocation or shorten it by creating an executable
-script in a file `~/bin/trimmomatic` that looks like this:
-
-{% code "qc/trimmomatic.sh" %}
-
-You could even create this file from the command line like so:
-
-    echo '#!/bin/bash' > ~/bin/trimmomatic
-    echo 'java -jar ~/src/Trimmomatic-0.33/trimmomatic-0.33.jar $@' >> ~/bin/trimmomatic
-    chmod +x ~/bin/trimmomatic
-
 #### Using Trimmomatic
 
 {% code "qc/using-trimmomatic.sh" %}

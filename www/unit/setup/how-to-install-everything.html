@@ -8,6 +8,10 @@
 {% block body %}
 {% markdown %}
 
+**Shortcuts:** {% for name, path in context.SETUP_FILES %}<a href="#{{name}}">{{name}}</a> &bull; {% endfor %}
+
+---
+
 ### How to use this page
 
 This page lists the installation instruction for every tool in the book. The list is sorted
@@ -21,9 +25,6 @@ environment variable but don't apply it to the shell profile. See also:
 * {% link "how-to-set-the-path.html" %}
 * {% link "bash-profile.html" %}
 
-- - -
-
-Shortcuts: {% for name, path in context.SETUP_FILES %}<a href="#{{name}}">{{name}}</a> &bull; {% endfor %}
 - - -
 
 {# the context.SETUP_FILES contains the list of files in /unit/setup/install/*.md #}
