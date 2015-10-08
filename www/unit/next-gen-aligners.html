@@ -1,0 +1,51 @@
+{% extends "unitbase.html" %}
+{% load pytags %}
+{% load handbook %}
+{# title =  BWA, Bowtie #}
+{# subtitle = the fast and the furious #}
+{# name = Sequence alignment with high-throughput methods #}
+
+{% block body %}
+
+{% markdown %}
+Shortcuts: [Using BWA](#intro) &bull; [Using Bowtie](#bowtie) &bull; [Using BBMap](#bbmap)
+
+High throughput aligners need to process hundreds of millions
+or even billions of measurements. For that reason
+their alignment protocols are less rigorous, in return they
+operate at blazing speeds.
+
+### How to use high-throughput aligners.
+
+While invocations or even preformance of tools may appear similar there
+can be tremendous differences in the following:
+
+* how the alignment mode can be customized
+* what tools report beyond the required standard fields
+
+The vast majority of NGS aligner comparison papers are not useful as they tend to focus
+on objective measures: speed, accuracy wherease the reason that there are so many
+options is that the output of tools needs to be different across different application domains.
+
+{% endmarkdown %}
+
+{% md bwa %}
+- - -
+#### Using BWA
+{% code "bwa/bwa-intro.sh" %}
+{% endmd %}
+
+{% md bowtie %}
+- - -
+#### Using Bowtie2
+{% code "bowtie/bowtie-intro.sh" %}
+{% endmd %}
+
+{% md bbmap %}
+- - -
+#### Using BBMap
+{% code "bbmap/bbmap-intro.sh" %}
+{% endmd %}
+
+
+{% endblock %}

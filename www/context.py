@@ -25,6 +25,7 @@ CHAPTERS = [
     "short-read-archive.html",
     "fastq-quality-control.html",
     "unix-shell-scripts.html",
+    "next-gen-aligners.html",
 ]
 
 NAVBAR = [
