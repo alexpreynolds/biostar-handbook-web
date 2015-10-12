@@ -9,14 +9,13 @@ algorithms:
 * BWA-SW
 * BWA-MEM.
 
-BWA-MEM, which is the latest, is generally recommended for high-quality
+**BWA-MEM** (Maximally Exact Matches), which is the latest, is generally recommended for high-quality
 queries as it is faster and more accurate. BWA-MEM also has better
 performance than BWA-backtrack for 70-100bp Illumina reads.
 
 BWA is one of the most used high throughput aligners in the world yet it is "unpublished" and
 by the classic standards of science is "non-peer reviewed". It is an interesting example with an [enlightening back story][bwa-mem-story]
 of how the scientific peer review model can fail. 
-
 The "unpublished" writeup on bwa-mem can be read on arxiv: [Aligning sequence reads, clone sequences and assembly contigs with BWA-MEM][bwa-mem-paper]
 
 [bwa-mem-story]: https://gist.github.com/ialbert/3164967c853b7fd8f44e
@@ -29,8 +28,7 @@ The "unpublished" writeup on bwa-mem can be read on arxiv: [Aligning sequence re
 	brew info bwa
 	brew install bwa
 
-Alternatively one may install the binaries for each platform: Mac OSX, Linux and Cygwin/Windows
-with:
+**Mac OSX, Linux and Cygwin/Windows**:
 
 	cd ~/src
 	curl -OL http://sourceforge.net/projects/bio-bwa/files/bwa-0.7.12.tar.bz2
@@ -47,6 +45,10 @@ BWA has a nicely formatted manual:
 
     man ~/src/bwa-0.7.12/bwa.1 
 
+
+More installation help:
+
+* [Biostar: Installing BWA On 32 Bit Unix Machine](https://www.biostars.org/p/80351/)
 
 
 [web-blast]: http://blast.ncbi.nlm.nih.gov/Blast.cgi

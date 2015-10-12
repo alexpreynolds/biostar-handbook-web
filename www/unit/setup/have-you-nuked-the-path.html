@@ -9,33 +9,34 @@
 {% markdown %}
 
 If you mistype the `PATH` variable while
-putting it into the `.bash_profile` you can end up
-in the unenviable situation of applying an incorrect
+adding it into the `.bash_profile` you may end up
+with the unenviable situation of applying an incorrect
 setting every time your terminal initializes. For example
 on a beautiful morning you'll do a:
 
     echo 'export PATH=~/bin:PATH' >> ~/.bash_profile
 
-Then after that nothing works.
-Congratulations! You've just nuked your `PATH`. You forgot the
-`$` sign on the right hand side in the `PATH` variable. Instead
-of substituting the new `PATH` with the value of `$PATH` you are setting it
-to be the word `PATH`.
-Your command should have looked like this:
-
-    echo 'export PATH=~/bin:$PATH' >> ~/.bash_profile
-
-The net effect of this is that even simple system programs
+The net effect of this is that even basic system programs
 that used to work won't do so anymore:
 
     $ ls
     -bash: ls: command not found
+
+Congratulations! You've just nuked your `PATH`. You forgot the
+`$` sign on the right hand side of the `PATH` variable. Instead
+of substituting the new `PATH` with the value of `$PATH`
+you are setting it to be the word `PATH`. Not so good.
+Your command should have looked like this:
+
+    echo 'export PATH=~/bin:$PATH' >> ~/.bash_profile
 
 Oops!
 
 - - -
 
 ### Explanation
+
+Jules in Pulp Fiction explains it best:
 
 > The `PATH` to any righteous tool is beset on all sides by the
 > inequities of unix and the tyranny of environment variables.

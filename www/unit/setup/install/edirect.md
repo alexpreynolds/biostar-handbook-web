@@ -6,7 +6,9 @@ The suite includes commands that coresponds to each of the Entrez API endpoints:
 `esearch`, `efetch`, `elink`, `efilter`, `epost`, `einfo` as well as a tool called `xtract`
 that can be used to extract elements of an XML document.
 
-Webpage: http://www.ncbi.nlm.nih.gov/books/NBK179288/
+NCBI Webpage: [Entrez Direct: E-utilities on the UNIX Command Line][edirect-book]
+
+[edirect-book]: http://www.ncbi.nlm.nih.gov/books/NBK179288/
 
 **Mac OSX**:
 

@@ -13,14 +13,6 @@ register = template.Library()
 
 print ("loading template library")
 
-@register.simple_tag
-def top():
-    return '<a href="#top">&laquo; back to top</a>'
-
-@register.simple_tag
-def anchor(name):
-    return '<a name="%s">&nbsp;</a>' % name
-
 #
 # We added a customized Django template tag
 # called md anchor that will wraps
@@ -54,6 +46,15 @@ def top_level_only(attrs, new=False):
 
 ANCHOR_PATTERN = '<a name="%s">&nbsp;</a>'
 TOP_LINK = '<a class="btn btn-default btn-xs btn-info" href="#top">&laquo; back to top</a>'
+
+@register.simple_tag
+def top():
+    return TOP_LINK
+
+@register.simple_tag
+def anchor(name):
+    return '<a name="%s">&nbsp;</a>' % name
+
 
 class MarkDownNode(template.Node):
     CALLBACKS = [ top_level_only ]

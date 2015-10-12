@@ -43,9 +43,9 @@ Alternatively one may install the binaries
 
 Blast can be easily installed on Windows system.
 
-* Visit ftp://ftp.ncbi.nlm.nih.gov/blast/executables/blast+/LATEST/
-* Donwload the file `ncbi-blast-2.2.31+-win64.exe`
-* Doubleclick and install
+* Visit [ftp://ftp.ncbi.nlm.nih.gov/blast/executables/blast+/LATEST/](ftp://ftp.ncbi.nlm.nih.gov/blast/executables/blast+/LATEST/)
+* Download the file `ncbi-blast-2.2.31+-win64.exe`
+* Double-click and install
 
 **Note** that installing into the default path can make 
 blast fail in some circumstances because this path includes 

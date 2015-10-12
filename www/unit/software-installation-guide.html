@@ -16,6 +16,8 @@
 * {% link "bash-profile.html" %} - make your settings apply automatically.
 * {% link "nuked-the-path.html" %} - because one day everyone does.
 
+- - -
+
 ### Basic concepts
 
 Bioinformatics requires the installation of many software tools that usually are distributed in
@@ -28,6 +30,8 @@ various formats:
 In additions programs may have so called "dependencies" other additional software
 that needs to be present.
 
+- - -
+
 ### Directory layout
 
 We recommend that all tools be placed under the same directory. We recommend
@@ -38,18 +42,21 @@ avoids having to extend the path for each tool.
     mkdir -p ~/src
     mkdir -p ~/bin
 
+- - -
 
 ### Install a good editor
 
-Microsoft Word is NOT a text editor. Sooner or later it will  cause (devious) problems.
+Microsoft Word is **NOT** a text editor. Sooner or later it will  cause (devious) problems.
 Best if you start using a proper text editor. Essential features:
 
-* Be able to visualize the TAB character vs the multiple SPACE characters.
-  Mixing up TAB and SPACES is a very common error. Copy-pasting from a web
-  page will turn TABs into SPACE characters (very annoying).
-* Line numbering. Lets us to identify the line where the error is reported.
-* Be able to switch line endings. Line endings have variants: Unix, Windows or Mac OS 9 endings.
+* Optionally visualize **TAB** characters versus multiple **SPACE** characters.
+  Mixing up TABS and SPACES is a very common error. Copy-pasting from a web
+  page often turns a TAB into SPACE characters (very annoying). We need the ability
+  to see the difference if necessary.
+* Show line numbering. Lets us to identify the line where an error is reported.
+* Switch line endings. Line endings have variants: Unix, Windows or Mac OS 9 endings.
   (Mac OSX uses Unix line endings). All files should have a  Unix line ending mode.
+  Your editor needs to have the ability to convert line endings to Unix format.
 
 Recommendation: [Sublime Text 2](http://www.sublimetext.com/2) but there are many other options
 with different tradeoffs.
