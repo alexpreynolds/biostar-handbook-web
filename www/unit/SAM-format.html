@@ -1,0 +1,22 @@
+{% extends "unitbase.html" %}
+{% load pytags %}
+{# title = SAM #}
+{# subtitle = sequence alignment maps #}
+{# name = Alignment representation: Sequence Alignment Maps (SAM) #}
+
+{% block body %}
+
+{% md explore %}
+
+### Explore the SAM format
+
+The Sequence Alignment Map definition: [SAM Specification][sam-spec]
+
+[sam-spec]: https://samtools.github.io/hts-specs/
+
+{% code "sam/explore-sam-format.sh" %}
+
+{% endmd %}
+
+
+{% endblock %}

@@ -26,6 +26,7 @@ CHAPTERS = [
     "fastq-quality-control.html",
     "unix-shell-scripts.html",
     "next-gen-aligners.html",
+    "SAM-format.html",
 ]
 
 NAVBAR = [
