@@ -31,6 +31,7 @@ In that case users should follow the Unix instructions on Mac OSX as well.
 When using homebrew users need to tap the science formulas then
 regularly update the formulas, especially after an XCode update.
 
+
 Here is a list of all [science formulas](https://github.com/Homebrew/homebrew-science)
 
     brew tap homebrew/science
@@ -56,9 +57,9 @@ In those cases you need to set write permissions to those directories with:
 
     sudo chmod 777 /usr/local/man/
 
-the following command may need to be also run:
+**Note**: Mac OSX, El Capitan update, the following command may need to be run:
 
-        sudo chown -R $(whoami):admin /usr/local
+    sudo chown -R $(whoami):admin /usr/local
 
 **Note:** even when regularly updated the brewed formulas may install
 older versions of the software.
