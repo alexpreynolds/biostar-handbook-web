@@ -15,38 +15,45 @@ These tasks only need to be done once for each platform.
 ## Mac OS X
 
 
-### Install XCode
+### Install XCode Command Line Tools
 
-Mac OSX users need to install XCode from the AppStore. In addition users may
-need also need to occasionally launch XCode manually after certain updates to agree to
-changes in the license. In addition ensure that command line tools are installed with:
+Mac OSX users need to install XCode command line tools with the following command:
 
     xcode-select --install
+
+In addition users may need also need to occasionally launch
+the same command again after certain updates to agree to
+changes in the license.
 
 ### Install Homebrew
 
 The Mac OSX instructions will use [HomeBrew](http://brew.sh/) whenever the tool has a corresponding
-formula. Ocassionally when using `brew` the version of the software may older than the latest release.
-In that case users should follow the Unix instructions on Mac OSX as well.
+formula.
 When using homebrew users need to tap the science formulas then
 regularly update the formulas, especially after an XCode update.
-
-
-Here is a list of all [science formulas](https://github.com/Homebrew/homebrew-science)
 
     brew tap homebrew/science
     brew update
 
-There are a number of important libraries that tools may require:
+Ocassionally when using `brew` the version of the software
+that `brew` installs may be older
+than the newest release.
+In that case users can often install from source the same tool.
+Here is a list of all [science formulas](https://github.com/Homebrew/homebrew-science)
 
-    # Install the X11 libraries. Will take a long time
-    # to finish and it will ask for a root password.
+There are a number of important libraries that tools may require, it is best
+if these are installed right away:
+
+    # Install the X11 libraries.
+    # Unlike most other installation commands this may take a long time
+    # to finish (30 minutes or more) and it will ask for a root password.
     brew install Caskroom/cask/xquartz
 
-    # Installs required libraries.
+    # Install required libraries. These will finish much faster.
     brew install gd libharu git imagemagick lzo hdf5
 
-A library may become outdated in which case it needs to be upgraded. For example:
+A library may become outdated in which case it needs to be upgraded.
+For example:
 
     brew update
     brew upgrade gd libharu git imagemagick lzo hdf5
