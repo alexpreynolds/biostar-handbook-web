@@ -49,11 +49,16 @@ A neat conversion shorcut for all of us
 wanting to be able to convert and sort 
 in just one step:
 
-    alias bam='samtools view -b - | samtools sort -o - foo'
+    alias bam='samtools view -b - | samtools sort -o - booyah'
 
 Now you can convert and sort in one step:
 
     cat example.sam | bam > sorted.bam
+
+What's with the `booyah``? It is bioinformatics! A parameter
+that is required to be there but not actually used in any way.
+
+Rock on!
     
        
   

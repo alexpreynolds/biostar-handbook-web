@@ -1,9 +1,9 @@
-# Get and index the ebola genome.
-mkdir -p ~/refs/ebola
-efetch -db=nuccore -format=fasta -id=AF086833 > ~/refs/ebola/1976.fa
-
 # Create an environment variable to simplify command invocation.
 REF=~/refs/ebola/1976.fa
+
+# Get and index the ebola genome.
+mkdir -p ~/refs/ebola
+efetch -db=nuccore -format=fasta -id=AF086833 > $REF
 
 # Index with bwa.
 bwa index $REF

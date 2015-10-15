@@ -7,7 +7,38 @@
 {% block body %}
 
 {% markdown %}
-**Shortcuts:** [SAM Format](#format) &bull; [Using Samtools](#samtools)
+
+This page contains the following sections:
+
+* [Explore the SAM Format](#format).
+
+  You only understand the SAM format when
+  you are able to describe how a change in a genome will show up
+  in the SAM file.
+
+* [Using Samtools: Basics](#samtools1)
+
+   Converting to `BAM`, filtering alignments, using commands:
+  `view`, `depth`, `tview`
+
+- - -
+
+Bookmark this: [Explain SAM Flags][explain-sam] Because the SAM format is so easy
+to use that all we needed is a dedicated website to
+decipher just a single column of it.
+
+Good news, there is now a `flags` command to do the same:
+
+    samtools flags PAIRED,PROPER_PAIR,REVERSE,MREVERSE
+    #
+    # This above lets us know that the code for it is 51 like so:
+    #
+    # 0x33    51    PAIRED,PROPER_PAIR,REVERSE,MREVERSE
+    #
+
+Thank you comrades!
+
+[explain-sam]: https://broadinstitute.github.io/picard/explain-flags.html
 - - -
 {%  endmarkdown %}
 
@@ -22,9 +53,9 @@ The Sequence Alignment Map definition: [SAM Specification][sam-spec]
 
 {% endmd %}
 
-{% md samtools %}
+{% md samtools1 %}
 
-### Using Samtools
+### Using Samtools: Basics
 
 Samtools is a magical tool that alone could be used
 to reproduce the majority of results in a suprising number publications.
