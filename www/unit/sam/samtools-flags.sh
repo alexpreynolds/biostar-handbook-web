@@ -1,9 +1,12 @@
-samtools flags PAIRED,PROPER_PAIR,REVERSE,MREVERSE
+#  What is the the flag code for
 #
-# The incantation above tells us that the flag code for
-# a paired read in proper pairing aligned to the reverse strand
-# when the read mate is also mapping to the reverse strand
-# will be flag=51.
+#    - a paired end read
+#    - in proper pairing
+#    - aligned to the reverse strand
+#    - with a read mate that also aligns to the reverse strand
+#
+samtools flags PAIRED,PROPER_PAIR,REVERSE,MREVERSE
 #
 # 0x33    51    PAIRED,PROPER_PAIR,REVERSE,MREVERSE
 #
+# The code is 51
