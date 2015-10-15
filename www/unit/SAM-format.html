@@ -6,8 +6,12 @@
 
 {% block body %}
 
-{% md explore %}
+{% markdown %}
+**Shortcuts:** [SAM Format](#format) &bull; [Using Samtools](#samtools)
+- - -
+{%  endmarkdown %}
 
+{% md format %}
 ### Explore the SAM format
 
 The Sequence Alignment Map definition: [SAM Specification][sam-spec]
@@ -15,6 +19,17 @@ The Sequence Alignment Map definition: [SAM Specification][sam-spec]
 [sam-spec]: https://samtools.github.io/hts-specs/
 
 {% code "sam/explore-sam-format.sh" %}
+
+{% endmd %}
+
+{% md samtools %}
+
+### Using Samtools
+
+Samtools is a magical tool that alone could be used
+to reproduce the majority of results in a suprising number publications.
+
+{% code "sam/samtools-commands.sh" %}
 
 {% endmd %}
 

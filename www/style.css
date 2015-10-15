@@ -25,11 +25,14 @@ pre {
     color: #666666;
 }
 
-
-.hr {
-    margin-bottom: 1ex;
-    border-bottom: 1px solid #CDCDCD;
+hr {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    border: 0;
+    border-top: 1px solid #eee;
 }
+
+
 
 .top {
     padding-top: 1em;
