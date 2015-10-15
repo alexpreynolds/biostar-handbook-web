@@ -8,16 +8,6 @@
 
 {% markdown %}
 
-### Required steps
-
-* {% link "computer-setup" %} - set up your hardware.
-* {% link "how-to-install-everything" %} - installation instruction for every tool.
-* {% link "how-to-set-the-path" %} - make your environment find the programs.
-* {% link "bash-profile.html" %} - make your settings apply automatically.
-* {% link "nuked-the-path.html" %} - because one day everyone does.
-
-- - -
-
 ### Basic concepts
 
 Bioinformatics requires the installation of many software tools that usually are distributed in
@@ -32,15 +22,37 @@ that needs to be present.
 
 - - -
 
+### Installation help
+
+At various stages you may need to visit the following resources:
+
+* {% link "computer-setup" %} - set up your hardware.
+* {% link "how-to-install-everything" %} - installation instruction for every tool.
+* {% link "how-to-set-the-path" %} - make your environment find the programs.
+* {% link "bash-profile.html" %} - make your settings apply automatically.
+* {% link "nuked-the-path.html" %} - because one day everyone does.
+
+- - -
+
 ### Directory layout
 
 We recommend that all tools be placed under the same directory. We recommend
-to use the `~/src` for all downloaded tools. We also recommend that you
+to use the `~/src` for all downloaded tools. Here `~` stands for the
+so called home directory that a terminal will open to. We also recommend that you
 create a `~/bin` directory that is added to the execution path. This
-avoids having to extend the path for each tool.
+avoids having to extend the path for each tool. We will download
+and install reference genomes into the `~/refs` directory. You will
+need to do the following from a terminal:
 
     mkdir -p ~/src
     mkdir -p ~/bin
+    mkdir -p ~/refs
+
+One of the early challenges here is that by default the Mac
+OSX won't even show you the home directory that your Terminal
+opens into. You will need to make sure to enable it in the
+Finder. See {% link "computer-setup" %}
+
 
 - - -
 
