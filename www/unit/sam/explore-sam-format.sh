@@ -2,42 +2,35 @@
 mkdir -p ~/refs/ebola
 efetch -db=nuccore -format=fasta -id=AF086833 > ~/refs/ebola/1976.fa
 
-# Index with bwa.
-bwa index ~/refs/ebola/1976.fa
+# Create an environment variable to simplify command invocation.
+REF=~/refs/ebola/1976.fa
 
-# We could also index with blast.
-# Allows us to extract subsequences really fast.
-makeblastdb -in ~/refs/ebola/1976.fa -dbtype nucl -parse_seqids -out ~/refs/ebola/1976.fa
+# Index with bwa.
+bwa index $REF
 
 # Create a test sequence.
 echo '>myseq' > query.fa
 echo 'GAAGAATTTTTAGGATCTTTTGTGTGCGAATAACTATGAGGAAGATTAAT' >> query.fa
 
-# We can use different methods to align it back.
-blastn -db ~/refs/ebola/1976.fa -query query.fa
-
-# Emboss water or matcher tools.
-matcher ~/refs/ebola/1976.fa query.fa -filter
-
 # BWA is a fast semi-global aligner.
-bwa mem ~/refs/ebola/1976.fa query.fa
+bwa mem $REF query.fa
 
 # The output format is SAM.
-bwa mem ~/refs/ebola/1976.fa query.fa > out.sam
+bwa mem $REF query.fa > out.sam
 
 # BWA writes the SAM file to the standard output
 # but the progress reports are written to the so called
 # standard error stream. You can separate the streams like so.
-bwa mem ~/refs/ebola/1976.fa query.fa 2> progress.txt > out.sam
+bwa mem $REF query.fa 2> progress.txt > out.sam
 
 # Investigate the SAM headers.
-bwa mem ~/refs/ebola/1976.fa query.fa 2> progress.txt | grep @
+bwa mem $REF query.fa  | grep @
 
 # Investigate the SAM body.
-bwa mem ~/refs/ebola/1976.fa query.fa 2> progress.txt | grep -v @
+bwa mem $REF query.fa | grep -v @
 
 # Make an alias to shorten the command.
-alias samfile='bwa mem ~/refs/ebola/1976.fa query.fa 2> progress.txt | grep -v @'
+alias samfile='bwa mem $REF query.fa 2> progress.txt | grep -v @'
 
 # First three columns: QNAME, FLAG, RNAME
 samfile | cut -f 1,2,3
@@ -66,22 +59,22 @@ samfile | cut -f 12,13,14
 # You may edit the sequence in an editor or use the msbar EMBOSS tool.
 #
 # -point  Types of point mutations to perform
-#		  0 None
+#         0 None
 #         1 Any of the following
-#		  2 Insertions
+#         2 Insertions
 #         3 Deletions
 #         4 Changes
-#		  5 Duplications
+#         5 Duplications
 #         6 Moves
 #
 # -sid changes the name of the sequence
 msbar query.fa -point 4 -sid mismatch -filter > mutated.fa
 
 # Look at what mutations it has introduced.
-water ~/refs/ebola/1976.fa mutated.fa -filter
+water $REF mutated.fa -filter
 
 # Create a shortcut to the BWA run on the mutated sequence.
-alias mutalisk='bwa mem ~/refs/ebola/1976.fa mutated.fa 2> progress.txt | grep -v @'
+alias mutalisk='bwa mem $REF mutated.fa 2> progress.txt | grep -v @'
 
 # Investigate the mutated query.
 # Getting your eyes ready to read a SAM file takes time.

@@ -8,7 +8,7 @@
 {% block body %}
 {% markdown %}
 
-**Shortcuts:** {% for name, path in context.SETUP_FILES %}<a href="#{{name}}">{{name}}</a> &bull; {% endfor %}
+{% for name, path in context.SETUP_FILES %}<a href="#{{name}}">{{name}}</a> &bull; {% endfor %}
 
 ---
 
