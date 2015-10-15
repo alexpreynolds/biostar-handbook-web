@@ -23,22 +23,18 @@ This page contains the following sections:
 
 - - -
 
-Bookmark this: [Explain SAM Flags][explain-sam] Because the SAM format is so easy
-to use that all we needed is a dedicated website to
-decipher just a single column of it.
+Bookmark this: [Explain SAM Flags][explain-sam]. You see the [SAM format][sam-spec]
+is so easy to use that all we needed was a dedicated website to
+decipher a single field of it.
+Good news though, as of samtools 1.2 there is a `flags` command to
+find the integer codes:
 
-Good news, there is now a `flags` command to do the same:
-
-    samtools flags PAIRED,PROPER_PAIR,REVERSE,MREVERSE
-    #
-    # This above lets us know that the code for it is 51 like so:
-    #
-    # 0x33    51    PAIRED,PROPER_PAIR,REVERSE,MREVERSE
-    #
+{% code "sam/samtools-flags.sh" %}
 
 Thank you comrades!
 
 [explain-sam]: https://broadinstitute.github.io/picard/explain-flags.html
+[sam-spec]: https://samtools.github.io/hts-specs/
 - - -
 {%  endmarkdown %}
 
