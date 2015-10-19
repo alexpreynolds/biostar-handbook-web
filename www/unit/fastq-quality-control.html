@@ -8,6 +8,16 @@
 
 {% markdown %}
 
+This page contains the following sections:
+
+* [Using Trimmomatic](#trimmomatic)
+* [Using Flexbar](#flexbar)
+* [Using Prinseq](#prinseq)
+
+Software installation help: {% link "install-everything" %}
+
+- - -
+
 The list of Fastq QC software is quite large:
 
 * [Trimmomatic][trimmomatic] published in Bioinformatics, 2014
@@ -47,24 +57,28 @@ The list of Fastq QC software is quite large:
 [skewer]: https://www.biostars.org/p/104320/
 [trimal]: http://trimal.cgenomics.org/
 
+{% endmarkdown %}
+
+{% md trimmomatic %}
 - - -
-
-We assume that you have installed the `trimmomatic`,
-`flexbar` and `prinseq` as described in {% link "how-to-install-everything" %}
-
-#### Using Trimmomatic
+### Using Trimmomatic
 
 {% code "qc/using-trimmomatic.sh" %}
+{% endmd %}
 
-#### Using Flexbar
+{% md flexbar %}
+- - -
+### Using Flexbar
 
 {% code "qc/using-flexbar.sh" %}
+{% endmd %}
 
+{% md prinseq %}
+- - -
 #### Using Prinseq
 
 {% code "qc/using-prinseq.sh" %}
-
-{% endmarkdown %}
+{% endmd %}
 
 
 {% endblock %}

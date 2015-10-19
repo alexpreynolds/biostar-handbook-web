@@ -9,32 +9,50 @@
 
 {% markdown %}
 
-**Shortcuts:** [Using BWA](#intro) &bull; [Using Bowtie](#bowtie) &bull; [Using BBMap](#bbmap) &bull; [Sequence Alignment Maps](#sam)
+This page contains the following sections:
+
+* [Download reference files](#refs)
+* [Using BWA](#bwa)
+* [Using Bowtie](#bowtie)
+* [Using BBMap](#bbmap)
+* [Sequence Alignment Maps](#sam)
+
+Software installation help: {% link "install-everything" %}
 
 - - -
+
+#### How to use high-throughput aligners.
 
 High throughput aligners need to process hundreds of millions
 or even billions of measurements. For that reason
 their alignment protocols are less rigorous, in return they
 operate at blazing speeds.
 
-### How to use high-throughput aligners.
-
 While invocations or even preformance of tools may appear similar there
 can be tremendous differences in the following:
 
-* how the alignment mode can be customized
-* what tools report beyond the required standard fields
+* how the alignment mode can be customized: every tool can find exact or near exact matches
+  but the performance may be very different for sequences that are less similar to the reference
+* the lenghts of the shortest and longest reads that the aligner can efficiently
+  process.
+* what tools report beyond the required standard fields: how many alternative
+  alignments can the tool find, the number of optional SAM tags
 
 The vast majority of NGS aligner comparison papers are not useful as they tend to focus
 on objective measures: speed, accuracy wherease the reason that there are so many
 options is that the output of tools needs to be different across different application domains.
 
-Before running any of the intros do the following:
+- - -
+{% endmarkdown %}
+
+{% md refs %}
+#### Reference files
+
+Before running any of introductions below
+do the following:
 
 {% code "sam/create-reference.sh" %}
-
-{% endmarkdown %}
+{% endmd %}
 
 {% md bwa %}
 - - -

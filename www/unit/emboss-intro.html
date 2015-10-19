@@ -8,16 +8,26 @@
 
 {% markdown %}
 
+This page contains the following sections:
+
+* [Sequence manipulation](#sequence)
+* [Local and global alignments](#align)
+
 The best way to tame the EMBOSS tools is to add the `-filter` parameter to each
 invocation, hence making the tool accept all defaults and print to the screen.
 
+Software installation help: {% link "install-everything" %}
+{% endmarkdown %}
 
-[emboss]: http://emboss.sourceforge.net/
-
+{% md sequence %}
+- - -
 ### Sequence manipulation
 
 {% code "emboss/emboss-intro.sh" %}
+{% endmd %}
 
+{% md align %}
+- - -
 ### Local and global alignments
 
 We have created two shell scripts around EMBOSS aligners to
@@ -34,6 +44,6 @@ called `stretcher` (global alignment) and `matcher` (local alignment).
 
 {% code "emboss/emboss-align.sh" %}
 
-{% endmarkdown %}
+{% endmd %}
 
 {% endblock %}

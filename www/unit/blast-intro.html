@@ -8,24 +8,32 @@
 {% block body %}
 
 {% markdown %}
-**Shortcuts:** [Using BLAST](#intro) &bull; [Find Mutations in the Ebola Polymerases](#polymerase) &bull; [BlastDB commands](#blastdbcmd)
+
+This page contains the following sections:
+
+* [Using BLAST](#intro)
+* [Find Mutations in the Ebola Polymerases](#polymerase)
+* [BlastDB commands](#blastdbcmd)
+
+Software installation help: {% link "install-everything" %}
+
 - - -
 {% endmarkdown %}
 
 {% md intro %}
-#### Using BLAST
+### Using BLAST
 {% code "blast/blast-intro.sh" %}
 {% endmd %}
 
 {% md polymerase %}
 - - -
-#### Changes in the Polymerase Gene Product
+### Changes in the Polymerase Gene Product
 {% code "blast/blast-ebola-polymerase.sh" %}
 {% endmd %}
 
 {% md blastdbcmd %}
 - - -
-#### Using BLASTDB commands
+### Using BLASTDB commands
 
 {% code "blast/blast-db-commands.sh" %}
 

@@ -8,23 +8,31 @@
 
 {% markdown %}
 
-We assume that you have installed the `SRA Toolkit` as described in
-{% link "how-to-install-everything" %}
+This page contains the following sections:
+
+* [Using SRA tools](#sra)
+* [Access data for a Bioproject](#access)
+
+Software installation help: {% link "install-everything" %}
+{% endmarkdown %}
+
+{% md sra %}
+- - -
+### Using SRA tools
 
 We will be accessing data from the bioproject repository of the
 [Zaire ebolavirus sample sequencing from the 2014 outbreak in Sierra Leone, West Africa](http://www.ncbi.nlm.nih.gov/bioproject/PRJNA257197/)
 
-#### Using SRA tools
-
 {% code "sra/using-sra-toolkit.sh" %}
+{% endmd %}
 
-#### Access data for the Bioproject
+{% md access %}
+- - -
+### Access data for the Bioproject
 
 This sections requires that you are familiar with Entrez Direct.
 
 {% code "sra/accessing-sra-runs.sh" %}
-
-{% endmarkdown %}
-
+{% endmd %}
 
 {% endblock %}

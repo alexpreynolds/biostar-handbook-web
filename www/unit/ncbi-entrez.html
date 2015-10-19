@@ -8,31 +8,44 @@
 
 {% markdown %}
 
-### Install Edirect
+This page contains the following sections:
 
-The Entrez Direct utilities can be downloaded from the [NCBI FTP](ftp://ftp.ncbi.nlm.nih.gov/entrez/entrezdirect/).
+* [Using Edirect](#intro)
+* [Taxonomy searches with Entrez](#taxonomy)
+* [Getting data from SRA](#sra)
 
-See also the [release notes](http://www.ncbi.nlm.nih.gov/news/02-06-2014-entrez-direct-released) and the relevant answers in [Biostar](https://www.biostars.org/p/92671/) for more help.
+Software installation help: {% link "install-everything" %}
 
+{% endmarkdown %}
+
+{% md using-edirect %}
+- - -
 ### Using Edirect
 
 Short intro to efetch, esearch and elink
 
 {% code "entrez/ncbi-edirect-basics.sh" %}
+{% endmd %}
 
+
+{% md taxonomy %}
+- - -
 ### Taxonomy searches with Entrez
 
 On the NCBI taxonomy
 
 {% code "entrez/ncbi-edirect-taxonomy.sh" %}
+{% endmd %}
 
+{% md sra %}
+- - -
 ### Getting data from SRA
 
 Short read archive is
 
 {% code "entrez/ncbi-edirect-sra.sh" %}
 
-{% endmarkdown %}
+{% endmd %}
 
 
 {% endblock %}
