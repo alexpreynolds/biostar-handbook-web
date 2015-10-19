@@ -27,6 +27,7 @@ CHAPTERS = [
     "unix-shell-scripts.html",
     "next-gen-aligners.html",
     "SAM-format.html",
+    "programming-intro.html",
 ]
 
 NAVBAR = [

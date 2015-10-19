@@ -1,0 +1,35 @@
+{% extends "unitbase.html" %}
+{% load pytags %}
+{% load handbook %}
+{# title =  Programming #}
+{# subtitle = awk and friends #}
+{# name = Some programming required: Awk #}
+
+{% block body %}
+
+{% markdown %}
+
+This page contains the following sections:
+
+* [Using ReadSeq and AWK](#intro).
+  <br>Basic concepts for writing awk programs.
+
+* [Processing SAM files with AWK](#sam-awk).
+  <br>Processing the output of samtools with simple awk programs.
+
+- - -
+
+{% endmarkdown %}
+
+{% md intro %}
+#### Using ReadSeq and AWK
+{% code "programming/awk-intro.sh" %}
+{% endmd %}
+
+{% md sam-awk %}
+#### Processing SAM files with AWK
+{% code "programming/awk-sam.sh" %}
+{% endmd %}
+
+
+{% endblock %}

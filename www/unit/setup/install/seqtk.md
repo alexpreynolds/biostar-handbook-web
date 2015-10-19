@@ -8,23 +8,23 @@ Webpage: https://github.com/lh3/seqtk
 
 **Mac OS X**
 
-	brew update
-	brew info seqtk
-	brew install seqtk
+    brew update
+    brew info seqtk
+    brew install seqtk
 
 **All Platforms**:
 
-	cd ~/src
-	git clone https://github.com/lh3/seqtk.git
-	cd seqtk
-	make
+    cd ~/src
+    git clone https://github.com/lh3/seqtk.git
+    cd seqtk
+    make
 
-	# Link the program to your bin folder
-	ln -s ~/src/seqtk/seqtk ~/bin/seqtk
+    # Link the program to your bin folder
+    ln -s ~/src/seqtk/seqtk ~/bin/seqtk
 
 A nicely formatted manual can be accessed via:
 
-	more ~/src/seqtk/README.md
+    more ~/src/seqtk/README.md
 
 Test installation by running:
 

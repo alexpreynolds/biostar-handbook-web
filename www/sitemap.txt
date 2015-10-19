@@ -11,6 +11,7 @@ https://www.biostarhandbook.com/unit/fastq-quality-control.html
 https://www.biostarhandbook.com/unit/gene-ontology.html
 https://www.biostarhandbook.com/unit/ncbi-entrez.html
 https://www.biostarhandbook.com/unit/next-gen-aligners.html
+https://www.biostarhandbook.com/unit/programming-intro.html
 https://www.biostarhandbook.com/unit/sam-format.html
 https://www.biostarhandbook.com/unit/short-read-archive.html
 https://www.biostarhandbook.com/unit/software-installation-guide.html

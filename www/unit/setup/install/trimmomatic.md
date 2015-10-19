@@ -23,23 +23,10 @@ Trimmomatic: A flexible trimmer for Illumina Sequence Data. Bioinformatics][trim
     # Illumina specific adapter sequences.
     ls ~/src/Trimmomatic-0.33/adapters/
 
-#### Set up Trimmomatic
-
-The way trimmomatic is invoked is a bit awkward:
-
+    # The program can be run as
     java -jar ~/src/Trimmomatic-0.33/trimmomatic-0.33.jar
 
-You can use that invocation or shorten it by creating an executable
-script in a file `~/bin/trimmomatic` that looks like this:
-
-    #!/bin/bash
-    #
-    # The symbol $@ indicates passing all arguments of the script to the program
-    #
-    java -jar ~/src/Trimmomatic-0.33/trimmomatic-0.33.jar $@
-
-You could even create this file from the command line like so:
-
+    # To simplify the invocation create a script in the ~/bin folder:
     echo '#!/bin/bash' > ~/bin/trimmomatic
     echo 'java -jar ~/src/Trimmomatic-0.33/trimmomatic-0.33.jar $@' >> ~/bin/trimmomatic
     chmod +x ~/bin/trimmomatic

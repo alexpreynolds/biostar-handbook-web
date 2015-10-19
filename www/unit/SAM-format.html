@@ -11,23 +11,22 @@
 This page contains the following sections:
 
 * [Explore the SAM Format](#format).
-
-  You only understand the SAM format when
+  <br>You understand the SAM format when
   you are able to describe how a change in a genome will show up
   in the SAM file.
 
 * [Using Samtools: Basics](#samtools-basics)
-
-   Converting to `BAM`, filtering alignments, using commands:
+  <br>Converting to `BAM`, filtering alignments, using commands:
   `view`, `depth`, `tview`
 
 - - -
 
-Bookmark this: [Explain SAM Flags][explain-sam]. You see the [SAM format][sam-spec]
-is so easy to use that all we needed was a dedicated website to
-decipher a single field of it.
+The [SAM format][sam-spec]
+is so easy to use that we needed a dedicated website: [Explain SAM Flags][explain-sam]
+to decipher a single field of it.
+
 Good news though, as of samtools 1.2 there is a `flags` command to
-find the integer codes:
+covert the integer codes to human readable output:
 
 {% code "sam/samtools-flags.sh" %}
 

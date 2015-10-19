@@ -11,23 +11,23 @@ Webpage: https://github.com/lh3/bioawk
 
 **Mac OS X**
 
-	brew update
-	brew info bioawk
-	brew install bioawk
+    brew update
+    brew info bioawk
+    brew install bioawk
 
 **Source install for all platforms**:
 
-	cd ~/src
-	git clone https://github.com/lh3/bioawk.git
-	cd bioawk
-	make
+    cd ~/src
+    git clone https://github.com/lh3/bioawk.git
+    cd bioawk
+    make
 
-	# Link the program to your bin folder
-	ln -s ~/src/bioawk/bioawk ~/bin/bioawk
+    # Link the program to your bin folder
+    ln -s ~/src/bioawk/bioawk ~/bin/bioawk
 
 A nicely formatted manual can be accessed via:
 
-	man ~/src/bioawk/awk.1
+    man ~/src/bioawk/awk.1
 
 The Bioawk specific extensions are described towards the end of the
 manual page. Test installation by running:
