@@ -9,4 +9,9 @@ samtools flags PAIRED,PROPER_PAIR,REVERSE,MREVERSE
 #
 # 0x33    51    PAIRED,PROPER_PAIR,REVERSE,MREVERSE
 #
-# The code is 51
+# It works for numbers too.
+#
+samtools flags 51
+#
+# 0x33	51	PAIRED,PROPER_PAIR,REVERSE,MREVERSE
+#
