@@ -8,3 +8,9 @@ seqret ebola-1976.fa -filter -sbegin 1 -send 10
 # Reverse complement a sequence.
 seqret ebola-1976.fa -filter -sbegin 1 -send 10 -srev
 
+# Get the Ebola genbank file.
+efetch -db=nuccore -format=gb -id=AF086833 > 1976.gb
+
+# Turn a genbank file into gff3.
+cat 1976.gb | seqret -filter -feature -osformat gff3 | head
+
