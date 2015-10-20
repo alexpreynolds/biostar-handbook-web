@@ -31,6 +31,23 @@ Test installation by running:
 
     wgsim
 
+The information on the mutations that a read was subjected
+to is embedded into the read name in the form: `chr1_6181150_6181637_2:0:0_2:0:0_2/1`:
+
+> By default, wgsim simulates a diploid genome with indels and then
+> simulates reads from the simulated genome without indels. In the example
+> above, the first 2:0:0 indicates that the first read has two sequencing
+> errors and that no substitution and no gaps are involved in the
+> simulated genome. The second 2:0:0 is for the second read. As sequencing
+> errors and substitutions are added separately, they may overlap. You may
+> apply "-e 0.0" to disable sequencing errors.
+
+Both the `wgswim` and `dwgsim` distributions come with evaluation scripts
+`wgsim_eval.pl` and `dwgsim_eval` that can be used evaluate mapping
+qualities of SAM files where the reads names are encoded as above.
+The scripts will parse the read name and compare the results to 
+the alignment and, from that establish mapping accuracy.
+
 ## DWGsim
 
 DWGsim is similarly named tool with more
@@ -60,4 +77,5 @@ Webpage: https://github.com/nh13/DWGSIM
 Test installation by running:
 
 	dwgsim
+
 

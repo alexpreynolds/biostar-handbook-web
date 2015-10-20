@@ -17,4 +17,3 @@ efetch -db=nuccore -format=fasta -id=AF086833 -seq_start=1 -seq_stop=3
 #
 efetch -db=nuccore -format=fasta -id=AF086833 -seq_start=1 -seq_stop=5 -strand=1
 efetch -db=nuccore -format=fasta -id=AF086833 -seq_start=1 -seq_stop=5 -strand=2
-
