@@ -1,0 +1,74 @@
+{% extends "unitbase.html" %}
+{% load pytags %}
+{# title =  Visualization #}
+{# subtitle = graphical displayes #}
+{# name = Visualizing genomic data: tview, UCSC Track Hubs #}
+
+{% block body %}
+
+{% markdown %}
+
+This page contains the following sections:
+
+* [Samtools tview](#tview)
+* [Setting up UCSC Track Hubs](#trackhub)
+* [Genome Browsers with Graphical User Interfaces](#gui)
+
+Software installation help: {% link "install-everything" %}
+{% endmarkdown %}
+
+{% md tview %}
+- - -
+### Sequence manipulation
+{% code "visualization/samtools-tview.sh" %}
+{% endmd %}
+
+{% md trackhub %}
+- - -
+### Track Hubs
+
+UCSC Help site on track hubs:
+
+* [Using UCSC Genome Browser Track Hubs][track-hubs]
+
+A demonstration version of the file structure to create a Track Hub:
+
+* [Biostar Handbook demo trackhub data][demo-trackhub-local]
+
+The trackhub above as viewed at UCSC:
+
+* [Biostar Handbook demo trackhub viewed at UCSC][demo-trackhub-ucsc]
+
+We can also customize and save a session then load that as well at UCSS:
+
+* [Biostar Handbook with customized session trackhub viewed at UCSC][demo-trackhub-session]
+
+[track-hubs]: https://genome.ucsc.edu/goldenPath/help/hgTrackHubHelp.html
+[demo-trackhub-local]: https://www.biostarhandbook.com/ucsc/
+[demo-trackhub-ucsc]: https://genome.ucsc.edu/cgi-bin/hgTracks?db=eboVir3&hubUrl=http://www.biostarhandbook.com/ucsc/trackhub/hub.txt
+[demo-trackhub-session]: https://genome.ucsc.edu/cgi-bin/hgTracks?db=eboVir3&hubUrl=http://www.biostarhandbook.com/ucsc/trackhub/hub.txt&hgS_loadUrlName=https://www.biostarhandbook.com/ucsc/trackhub/sessions/session1.txt&hgS_doLoadUrl=submit
+
+{% endmd %}
+
+{% md gui %}
+
+Genome Browisers with graphical user interfaces:
+
+* [Integrative Genome Viewer][igv]
+* [Integrated Genome Browser][igb]
+
+Alignment, NGS data and BAM file Visualization:
+
+* [BamView][bamview]
+* [Tablet][tablet]
+* [Savant][savant]
+
+[igv]: http://www.broadinstitute.org/igv/
+[igb]: http://bioviz.org/igb/index.html
+[bamview]: http://bamview.sourceforge.net/
+[tablet]: https://ics.hutton.ac.uk/tablet/
+[savant]: http://genomesavant.com/p/savant/index
+
+{% endmd %}
+
+{% endblock %}

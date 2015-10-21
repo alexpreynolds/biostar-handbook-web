@@ -1,0 +1,6 @@
+hub Biostar Handbook Hub
+shortLabel Biostar Handbook Ebola TrackHub
+longLabel Biostar Handbook: The Ebola TrackHub Demonstration
+genomesFile genomes.txt
+email istvan.albert@gmail.com
+descriptionUrl handbookHub.html

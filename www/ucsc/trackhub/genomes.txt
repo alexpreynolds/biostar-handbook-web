@@ -1,0 +1,2 @@
+genome eboVir3
+trackDb tracks/ebolaTrack.txt

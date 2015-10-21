@@ -1,0 +1,5 @@
+track SRR1553425
+bigDataUrl ../bam/results.bam
+shortLabel Booyah SRR1553425
+longLabel  BAM file for run SRR1553425 Booyah!
+type bam

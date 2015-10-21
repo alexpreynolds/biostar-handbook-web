@@ -1,0 +1,64 @@
+_ 1445452537647
+c KM034562v1
+clade virus
+db eboVir3
+dinkL 2.0
+dinkR 2.0
+dirty false
+gire2014 dense
+gire2014SpecificSnps dense
+gire2014SpecificSnps_imgOrd 2
+gire2014_imgOrd 3
+gireZebov dense
+gireZebov_imgOrd 4
+hgHubConnect.hub.68827 1
+hgS_loadUrlName 
+hgS_newSessionName eboVir3
+hgS_newSessionShare 1
+hgS_otherUserName 
+hgS_otherUserSessionName 
+hgS_saveLocalFileCompress none
+hgS_saveLocalFileName session1
+hgsid 449648223_8w7A1aGLf4ai3sdhlUJCAJ8CuWQK
+hgt_doJsCommand 
+hgtgroup_compGeno_close 1
+hgtgroup_genes_close 1
+hgtgroup_hub_68825_close 0
+hgtgroup_hub_68827_close 0
+hgtgroup_immu_close 1
+hgtgroup_map_close 1
+hgtgroup_varRep_close 1
+hub_68825_SRR1553425 full
+hub_68825_track_name pack
+hub_68827_SRR1553425 dense
+hub_68827_SRR1553425.bamColorMode strand
+hub_68827_SRR1553425.bamColorTag YC
+hub_68827_SRR1553425.bamGrayMode aliQual
+hub_68827_SRR1553425.indelDoubleInsert 0
+hub_68827_SRR1553425.indelQueryInsert 0
+hub_68827_SRR1553425.minAliQual 0
+hub_68827_SRR1553425.showNames 0
+hub_68827_SRR1553425_imgOrd 1
+iedbBcell hide
+l 3907
+lastPosition KM034562v1:3908-4097
+ncbiGene_imgOrd 5
+o 7626
+org Ebola virus
+pix 933
+position KM034562v1:3908-4097
+position.eboVir3 KM034562v1:3908-4097
+r 4097
+ruler dense
+spAnnot_imgOrd 6
+spStruct_imgOrd 7
+strainCons160way hide
+t 9526
+trackHubs 68827
+ncbiGene pack
+iedbPred1 dense
+iedbPredClassIMac dense
+iedbSupp3 dense
+cytoBandIdeo dense
+spUniprot dense
+defaultsSet on

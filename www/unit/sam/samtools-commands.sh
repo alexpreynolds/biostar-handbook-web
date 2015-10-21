@@ -97,29 +97,6 @@ samtools depth results.bam  | head
 # Find the highest covered region
 samtools depth results.bam  | sort -k 3 -rn | head
 
-# Normally we would filter for some minimal level of
-# coverage first.
-
-# We can even view the alignments.
-samtools tview
-
-# Press ? to get a help screen.
-# Press q to exit the viewer.
-samtools tview results.bam $REF
-
-# Start the viewer at some position in the genome.
-# Now complicated chromosme names are vey annoying
-# Here we have gi|10141003|gb|AF086833.2| people
-# usually rename their chromosomes (before the whole process starts)
-# to make it easier to access a locatoin. We'll use what we have here.
-samtools tview -p "gi|10141003|gb|AF086833.2|:10000" results.bam $REF
-
-# Save the output of the view into a text file.
-samtools tview -p "gi|10141003|gb|AF086833.2|:100" -d t results.bam $REF  > alignment.txt
-
-# Save the output of the view into an html file.
-samtools tview -p "gi|10141003|gb|AF086833.2|:100" -d h results.bam $REF  > alignment.html
-
 # Other reporting commands
 #
 samtools flagstat results.bam

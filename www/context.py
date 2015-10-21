@@ -28,6 +28,7 @@ CHAPTERS = [
     "next-gen-aligners.html",
     "SAM-format.html",
     "programming-intro.html",
+    "genomic-visualization.html",
 ]
 
 NAVBAR = [

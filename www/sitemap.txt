@@ -2,6 +2,7 @@ https://www.biostarhandbook.com/about.html
 https://www.biostarhandbook.com/contribute.html
 https://www.biostarhandbook.com/data.html
 https://www.biostarhandbook.com/index.html
+https://www.biostarhandbook.com/ucsc/trackhub/handbookhub.html
 https://www.biostarhandbook.com/unit/bbmap-help-seqanswers.html
 https://www.biostarhandbook.com/unit/bbmap-help.html
 https://www.biostarhandbook.com/unit/blast-intro.html
@@ -9,6 +10,7 @@ https://www.biostarhandbook.com/unit/emboss-intro.html
 https://www.biostarhandbook.com/unit/example.html
 https://www.biostarhandbook.com/unit/fastq-quality-control.html
 https://www.biostarhandbook.com/unit/gene-ontology.html
+https://www.biostarhandbook.com/unit/genomic-visualization.html
 https://www.biostarhandbook.com/unit/ncbi-entrez.html
 https://www.biostarhandbook.com/unit/next-gen-aligners.html
 https://www.biostarhandbook.com/unit/programming-intro.html
