@@ -15,20 +15,20 @@ django.template.base.add_to_builtins("tags.handbook")
 
 CHAPTERS = [
      # Keep this last chapter.
-    "software-installation-guide.html",
+    "setup/software-installation-guide.html",
     "setup/how-to-install-everything.html",
-    "unix-intro.html",
-    "ncbi-entrez.html",
-    "gene-ontology.html",
-    "emboss-intro.html",
-    "blast-intro.html",
-    "short-read-archive.html",
-    "fastq-quality-control.html",
-    "unix-shell-scripts.html",
-    "next-gen-aligners.html",
-    "SAM-format.html",
-    "programming-intro.html",
-    "genomic-visualization.html",
+    "unix/unix-intro.html",
+    "entrez/ncbi-entrez.html",
+    "ontology/gene-ontology.html",
+    "emboss/emboss-intro.html",
+    "blast/blast-intro.html",
+    "sra/short-read-archive.html",
+    "qc/fastq-quality-control.html",
+    "unix/unix-shell-scripts.html",
+    "align/next-gen-aligners.html",
+    "sam/SAM-format.html",
+    "programming/programming-intro.html",
+    "visualization/genomic-visualization.html",
 ]
 
 NAVBAR = [
