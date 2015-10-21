@@ -29,10 +29,10 @@ samtools tview results.bam $REF
 # Here we have gi|10141003|gb|AF086833.2| people
 # usually rename their chromosomes (before the whole process starts)
 # to make it easier to access a locatoin. We'll use what we have here.
-samtools tview -p "gi|10141003|gb|AF086833.2|:10000" results.bam $REF
+samtools tview -p "KM034562v1:10000" results.bam $REF
 
 # Save the output of the view into a text file.
-samtools tview -p "gi|10141003|gb|AF086833.2|:100" -d t results.bam $REF  > alignment.txt
+samtools tview -p "KM034562v1:100" -d t results.bam $REF  > alignment.txt
 
 # Save the output of the view into an html file.
-samtools tview -p "gi|10141003|gb|AF086833.2|:100" -d h results.bam $REF  > alignment.html
+samtools tview -p "KM034562v1:100" -d h results.bam $REF  > alignment.html
