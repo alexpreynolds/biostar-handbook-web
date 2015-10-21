@@ -24,49 +24,9 @@ Restart the server if you add a new file as the directory tree
 is scanned only once on startup. Changes to files however will 
 be visible right away.
     
-### Guidelines
+### Content
 
-Book chapters and web pages are complementary. 
-The content on the web needs to provide complete instructions 
-that can be executed when copy pasted into a terminal.
-
-Book chapters should focus on background and big picture explanations.
-
-To create a new book chapter add it to the `book` directory
-then open a new issue for it. We'll use that issue to discuss
-that chapter. 
-
-To create a new web page add it to the `www/unit` directory with a filename
-that starts with three digits: i.e. `123-vcf-format.html`  The three initial 
-digits are used to order the sections in the table of contents.
-
-### Book Chapters
-
-All book chapters should be written in Markdown. A few guidelines:
-
-1. Provide a high level overview and context
-1. Keep the information short and relevant.
-1. Explain command settings only for essential, meaningful and challenging steps. 
-   The website will contain all commands that form a full pipeline.
-1. Explain thought processes, parameter choices and tacit assumptions.
-1. Talk about typical problems, errors and their solutions.
-1. Spend time explaining how to interpret the results.
-1. Use realistic (published) datasets that can be download either from this website or the SRA (fastq-dump).
-1. Reduce datasets to be processable on a MacBook Air in short amounts of time (30 minutes max)
-   For example: subselect data for just one short chromosome for human genomes 
-1. Don't add data to the github repository, send a link to the data to the maintainer
-   and they will move it to the `www/data` directory of the main site.
-  
-The pages you add above and the changes to them are proposed work.
-The book itself is written from markdown documents in a different repository 
-that is connected directly to the publishing system.
-Once a book chapter is accepted and you wish to participate as an author you 
-can request to work directly from the book's git repository. 
-
-### Web Content
-
-Each book chapter typically has at least on web unit associated with it.
-Web units are stored in the `www/unit` directory. 
+Content is divided into subdirectories of the  `www/unit` directory. 
 
 1. Web units need to contain all commands used to generate a result.
 1. Comments should be used to explain the purpose of each command
