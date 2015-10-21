@@ -11,24 +11,38 @@
 
 This page contains the following sections:
 
-* [Using ReadSeq and AWK](#intro).
+* [Using AWK](#awk-intro)
   <br>Basic concepts for writing awk programs.
 
-* [Processing SAM files with AWK](#sam-awk).
+* [Processing SAM files with AWK](#sam-awk)
   <br>Processing the output of samtools with simple awk programs.
 
 Software installation help: {% link "install-everything" %}
+
+- - -
+
+Helpful resources
+
+* [Awk One-Liners Explained][awk-oneliners1] an explanation for a series of one-line awk scripts
+* [Awk CheatSheet][awk-cheatsheet] - a resource that lists all awk related variables
+* [Gnu Awk Manual][gnu-awk] - a comprehensive, but fairly complex resource
+
+[awk-oneliners]: http://www.catonmat.net/blog/wp-content/uploads/2008/09/awk1line.txt
+[awk-oneliners1]: http://www.catonmat.net/blog/awk-one-liners-explained-part-one/
+[awk-cheatsheet]: http://www.catonmat.net/blog/awk-nawk-and-gawk-cheat-sheet/
+[gnu-awk]: http://www.gnu.org/software/gawk/manual/gawk.html
+
 - - -
 
 {% endmarkdown %}
 
-{% md intro %}
-#### Using ReadSeq and AWK
+{% md awk-intro %}
+### Using AWK
 {% code "programming/awk-intro.sh" %}
 {% endmd %}
 
 {% md sam-awk %}
-#### Processing SAM files with AWK
+### Processing SAM files with AWK
 {% code "programming/awk-sam.sh" %}
 {% endmd %}
 
