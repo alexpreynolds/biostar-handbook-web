@@ -9,7 +9,7 @@
 #
 mkdir -p ~/refs/ebola
 REF=~/refs/ebola/2014.fa
-# We need to rename the sequence id to match UCSC.
+# We need to rename the sequence id to match UCSC chromosomal coordinates.
 efetch -db=nuccore -format=fasta -id=KM034562.1 | seqret -filter -sid KM034562v1 > $REF
 bwa index $REF
 fastq-dump -X 15000 --split-files SRR1553425
@@ -36,3 +36,18 @@ samtools tview -p "KM034562v1:100" -d t results.bam $REF  > alignment.txt
 
 # Save the output of the view into an html file.
 samtools tview -p "KM034562v1:100" -d h results.bam $REF  > alignment.html
+
+# We can view data on remote sites
+# (works only as http and not https)
+samtools view http://www.biostarhandbook.com/ucsc/trackhub/bam/results.bam | head
+
+# 1000 genomes project
+URL=ftp://ftp-trace.ncbi.nih.gov/1000genomes/ftp/phase3/data/HG00096/alignment
+SAMPLE=HG00096.chrom11.ILLUMINA.bwa.GBR.low_coverage.20120522.bam
+
+# View the header file for this run
+# It will display all tools run on the sample
+samtools view -h $URL/$SAMPLE | head
+
+# Slice and view just a small section out of the remote bam file.
+samtools view $URL/$SAMPLE  11:100,000-110,000 | head
