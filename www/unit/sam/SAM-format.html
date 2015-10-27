@@ -19,6 +19,9 @@ This page contains the following sections:
   <br>Converting to `BAM`, filtering alignments, using commands:
   `view`, `depth`, `tview`
 
+* [Using Samtools: Advanced usage](#pileup)
+  <br>Evaluate simulated datasets, readgroups, processing
+
 Software installation help: {% link "install-everything" %}
 
 - - -
@@ -48,14 +51,20 @@ The Sequence Alignment Map definition: [SAM Specification][sam-spec]
 {% endmd %}
 
 {% md samtools-basics %}
-
 ### Using Samtools: Basics
 
 Samtools is a magical tool that alone could be used
 to reproduce the majority of results in a suprising number publications.
 
 {% code "sam/samtools-commands.sh" %}
+{% endmd %}
 
+{% md pileup %}
+### Using Samtools: Advanced usage
+
+Evaluate simulated datasets
+
+{% code "sam/samtools-wgsim.sh" %}
 {% endmd %}
 
 

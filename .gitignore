@@ -1,4 +1,4 @@
 *.pyc
 www/data/*
-.idea/*
+.idea
 .DS_Store
