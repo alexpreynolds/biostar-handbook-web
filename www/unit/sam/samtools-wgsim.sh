@@ -7,7 +7,7 @@ efetch -db=nuccore -format=fasta -id=KM034562.1 | seqret -filter -sid KM034562v1
 bwa index $REF
 
 # Also index it with bowtie2
-bowtie2-build index $REF $REF
+bowtie2-build $REF $REF
 
 # Create a paired end query
 # Samtools can also be used to extract sequences
@@ -28,6 +28,9 @@ samtools faidx $REF KM034562v1:1-100 | seqret -filter -sid pair1 > read_1.fa
 
 # Sequence in file 2. We have to reverse complement it.
 samtools faidx $REF KM034562v1:1001-1100 | seqret -filter -srev -sid pair1 > read_2.fa
+
+# Run an alignment with the current data.
+bwa mem $REF 2> /dev/null read_1.fa read_2.fa
 
 # View and understand the flags.
 samtools flags 97

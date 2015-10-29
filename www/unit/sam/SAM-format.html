@@ -22,8 +22,8 @@ This page contains the following sections:
 * [Using Samtools: Advanced usage](#advanced)
   <br>Evaluate simulated datasets, readgroups, processing
 
-* [Using Samtools: Pileups](#pileups)
-  <br>Samtool pileup, a poor man's SNP caller.
+* [Using Samtools: Structural variants](#variation)
+  <br>Detecting structural variants with samtools
 
 Software installation help: {% link "install-everything" %}
 
@@ -70,12 +70,12 @@ Evaluate simulated datasets
 {% code "sam/samtools-wgsim.sh" %}
 {% endmd %}
 
-{% md pileups %}
+{% md variation %}
 ### Using Samtools: Large scale rearrangments, pileups
 
 Use samtools to investigate genome structure. Generate pileups.
 
-{% code "sam/samtools-pileups.sh" %}
+{% code "sam/samtools-variation.sh" %}
 {% endmd %}
 
 {% endblock %}

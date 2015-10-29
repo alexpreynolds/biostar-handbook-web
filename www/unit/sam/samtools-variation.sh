@@ -32,21 +32,12 @@ reset_genome;
 cat $REF | head -10 | seqret -filter -srev | tail -9 >> edited.fa
 simulate; megaton
 
-# Select and view flag 48? What are these reads? 
-samtools view -b -F 48 results.bam > FF.bam 
+# Select reads in the "wrong" orientation.
+samtools flags UNMAP,REVERSE,MREVERSE
+samtools view -c -F 52  results.bam
+
+samtools view -b -F 52 results.bam > FF.bam
 samtools index FF.bam 
-
-# Pileup without a reference
-samtools mpileup results.bam | head
-
-# Pileup with a reference file.
-samtools mpileup -f $REF results.bam | head
-
-# Pileups can take locations
-samtools mpileup -f $REF results.bam -r KM034562v1:1,540-1,550 
-
-# Poor man's SNP caller
-samtools mpileup -f $REF results.bam | tr -d '$^],.' | awk -F '\t' ' length($5)>5 { print $0 }'
 
 
 
