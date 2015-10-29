@@ -19,8 +19,11 @@ This page contains the following sections:
   <br>Converting to `BAM`, filtering alignments, using commands:
   `view`, `depth`, `tview`
 
-* [Using Samtools: Advanced usage](#pileup)
+* [Using Samtools: Advanced usage](#advanced)
   <br>Evaluate simulated datasets, readgroups, processing
+
+* [Using Samtools: Pileups](#pileups)
+  <br>Samtool pileup, a poor man's SNP caller.
 
 Software installation help: {% link "install-everything" %}
 
@@ -59,7 +62,7 @@ to reproduce the majority of results in a suprising number publications.
 {% code "sam/samtools-commands.sh" %}
 {% endmd %}
 
-{% md pileup %}
+{% md advanced %}
 ### Using Samtools: Advanced usage
 
 Evaluate simulated datasets
@@ -67,5 +70,12 @@ Evaluate simulated datasets
 {% code "sam/samtools-wgsim.sh" %}
 {% endmd %}
 
+{% md pileups %}
+### Using Samtools: Large scale rearrangments, pileups
+
+Use samtools to investigate genome structure. Generate pileups.
+
+{% code "sam/samtools-pileups.sh" %}
+{% endmd %}
 
 {% endblock %}
