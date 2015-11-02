@@ -29,6 +29,7 @@ CHAPTERS = [
     "sam/SAM-format.html",
     "programming/programming-intro.html",
     "visualization/genomic-visualization.html",
+    "snp/snp-calling.html",
 ]
 
 NAVBAR = [

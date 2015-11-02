@@ -1,0 +1,24 @@
+{% extends "unitbase.html" %}
+{% load pytags %}
+{# title = SNP #}
+{# subtitle = SNP calling #}
+{# name = Detecting simple variations: Single Nucleotide Polymorphism (SNP Calling) #}
+
+{% block body %}
+
+{% markdown %}
+
+This page contains the following sections:
+
+* [Samtools Pileup](#pileup).
+
+
+{%  endmarkdown %}
+
+{% md pileup %}
+### Samtools pileups
+
+{% code "snp/samtools-pileup.sh" %}
+{% endmd %}
+
+{% endblock %}
