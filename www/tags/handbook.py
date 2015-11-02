@@ -4,7 +4,8 @@ Biostar Handbook specific template tags.
 from __future__ import print_function, unicode_literals, absolute_import, division
 from django import template
 from markdown2 import markdown
-import re, logging
+import re, logging, textwrap
+
 from pygments import highlight
 
 import bleach
@@ -58,12 +59,16 @@ def anchor(name):
 
 class MarkDownNode(template.Node):
     CALLBACKS = [ top_level_only ]
-    def __init__(self, nodelist, anchor):
+    def __init__(self, nodelist, anchor, title=''):
         self.nodelist = nodelist
         self.anchor = anchor
+        self.title = title.replace("'", "")
 
     def render(self, context):
         text = self.nodelist.render(context)
+        text = textwrap.dedent(text)
+        if self.title:
+            text = "### %s\n\n%s" % (self.title, text)
         text = markdown(text, safe_mode=False, extras=["code-friendly", "tables"])
         link_anchor = ANCHOR_PATTERN % self.anchor
         text = bleach.linkify(text, callbacks=self.CALLBACKS, skip_pre=True)
@@ -89,6 +94,8 @@ def markdown_tag(parser, token):
     """
     nodelist = parser.parse(('endmd',))
     # need to do this otherwise we get big fail
-    anchor = token.split_contents()[1]
+    elems = token.split_contents()
+    anchor = elems[1]
+    title = " ".join(elems[2:])
     parser.delete_first_token()
-    return MarkDownNode(nodelist, anchor)
+    return MarkDownNode(nodelist, anchor, title)
