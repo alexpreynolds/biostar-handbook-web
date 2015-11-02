@@ -1,24 +1,27 @@
+#
+# There is a process of "reverse engineering" when we
+# generate alignments of data obtained from a real genome
+# against the "illusion" of the reference genome.
+#
+
 REF=~/refs/ebola/2014.fa
 REAL=real.fa
 
-#
-# make a copy of your genome, 
-# that you can also edit to introduce certain features into it
-# generate data from this genome then map it back to the reference
-#
+# Start with a copy of the reference genome.
 alias reset='\cp -f $REF $REAL'
 
-# Set up shortcuts to simulate mutated genomes.
+# Align the real genome against the reference genome.
+alias reality='bwa mem $REF $REAL | bam > real.bam; samtools index real.bam'
+
+# Sorts and converts a SAM file into a BAM file.
 alias bam='samtools view -b - | samtools sort -o - booyah'
 
-# Simulate reads with no errors and mutations.
+# Simulate reads from the real genome with no errors or mutations.
+# These are our "experimental" measurements.
 alias simulate='dwgsim -e 0 -E 0 -r 0 -R 0 -N 5000 $REAL experiment'
 
-# Align the simulated reads and produce
+# Align the "experimentally" produced reads against the refrence.
 alias align='bwa mem $REF experiment.bwa.read1.fastq experiment.bwa.read2.fastq | bam > experiment.bam; samtools index experiment.bam'
-
-# Align the simulated genome against the original genome.
-alias reality='bwa mem $REF $REAL | bam > real.bam; samtools index real.bam'
 
 # Select reads that are not properly paired.
 alias improper='samtools view -b -F 4 -F 2  experiment.bam > improper.bam; samtools index improper.bam'
@@ -34,9 +37,9 @@ alias improper='samtools view -b -F 4 -F 2  experiment.bam > improper.bam; samto
 # 2. Simulate data from the real genome. This is what comes out of
 #    a sequencing instrument.
 #
-# 3. Aligns the high throughput data against the reference.
+# 3. Align the high throughput data against the reference.
 #
-# 4. Selects improperly pairedreads into a different file.
+# 4. Select and store improperly paired reads in a different file.
 #
 # That's a megaton!
 alias megaton='reality; simulate; align; improper'
@@ -46,32 +49,31 @@ alias megaton='reality; simulate; align; improper'
 reset
 megaton
 
-#
-# Among the most difficult tasks are those that
-# require reverse engineering what we have from what we see
-# when we compare reality to the reference.
-# 
+
 # Example: a sequence duplication event appends
 # 1000 bases from the beginning of the genome
-# to the end of it. Can you observe this from the alignments?
+# to the end of it.
+#
+# Can you observe this from the alignments?
+#
 reset
 cat $REF | seqret -filter -sbegin 1 -send 1000 -osformat text >> $REAL
 megaton
 
-
-# Another event adds the same 549 bases
-# but it reverse complements it before attaching
-# it to the end. Can we recognize this event from the short read
-# alignments?
+# Add the same 1000 bases but reverse
+# complement them before appending them to the end.
 reset
 cat $REF | seqret -filter -sbegin 1 -send 1000 -srev -osformat text >> $REAL
 megaton
 
-# Cut a 1KB sequence reverse complement it
-# add it back into the same place.
+# Cut a 1KB sequence from inside a sequence reverse
+# complement it then add it back into the same place.
 reset
+# This is the reverse complemented sequence.
 cat $REF | seqret -filter -sbegin 5000 -send 6000 -srev > chunk.fa
+# This is the cut sequence.
 cat $REF | cutseq -filter -from 5000 -to 6000 > cut.fa
+# Paste it back into the same place.
 pasteseq -filter cut.fa chunk.fa -pos 5000 > $REAL
 megaton
 
