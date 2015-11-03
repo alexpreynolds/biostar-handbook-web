@@ -57,6 +57,9 @@ def anchor(name):
     return '<a name="%s">&nbsp;</a>' % name
 
 
+def fix_indent(text):
+    "Creates "
+
 class MarkDownNode(template.Node):
     CALLBACKS = [ top_level_only ]
     def __init__(self, nodelist, anchor, title=''):
@@ -66,7 +69,6 @@ class MarkDownNode(template.Node):
 
     def render(self, context):
         text = self.nodelist.render(context)
-        text = textwrap.dedent(text)
         if self.title:
             text = "### %s\n\n%s" % (self.title, text)
         text = markdown(text, safe_mode=False, extras=["code-friendly", "tables"])

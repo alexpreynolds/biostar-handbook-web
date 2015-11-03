@@ -3,28 +3,27 @@
 # generate alignments of data obtained from a real genome
 # against the "illusion" of the reference genome.
 #
-
 REF=~/refs/ebola/2014.fa
 REAL=real.fa
 
 # Start with a copy of the reference genome.
 alias reset='\cp -f $REF $REAL'
 
-# Align the real genome against the reference genome.
-alias reality='bwa mem $REF $REAL | bam > real.bam; samtools index real.bam'
-
 # Sorts and converts a SAM file into a BAM file.
 alias bam='samtools view -b - | samtools sort -o - booyah'
 
+# Align the real genome against the reference genome.
+alias align_real_genome='bwa mem $REF $REAL | bam > real.bam; samtools index real.bam'
+
 # Simulate reads from the real genome with no errors or mutations.
 # These are our "experimental" measurements.
-alias simulate='dwgsim -e 0 -E 0 -r 0 -R 0 -N 5000 $REAL experiment'
+alias generate_experimental_data='dwgsim -e 0 -E 0 -r 0 -R 0 -N 5000 $REAL experiment'
 
-# Align the "experimentally" produced reads against the refrence.
-alias align='bwa mem $REF experiment.bwa.read1.fastq experiment.bwa.read2.fastq | bam > experiment.bam; samtools index experiment.bam'
+# Align the "experimentally" produced reads against the reference.
+alias align_experimental_data='bwa mem $REF experiment.bwa.read1.fastq experiment.bwa.read2.fastq | bam > experiment.bam; samtools index experiment.bam'
 
 # Select reads that are not properly paired.
-alias improper='samtools view -b -F 4 -F 2  experiment.bam > improper.bam; samtools index improper.bam'
+alias select_improper_pairs='samtools view -b -F 4 -F 2  experiment.bam > improper.bam; samtools index improper.bam'
 
 # Run all steps in just one command.
 # Invoked after modifying the real genome to contain changes relative to the
@@ -42,7 +41,7 @@ alias improper='samtools view -b -F 4 -F 2  experiment.bam > improper.bam; samto
 # 4. Select and store improperly paired reads in a different file.
 #
 # That's a megaton!
-alias megaton='reality; simulate; align; improper'
+alias megaton='align_real_genome; generate_experimental_data; align_experimental_data; select_improper_pairs'
 
 # Simulate a megaton worth of information
 # View the results in IGV

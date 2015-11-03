@@ -11,16 +11,22 @@
 This page contains the following sections:
 
 * [Samtools Pileup](#pileup).
+  Pileup format is a data representation that is generated from a SAM/BAM file and
+  shows nucleotides covering a single coordinate.
 
+    * [Pileup format specification][pileup-spec] on Wikipedia.
+    * [5 Things to Know About SAMtools Mpileup][5things] on the MassGenomics blog.
+
+[5things]: http://massgenomics.org/2012/03/5-things-to-know-about-samtools-mpileup.html
+[pileup-spec]: https://en.wikipedia.org/wiki/Pileup_format
 
 {%  endmarkdown %}
 
-{% md pileup Some title goes here %}
 
-{% endmd %}
+{% md pileup 'Samtools pileups' %}
 
-{% md pileup Samtools pileups %}
 {% code "snp/samtools-pileup.sh" %}
+
 {% endmd %}
 
 {% endblock %}
