@@ -52,4 +52,10 @@ samtools mpileup -uvf $REF experiment1.bam experiment2.bam experiment3.bam | bcf
 # Call snps with freebayes (optional step).
 freebayes -f $REF experiment1.bam experiment2.bam experiment3.bam > variants-freebayes.vcf
 
+# Produce statistics on the snp calls
+bcftools stats variants-samtools.vcf
+
+# Reformat variants in a vcf file.
+bcftools query -f '%CHROM  %POS  %REF  %ALT{0}\n' variants-samtools.vcf
+
 # Visualize the data in IGV
