@@ -19,7 +19,7 @@
     </p>
 </blockquote>
 
-{%  include "book_link.html" %}
+{% include "book_link.html" %}
 
 {% markdown %}
 
@@ -28,10 +28,49 @@ the book [Biostar Handbook][book] that
 provides a practical overview for the data
 analysis methods of bioinformatics.
 
-### Supporting materials
+### Book Chapters
 
-{% for url in context.CHAPTERS %}
-1. {% link url %}{% endfor %}
+This table of contents groups subjects
+by topics and is ordered to facilitate locating
+sections. The complexity of
+material varies across these sections. Please
+refer to the book for a recommended order
+for learning the various subjects.
+
+#### Computer Setup
+
+* {% link 'software-installation-guide.html' %}
+* {% link 'how-to-install-everything.html' %}
+
+#### Computational skills
+
+* {% link 'unix-intro.html' %}
+* {% link 'unix-shell-scripts.html' %}
+* {% link 'programming-intro.html' %}
+
+#### Data Sources
+
+* {% link 'ncbi-entrez.html' %}
+* {% link 'short-read-archive.html' %}
+* {% link 'genomic-visualization.html' %}
+* {% link 'fastq-quality-control.html' %}
+
+#### Functional Analysis
+
+* {% link 'gene-ontology.html' %}
+
+#### Sequence Alignments
+
+* {% link 'emboss-intro.html' %}
+* {% link 'blast-intro.html' %}
+* {% link 'next-gen-aligners.html' %}
+* {% link 'SAM-format.html' %}
+
+#### Identifying Genomic Variations
+
+* {% link 'snp-calling.html' %}
+
+#### Gene Expression and Transcriptome Analysis
 
 ### Data Analysis
 

@@ -48,7 +48,7 @@ def say_hello():
 
 # Generate the sitemap automatically.
 SKIP = set("500.html 404.html base.html unitbase.html search.html book_link.html".split())
-stream = open("sitemap.txt", "wt")
+stream = open("sitemap.txt", "wb")
 for dirpath, dirnames, files in os.walk(__this):
     files = [_.lower() for _ in files]
     files = filter(lambda x: x not in SKIP, files)
