@@ -37,6 +37,7 @@ cutseq -filter $REF -from 310 -to 310 > temp.fa
 pasteseq -filter temp.fa ctc.fa -pos 309 > $REAL
 
 alias generate_experimental_data='dwgsim -d 180 -1 50 -2 50 -e 0 -E 0 -r 0 -R 0 -N 1000 $REAL experiment'
+
 alias align_experimental_data='bwa mem -O 4 $REF experiment.bwa.read1.fastq experiment.bwa.read2.fastq | bam > experiment.bam; samtools index experiment.bam'
 
 bwa index $REF
