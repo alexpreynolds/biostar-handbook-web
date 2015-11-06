@@ -19,8 +19,7 @@ Installation is identical on all platforms:
 	cd ~/src
 	curl -OL http://sourceforge.net/projects/bbmap/files/BBMap_35.50.tar.gz
 	tar zxvf BBMap_35.50.tar.gz
-	export PATH=~/src/bbmap:$PATH
- 
+
 Test installation by running:
 
-    bbmap.sh
+	bbmap.sh

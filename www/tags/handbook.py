@@ -71,7 +71,7 @@ class MarkDownNode(template.Node):
         text = self.nodelist.render(context)
         if self.title:
             text = "### %s\n\n%s" % (self.title, text)
-        text = markdown(text, safe_mode=False, extras=["code-friendly", "tables"])
+        text = markdown(text, safe_mode=False, extras=["code-friendly", "tables", "fenced-code-blocks"])
         link_anchor = ANCHOR_PATTERN % self.anchor
         text = bleach.linkify(text, callbacks=self.CALLBACKS, skip_pre=True)
         text = link_anchor + text + TOP_LINK
@@ -80,11 +80,11 @@ class MarkDownNode(template.Node):
 @register.tag('md')
 def markdown_tag(parser, token):
     """
-    Enables a block of markdown text to be used in a template.
+    Enables an extended block of markdown text to be used in a template.
 
     Syntax::
 
-            {% markdown %}
+            {% md anchor title %}
             ## Markdown
 
             Now you can write markdown in your templates. This is good because:
@@ -92,7 +92,7 @@ def markdown_tag(parser, token):
             * markdown is awesome
             * markdown is less verbose than writing html by hand
 
-            {% endmarkdown %}
+            {% endmd %}
     """
     nodelist = parser.parse(('endmd',))
     # need to do this otherwise we get big fail

@@ -15,7 +15,7 @@ django.template.base.add_to_builtins("tags.handbook")
 
 CHAPTERS = [
      # Keep this last chapter.
-    "setup/software-installation-guide.html",
+    "setup/software-installation.html",
     "setup/how-to-install-everything.html",
     "unix/unix-intro.html",
     "entrez/ncbi-entrez.html",
