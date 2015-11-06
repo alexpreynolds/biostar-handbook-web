@@ -18,7 +18,7 @@ https://www.biostarhandbook.com/unit/setup/computer-setup.html
 https://www.biostarhandbook.com/unit/setup/have-you-nuked-the-path.html
 https://www.biostarhandbook.com/unit/setup/how-to-install-everything.html
 https://www.biostarhandbook.com/unit/setup/how-to-set-the-path.html
-https://www.biostarhandbook.com/unit/setup/software-installation-guide.html
+https://www.biostarhandbook.com/unit/setup/software-installation.html
 https://www.biostarhandbook.com/unit/snp/snp-calling.html
 https://www.biostarhandbook.com/unit/sra/short-read-archive.html
 https://www.biostarhandbook.com/unit/unix/bash-profile.html
