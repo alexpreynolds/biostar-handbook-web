@@ -39,18 +39,27 @@
 
     <div class="row">
         <div class="col-sm-10 col-sm-offset-1">
+            <a name="top"></a>
+            {% block bodyhead %}
+            {% endblock %}
+
+            {% block bodytitle %}
             <div>
-                <a name="top">&nbsp;</a>
-                <h2>{{ page.title|safe }}
+
+                <div class="top title">
+                    {{ page.title|safe }}
                     {% if page.subtitle != '?' %}
                     <span class="hidden-xs hidden-sm"> &bull;
                         <span class="muted">{{ page.subtitle }}</span>
                     </span>
+
                     {% endif %}
 
-                </h2>
+                </div>
             </div>
+            {% endblock %}
 
+            {% block navbar %}
             <div>
                 <ul class="nav nav-tabs" role="tablist">
                     {% for path, label in context.NAVBAR %}
@@ -62,9 +71,8 @@
                     {% endfor %}
                 </ul>
             </div>
-
-            {% block bodyhead %}
             {% endblock %}
+
 
             <div class="row" id="body">
                 <div class="col-md-12 top">

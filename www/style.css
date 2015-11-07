@@ -21,6 +21,15 @@ pre {
     font-size: 16px;
 }
 
+.center {
+    text-align: center;
+}
+
+.top.title {
+    font-weight: 500;
+    font-size: 1.5em;
+    padding: 1ex 0ex 1ex 0ex;
+}
 .muted {
     color: #666666;
 }

@@ -1,3 +1,4 @@
+{# title = BBMap #}
 ## BBMap
 
 This package includes BBMap, a short read aligner, as well as various other bioinformatic tools. It is written in pure Java, can run on any platform, and has no dependencies other than Java being installed (compiled for Java 6 and higher). All tools are efficient and multithreaded.
@@ -16,9 +17,11 @@ This package includes BBMap, a short read aligner, as well as various other bioi
 
 Installation is identical on all platforms:
 
-	cd ~/src
-	curl -OL http://sourceforge.net/projects/bbmap/files/BBMap_35.50.tar.gz
-	tar zxvf BBMap_35.50.tar.gz
+```bash
+cd ~/src
+curl -OL http://sourceforge.net/projects/bbmap/files/BBMap_35.50.tar.gz
+tar zxvf BBMap_35.50.tar.gz
+```
 
 Test installation by running:
 

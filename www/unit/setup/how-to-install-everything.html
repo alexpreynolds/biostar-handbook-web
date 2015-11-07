@@ -29,11 +29,8 @@ environment variable but don't apply it to the shell profile. See also:
 - - -
 
 {# the context.SETUP_FILES contains the list of files in /unit/setup/install/*.md #}
-{% for name, path in context.SETUP_FILES %}
-
-<a name="{{name}}">&nbsp;</a>
+{% for name, path in context.SETUP_FILES %}<a name="{{name}}"></a>
 {% include path %}
-
 {% top %}
 - - -
 {% endfor %}

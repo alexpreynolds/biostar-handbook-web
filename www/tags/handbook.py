@@ -3,7 +3,8 @@ Biostar Handbook specific template tags.
 """
 from __future__ import print_function, unicode_literals, absolute_import, division
 from django import template
-from markdown2 import markdown
+from pyblue.templatetags.pytags import markdown
+
 import re, logging, textwrap
 
 from pygments import highlight
@@ -45,7 +46,7 @@ def top_level_only(attrs, new=False):
 
     return attrs
 
-ANCHOR_PATTERN = '<a name="%s">&nbsp;</a>'
+ANCHOR_PATTERN = '<a name="%s"></a>'
 TOP_LINK = '<a class="btn btn-default btn-xs btn-info" href="#top">&laquo; back to top</a>'
 
 @register.simple_tag
@@ -71,7 +72,7 @@ class MarkDownNode(template.Node):
         text = self.nodelist.render(context)
         if self.title:
             text = "### %s\n\n%s" % (self.title, text)
-        text = markdown(text, safe_mode=False, extras=["code-friendly", "tables", "fenced-code-blocks"])
+        text = markdown(text)
         link_anchor = ANCHOR_PATTERN % self.anchor
         text = bleach.linkify(text, callbacks=self.CALLBACKS, skip_pre=True)
         text = link_anchor + text + TOP_LINK
