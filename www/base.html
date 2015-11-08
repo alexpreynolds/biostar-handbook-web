@@ -1,6 +1,5 @@
 {% load pytags %}
 {# subtitle = base #}
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -9,19 +8,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="icon" href="/img/favicon8.ico" type="image/x-icon"/>
 
-    <script type="text/javascript"> //<![CDATA[
-    var tlJsHost = ((window.location.protocol == "https:") ? "https://secure.comodo.com/" : "http://www.trustlogo.com/");
-    document.write(unescape("%3Cscript src='" + tlJsHost + "trustlogo/javascript/trustlogo.js' type='text/javascript'%3E%3C/script%3E"));
-    //]]>
-    </script>
-
     <title>
         {{ page.title }}
     </title>
 
+    <script src="/static/prism.js"></script>
+
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css" rel="stylesheet">
 
-    <link rel="stylesheet" type="text/css" href="/style.css">
+    <link rel="stylesheet" type="text/css" href="/static/style.css">
+
+    <link rel="stylesheet" type="text/css" href="/static/prism.css">
 
     {% pygments_css %}
 
@@ -33,7 +30,8 @@
     <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
 
 </head>
-<body>
+<body class="language-bash">
+
 
 <div class="container">
 
@@ -99,11 +97,6 @@
                         <a href="https://github.com/ialbert/biostar-handbook-web/tree/master/www/{{page.fname}}"></a>
                     </p>
 
-                    <p>
-                        <script language="JavaScript" type="text/javascript">
-                            TrustLogo("https://www.biostarhandbook.com/img/comodo_secure_76x26_white.png", "CL1", "none");
-                        </script>
-                    </p>
                 </div>
             </div>
 
