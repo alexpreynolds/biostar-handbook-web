@@ -13,7 +13,6 @@ NCBI has is a [web interface][web-blast] for BLAST and provides
 > and adapt the names of the programs accordingly.
 > These instructions will install version `BLAST+ 2.2.31`
 
-
 **Mac OSX**:
 
 	brew update
@@ -23,21 +22,24 @@ NCBI has is a [web interface][web-blast] for BLAST and provides
 	
 Alternatively one may install the binaries 
 
-	cd ~/src
-	curl -O  ftp://ftp.ncbi.nlm.nih.gov/blast/executables/blast+/LATEST/ncbi-blast-2.2.31+-universal-macosx.tar.gz
-	tar zxvf ncbi-blast-2.2.31+-universal-macosx.tar.gz
-	export PATH=~/src/ncbi-blast-2.2.31+/bin:$PATH
+```bash
+cd ~/src
+curl -O  ftp://ftp.ncbi.nlm.nih.gov/blast/executables/blast+/LATEST/ncbi-blast-2.2.31+-universal-macosx.tar.gz
+tar zxvf ncbi-blast-2.2.31+-universal-macosx.tar.gz
+export PATH=~/src/ncbi-blast-2.2.31+/bin:$PATH
+```
 
 **Linux**:
 
-	cd ~/src
-	curl -O  ftp://ftp.ncbi.nlm.nih.gov/blast/executables/blast+/LATEST/ncbi-blast-2.2.31+-x64-linux.tar.gz
-	tar zxvf ncbi-blast-2.2.31+-x64-linux.tar.gz
-	export PATH=~/src/ncbi-blast-2.2.31+/bin:$PATH
-	
-	# See the programs that are available
-	ls ~/src/ncbi-blast-2.2.31+/bin/
-	
+```bash
+cd ~/src
+curl -O  ftp://ftp.ncbi.nlm.nih.gov/blast/executables/blast+/LATEST/ncbi-blast-2.2.31+-x64-linux.tar.gz
+tar zxvf ncbi-blast-2.2.31+-x64-linux.tar.gz
+export PATH=~/src/ncbi-blast-2.2.31+/bin:$PATH
+
+# See the programs that are available
+ls ~/src/ncbi-blast-2.2.31+/bin/
+```
 	
 **Windows**:
 

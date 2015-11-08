@@ -7,9 +7,8 @@
 
 {% block body %}
 {% markdown %}
-### Shortcuts
 
-{% for name, path in context.SETUP_FILES %}<a href="#{{name}}">{{name}}</a> &bull; {% endfor %}
+{% for name, path in context.TOOL_INSTALL %}<a href="#{{name}}">{{name}}</a> &bull; {% endfor %}
 
 ---
 
@@ -29,19 +28,11 @@ environment variable but don't apply it to the shell profile. See also:
 - - -
 
 {# the context.SETUP_FILES contains the list of files in /unit/setup/install/*.md #}
-{% for name, path in context.SETUP_FILES %}<a name="{{name}}"></a>
+{% for name, path in context.TOOL_INSTALL %}<a name="{{name}}"></a>
 {% include path %}
 {% top %}
 - - -
 {% endfor %}
-
-- - -
-
-Shortcuts to other installation related information:
-
-* {% link "computer-setup" %} - hardware setup.
-* {% link "how-to-set-the-path" %} - to ensure that your environment finds the tools.
-* {% link "bash-profile.html" %} - to ensure that your settings are applied automatically.
 
 {% endmarkdown %}
 {% endblock %}

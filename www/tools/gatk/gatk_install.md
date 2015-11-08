@@ -22,7 +22,7 @@ tar jxvf GenomeAnalysisTK-3.4-46.tar.bz2
 Test the installation
 
 	java -jar ~/src/gatk/GenomeAnalysisTK.jar -h
-
+	
 Create a script that launches gatk:
 
 ```bash

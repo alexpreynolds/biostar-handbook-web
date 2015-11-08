@@ -3,7 +3,7 @@ __author__ = 'ialbert'
 from itertools import *
 import django
 from django.template.loader import get_template
-import sys, os, csv, glob
+import sys, os, csv, glob, re
 
 __this = os.path.dirname(__file__) or "."
 
@@ -13,10 +13,25 @@ os.chdir(__this)
 sys.path.append(__this)
 django.template.base.add_to_builtins("tags.handbook")
 
+def find(target, pattern):
+    collect = []
+    short = lambda x: x.split('_')[0]
+
+    for root, dirs, names in os.walk(target):
+        names = filter(lambda name: re.search(pattern, name), names)
+        pairs = map(lambda name: (short(name), os.path.join(root, name)), names)
+        collect.extend(pairs)
+    collect.sort()
+    return collect
+
+# Collect installation files.
+TOOL_INSTALL = find("tools", "_install.md")
+
+
 CHAPTERS = [
      # Keep this last chapter.
     "setup/software-installation.html",
-    "setup/how-to-install-everything.html",
+    "tools/install-everything.html",
     "unix/unix-intro.html",
     "entrez/ncbi-entrez.html",
     "ontology/gene-ontology.html",
@@ -65,12 +80,3 @@ for dirpath, dirnames, files in os.walk(__this):
 
 print ("sitemap generated")
 stream.close()
-
-# Setup markdown files.
-__PATHS  = glob.glob("unit/setup/install/*.md")
-
-# Get just the name with no extension.
-__NAMES = [os.path.split(p)[-1] for p in __PATHS]
-__NAMES = [ os.path.splitext(p)[0] for p in __NAMES ]
-
-SETUP_FILES = zip(__NAMES, __PATHS)
