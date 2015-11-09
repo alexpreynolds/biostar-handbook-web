@@ -1,0 +1,16 @@
+{% extends "unitbase.html" %}
+{% load pytags %}
+{# title = freebayes #}
+{# subtitle = snp calling with bcftools #}
+{# name = SNP calling with FreeBayes #}
+
+{% block body %}
+{% markdown %}
+
+The guide below assumes that the data has been prepared similarly to what is shown in
+{% link  'bcftools_snpcalling.html' %}
+
+	freebayes -f $REF experiment1.bam experiment2.bam experiment3.bam > variants-freebayes.vcf
+
+{%  endmarkdown %}
+{%  endblock %}

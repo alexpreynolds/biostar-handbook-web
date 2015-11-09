@@ -1,0 +1,21 @@
+{% extends "unitbase.html" %}
+{% load pytags %}
+{# title = bcftools #}
+{# subtitle = a bcftools tutorial #}
+{# name = An introduction to  bcftools #}
+
+{% block body %}
+{% markdown %}
+
+
+
+
+	# Produce statistics on the snp calls
+	bcftools stats variants-samtools.vcf
+
+	# Reformat variants in a vcf file.
+	bcftools query -f '%CHROM  %POS  %REF  %ALT{0}\n' variants-samtools.vcf
+
+
+{%  endmarkdown %}
+{%  endblock %}

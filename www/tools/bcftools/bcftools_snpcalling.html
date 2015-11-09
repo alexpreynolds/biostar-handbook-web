@@ -1,0 +1,42 @@
+{% extends "unitbase.html" %}
+{% load pytags %}
+{# title = bcftools #}
+{# subtitle = snp calling with bcftools #}
+{# name = SNP calling with  bcftools #}
+
+{% block body %}
+{% markdown %}
+
+The pileup format is a data representation that is generated from a SAM/BAM file and
+shows nucleotides covering a single coordinate.
+
+- - -
+{%  endmarkdown %}
+
+{%  include_markdown "reference/download_ebola.md" %}
+
+{%  include_markdown "reference/simulate_ebola_experiment.md" %}
+
+{%  include_markdown "bcftools/bcftools_snpcalling.md" %}
+
+{% markdown %}
+
+### Poor man's snp caller
+
+A "poor man's snp caller" is a simple "toy" SNP caller that can be used to distinguish "easy" to call SNPs
+from difficult to predict ones. There are millions of variations that one could
+detect by parsing the mipileup output. The purpose of the poor man's SNP caller is to separate SNPS
+into triviailly easy and difficult ones. Then evaluate other SNP callers on their ability to work
+out the difficult problems.
+
+Place this code into `poor_man_snp.awk`
+
+{%  simplecode "poor_man_snp.awk" %}
+
+Run the snp caller as so:
+
+```
+samtools mpileup -f $REF experiment.bam | tr -d '$^],.' | awk -f poor_man_snp.awk > snps.bed
+```
+{%  endmarkdown %}
+{%  endblock %}

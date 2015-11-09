@@ -1,0 +1,77 @@
+{% extends "unitbase.html" %}
+{% load pytags %}
+{# title = SNP #}
+{# subtitle = SNP calling #}
+{# name = Detecting simple variations: Single Nucleotide Polymorphism (SNP Calling) #}
+
+{% block body %}
+
+{% markdown %}
+
+### Pileups
+
+The pileup format is a data representation that is generated from a SAM/BAM file and shows nucleotides
+covering a single coordinate. The simplest SNP calling methods may use the pileup format to
+identify variations.
+
+```
+chromosome   pos  base   depth    reads matches       qualities
+KM034562v1  1520   G      11      ...........        12325251212
+KM034562v1  1521   A      11	   C.C..CC..C.       4143.42221/
+```
+
+Samtools can generate genotype likelhoods from these coverages.
+
+* [Pileup format specification][pileup-spec] on Wikipedia.
+* [5 Things to Know About SAMtools Mpileup][5things] on the MassGenomics blog.
+
+[5things]: http://massgenomics.org/2012/03/5-things-to-know-about-samtools-mpileup.html
+[pileup-spec]: https://en.wikipedia.org/wiki/Pileup_format
+
+Learn more about the pileup commands: {%  link "samtools_pileup.html" %}
+
+- - -
+### The Variant Call Format (VCF)
+
+The variant call format (VCF) is a (suprisingly complex) data representation format used
+to describe variations in the genome.
+
+It is a 10+ column format where the first 9 columns are fixed the rest describe individual samples.
+
+```
+#CHROM      POS     ID     REF     ALT     QUAL    FILTER  INFO    FORMAT   SAMPLE
+KM034562v1  738     .       T       C      100     PASS    AF=1.0    GT      0/1
+```
+
+* [VCF Poster][vcf-poster] is a good introductory resource on what the VCF format is.
+* Short summary on VCF format: http://www.htslib.org/doc/vcf.html
+* VCF Specification: http://samtools.github.io/hts-specs/
+
+- - -
+### SNP calling with bcftools
+
+
+Learn more about SNP calling with `bcftools` on: {%  link "bcftools/bcftools_snpcalling.html" %}
+
+- - -
+
+### SNP calling with FreeBayes
+
+Learn more about SNP calling with `freebayes` on: {%  link "freebayes/freebayes_snpcalling.html" %}
+
+- - -
+### SNP calling with GATK
+
+Learn more about SNP calling with `gatk` on: {%  link "gatk/gatk_snpcalling.html" %}
+
+{%  endmarkdown %}
+
+
+
+{% md bcftools 'SNP calling with samtools/bcftools' %}
+
+{% code "snp/snp-samtools.sh" %}
+
+{% endmd %}
+
+{% endblock %}
