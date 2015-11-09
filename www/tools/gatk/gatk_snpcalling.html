@@ -1,0 +1,40 @@
+{% extends "unitbase.html" %}
+{% load pytags %}
+{# title = GATK #}
+{# subtitle = snp calling with gatk #}
+{# name = SNP calling with GATK #}
+
+{% block body %}
+{% markdown %}
+
+{%  include_markdown "reference/download_human_data.md" %}
+
+{%  include_markdown "reference/simulate_experiment.md" %}
+
+Prepare the data
+
+    REF=~/refs/hs/mitoc.fa
+
+    # Prepare the reference for use with GATK
+    samtools faidx $REF
+    picard CreateSequenceDictionary REFERENCE=$REF OUTPUT=~/refs/hs/mitoc.dict
+
+    # GATK requires that alignments have read groups
+    TAG='@RG\tID:a\tSM:b\tLB:c'
+    OUT='output.bam'
+    alias align_experimental_data='bwa mem -R $TAG $REF experiment.bwa.read1.fastq experiment.bwa.read2.fastq | bam > $OUT; samtools index $OUT'
+
+    # Generate data and align it.
+    generate_experimental_data; align_experimental_data
+
+    # View the positions of the alignments with insertions.
+    samtools view output.bam | cut -f 4,6,13 | grep I |  head
+
+    # Run the Haplotype Caller.
+    gatk -T HaplotypeCaller -R $REF -I output.bam -o gatk-haplotype.vcf
+
+    # Run the Unified Genotyper.
+    gatk -T UnifiedGenotyper -R $REF -I output.bam -o gatk-unified.vcf
+
+{%  endmarkdown %}
+{%  endblock %}

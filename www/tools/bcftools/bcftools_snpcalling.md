@@ -1,0 +1,51 @@
+
+To demonstrate `bcftools` we will reassign the `align_experimental_data` command to
+allow us to tag alignments with "readgroups"". A read group basically contains sample
+specific information:
+
+	# Align the "experimentally" produced reads against the reference.
+	# The command will pull information from the TAG and OUT variables.
+	# Tags data with the content of the TAG value and puts the
+	# results into the file indicated by the OUT variable.
+	# The \t designates a `tab` character.
+	TAG='@RG\tID:a\tSM:b\tLB:c'
+	OUT='output.bam'
+	alias align_experimental_data='bwa mem -R $TAG $REF experiment.bwa.read1.fastq experiment.bwa.read2.fastq | bam > $OUT; samtools index $OUT'
+
+	# Generate data for experiment 1. Tagged as sample1.
+	TAG='@RG\tID:id1\tSM:sample1\tLB:lib1'
+	OUT='experiment1.bam'
+	generate_experimental_data; align_experimental_data
+
+	# Create the second sample. Tagged as sample2.
+	TAG='@RG\tID:id2\tSM:sample2\tLB:lib2'
+	OUT='experiment2.bam'
+	generate_experimental_data; align_experimental_data
+
+	# Create the third sample. Tagged as sample3.
+	TAG='@RG\tID:id3\tSM:sample3\tLB:lib3'
+	OUT='experiment3.bam'
+
+	# Note that we are not generating a new data below!
+	# Thus the third sample will come from the same genome as the second.
+	# We do this to see how this will manifest itself in the VCF file.
+	# Create the alignment for the third experiment.
+	align_experimental_data
+
+	# Verify that the alignment has indeed worked.
+	samtools view experiment1.bam | head -1
+
+	# View the pileup.
+	samtools mpileup -f $REF experiment1.bam | head
+
+	# Compute the genotype with samtools. Look at the help
+	# files to see what the flags do.
+	samtools mpileup -uvf $REF experiment1.bam | head
+
+	# Investigate the BCF tools
+	bcftools call
+
+	# Pass the output of genotype likelihood computation
+	# into the SNP caller.
+	samtools mpileup -uvf $REF experiment1.bam experiment2.bam experiment3.bam | bcftools call -vm -O v > variants-samtools.vcf
+

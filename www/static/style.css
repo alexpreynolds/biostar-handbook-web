@@ -19,6 +19,14 @@ blockquote {
 
 pre {
     font-size: 16px;
+    overflow: auto;
+    word-wrap: normal;
+    white-space: pre-wrap;
+}
+
+
+code {
+    white-space: pre-wrap;
 }
 
 .center {
@@ -30,6 +38,7 @@ pre {
     font-size: 1.5em;
     padding: 1ex 0ex 1ex 0ex;
 }
+
 .muted {
     color: #666666;
 }
@@ -40,8 +49,6 @@ hr {
     border: 0;
     border-top: 1px solid #eee;
 }
-
-
 
 .top {
     padding-top: 1em;
@@ -55,10 +62,11 @@ hr {
 #footer {
 
 }
+
 p {
-        line-height: 1.3;
+    line-height: 1.3;
 }
 
-:not(.nav)> li {
+:not(.nav) > li {
     padding-bottom: 1ex;
 }

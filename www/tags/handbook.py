@@ -10,7 +10,7 @@ import re, logging, textwrap
 from pygments import highlight
 
 import bleach
-
+from pyblue.templatetags.pytags import load
 register = template.Library()
 
 print ("loading template library")
@@ -60,6 +60,12 @@ def anchor(name):
 @register.simple_tag
 def img(src, css):
     return '<img src="{}" class="{}">'.format(src, css)
+
+@register.simple_tag(takes_context=True)
+def simplecode(context, pattern):
+    text = load(context=context, pattern=pattern)
+    html = markdown("```\n{}\n```").format(text)
+    return html
 
 def fix_indent(text):
     "Creates "
