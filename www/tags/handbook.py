@@ -57,6 +57,9 @@ def top():
 def anchor(name):
     return '<a name="%s">&nbsp;</a>' % name
 
+@register.simple_tag
+def img(src, css):
+    return '<img src="{}" class="{}">'.format(src, css)
 
 def fix_indent(text):
     "Creates "
