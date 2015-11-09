@@ -1,0 +1,20 @@
+{% extends "unitbase.html" %}
+{% load pytags %}
+{# title = SNP calling problems #}
+{# subtitle = snp calling on homopolymers#}
+{# name = SNP calling for homopoymers #}
+
+{% block body %}
+{% markdown %}
+
+
+- - -
+{%  endmarkdown %}
+
+{%  include_markdown "reference/download_human_data.md" %}
+
+{%  include_markdown "reference/simulate_experiment.md" %}
+
+{%  include_markdown "snp/snpcalling_homopolymers.md" %}
+
+{%  endblock %}

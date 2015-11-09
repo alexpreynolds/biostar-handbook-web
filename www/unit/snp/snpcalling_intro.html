@@ -7,7 +7,6 @@
 {% block body %}
 
 {% markdown %}
-
 ### Pileups
 
 The pileup format is a data representation that is generated from a SAM/BAM file and shows nucleotides
@@ -31,7 +30,7 @@ Samtools can generate genotype likelhoods from these coverages.
 Learn more about the pileup commands: {%  link "samtools_pileup.html" %}
 
 - - -
-### The Variant Call Format (VCF)
+### The Variant Call Format
 
 The variant call format (VCF) is a (suprisingly complex) data representation format used
 to describe variations in the genome.
@@ -50,28 +49,56 @@ KM034562v1  738     .       T       C      100     PASS    AF=1.0    GT      0/1
 - - -
 ### SNP calling with bcftools
 
+`bcftools` relies on `samtools` for computing the genotype likelihoods (the probabilty for
+each base to be at a given position). It then uses this likelhood to call variations:
+
+```
+samtools mpileup -uvf reference.fa file1.bam file2.bam file3.bam | bcftools call -vm -O v > variants.vcf
+```
 
 Learn more about SNP calling with `bcftools` on: {%  link "bcftools/bcftools_snpcalling.html" %}
 
 - - -
-
 ### SNP calling with FreeBayes
 
-Learn more about SNP calling with `freebayes` on: {%  link "freebayes/freebayes_snpcalling.html" %}
+Example:
+
+```
+freebayes ---use-mapping-quality --ploidity 1 -f reference.fa file1.bam file2.bam file3.bam > variants.vcf
+```
+Learn more about SNP calling with `freebayes` on: {%  link "freebayes/freebayes_snpcalling.html" %} (TODO)
 
 - - -
 ### SNP calling with GATK
 
-Learn more about SNP calling with `gatk` on: {%  link "gatk/gatk_snpcalling.html" %}
+Learn more about SNP calling with `gatk` on: {%  link "gatk/gatk_snpcalling.html" %} (TODO)
+
+- - -
+### How misalignment causes incorrect SNP calls.
+
+Low complexity regions may produce counfounding alignments that are difficult to resolve.
+For example a mutation with two insertions flanked by homopolymers may be very challenging to
+resolve:
+
+    CCAAACCCCCCC-T-CCCCCGCTTC
+    CCAAACCCCCCCCTCCCCCCGCTTC
+
+Align and investigate the two outputs:
+
+    local-align.sh CCAAACCCCCCCTCCCCCGCTTC CCAAACCCCCCCCTCCCCCCGCTTC
+    local-align.sh CCAAACCCCCCCTCCCCCGCTTC CCAAACCCCCCCCTCCCCCCGCTTC -gapopen 9
+
+We will work through this problem on {%  link "snp/snpcalling_homopolymers.html" %}
+
+- - -
+### Additional reading
+
+* [Validating multiple cancer variant callers and prioritization in tumor-only samples][blue-collar] on Blue Collar Bioinformatics.
+
+[blue-collar]: https://bcbio.wordpress.com/2015/03/05/cancerval/
 
 {%  endmarkdown %}
 
 
-
-{% md bcftools 'SNP calling with samtools/bcftools' %}
-
-{% code "snp/snp-samtools.sh" %}
-
-{% endmd %}
 
 {% endblock %}

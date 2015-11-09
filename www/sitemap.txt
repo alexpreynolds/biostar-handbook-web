@@ -29,6 +29,7 @@ https://www.biostarhandbook.com/unit/ontology/gene-ontology.html
 https://www.biostarhandbook.com/unit/programming/programming-intro.html
 https://www.biostarhandbook.com/unit/qc/fastq-quality-control.html
 https://www.biostarhandbook.com/unit/sam/sam-format.html
-https://www.biostarhandbook.com/unit/snp/snp_calling.html
+https://www.biostarhandbook.com/unit/snp/snpcalling_homopolymers.html
+https://www.biostarhandbook.com/unit/snp/snpcalling_intro.html
 https://www.biostarhandbook.com/unit/sra/short-read-archive.html
 https://www.biostarhandbook.com/unit/visualization/genomic-visualization.html

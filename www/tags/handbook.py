@@ -57,6 +57,9 @@ def top():
 def anchor(name):
     return '<a name="%s">&nbsp;</a>' % name
 
+@register.simple_tag
+def img(path):
+    return '<img class="img-responsive" name="%s">%s</a>' % (path, path)
 
 @register.simple_tag(takes_context=True)
 def simplecode(context, pattern):

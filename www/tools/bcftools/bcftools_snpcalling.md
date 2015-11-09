@@ -5,6 +5,8 @@ specific information:
 
 	# Align the "experimentally" produced reads against the reference.
 	# The command will pull information from the TAG and OUT variables.
+	# Tags data with the content of the TAG value and puts the
+	# results into the file indicated by the OUT variable.
 	# The \t designates a `tab` character.
 	TAG='@RG\tID:a\tSM:b\tLB:c'
 	OUT='output.bam'
@@ -15,18 +17,18 @@ specific information:
 	OUT='experiment1.bam'
 	generate_experimental_data; align_experimental_data
 
-	# Create the second sample.
+	# Create the second sample. Tagged as sample2.
 	TAG='@RG\tID:id2\tSM:sample2\tLB:lib2'
 	OUT='experiment2.bam'
 	generate_experimental_data; align_experimental_data
 
-	# Create the third sample.
-	# Note that we are not generating a new data below!
-	# Thus the third sample will come from the same genome as the second.
-	# We do this to see how this will manifest itself in the VCF file.
+	# Create the third sample. Tagged as sample3.
 	TAG='@RG\tID:id3\tSM:sample3\tLB:lib3'
 	OUT='experiment3.bam'
 
+	# Note that we are not generating a new data below!
+	# Thus the third sample will come from the same genome as the second.
+	# We do this to see how this will manifest itself in the VCF file.
 	# Create the alignment for the third experiment.
 	align_experimental_data
 
