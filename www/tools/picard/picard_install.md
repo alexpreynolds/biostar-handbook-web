@@ -11,36 +11,33 @@ A set of Java command line tools for manipulating high-throughput sequencing dat
 	brew install picard-tools
 	
 **Source code installation: Mac OSX, Linux, Cygwin/Windows**
-You will need to have Apache Ant installed: `apt-get install ant` or
-`brew install ant`
 
-```bash
-# Obtain the picard distribution.
+Visit https://github.com/broadinstitute/picard/releases/ to identify the latest release.
+
+```
 cd ~/src
-git clone git@github.com:broadinstitute/picard.git
-
-# Obtain the htsjdk library.
-cd picard
-git clone git@github.com:samtools/htsjdk.git
-
-# Builds the library.
-ant -lib lib/ant package-commands
+# Obtain the picard distribution.
+curl -OL https://github.com/broadinstitute/picard/releases/download/1.140/picard-tools-1.140.zip
+unzip picard-tools-1.140.zip
 ```
 
 Test that the installation succeeded:
     
-    java -jar ~/src/picard/dist/picard.jar
+    java -jar ~/src/picard-tools-1.140/picard.jar
 
 Create a script that launches picard:
 
-```bash
+```
 echo '#!/bin/bash' > ~/bin/picard
-echo 'java -jar ~/src/picard/dist/picard.jar $@' >> ~/bin/picard
+echo 'java -jar ~/src/picard-tools-1.140/picard.jar $@' >> ~/bin/picard
 
 # Make the script executable
 chmod +x ~/bin/picard
 ```
 
+Test that the script works with:
+
+	picard
 
 
     

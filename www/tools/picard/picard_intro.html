@@ -1,0 +1,73 @@
+{% extends "unitbase.html" %}
+{% load pytags %}
+{# title = Picard #}
+{# subtitle = using  #}
+{# name = Using Picard to process BAM alignment data #}
+
+{% block body %}
+{% markdown %}
+
+A set of tools (in Java) for working with next generation sequencing data in
+the BAM (http://samtools.sourceforge.net) format.
+
+* The Picard website: http://broadinstitute.github.io/picard/
+* Visit https://github.com/broadinstitute/picard/releases/ to identify the latest release.
+* For installation see {%  link 'how-to-install-everything.html' %}
+
+
+> [Can Picard programs read from stdin and write to stdout?][83288]
+>
+> A: Most Picard programs can do this. To read from stdin, specify /dev/stdin as the input file.
+> To write to stdout, specify /dev/stdout as the output file, and also add the option `QUIET=true`
+> to suppress other messages that otherwise would be written to stdout. Not that Picard
+> determines whether to write in SAM or BAM format by examining the file extension of the output file.
+> Since /dev/stdout ends in neither .sam nor .bam, Picard defaults to writing in BAM format.
+>
+> Some Picard programs, e.g. MarkDuplicates, cannot read its input from stdin, because it
+> makes multiple passes over the input file. When writing a BAM to stdout so that it can be
+> read by another program, passing the argument `COMPRESSION_LEVEL=0` to
+> the program writing the BAM to stdout can reduce unnecessary computation.
+
+[83288]: https://www.biostars.org/p/83286/#83288
+- - -
+{%  include_markdown "reference/download_human_data.md" %}
+
+{%  include_markdown "reference/simulate_experiment.md" %}
+
+- - -
+
+Deduplicating and adding readgroups with Picard:
+
+    # Generate and align data.
+    generate_experimental_data; align_experimental_data
+
+    # Mark the duplicates with picard. This adds the tag
+    picard MarkDuplicates INPUT=experiment.bam OUTPUT=dedup.bam METRICS_FILE=report.txt
+
+    # Before marking duplicates
+    samtools view -f 0x400 -c experiment.bam
+
+    # After marking duplicates (settings the PCR duplicate flag)
+    samtools view -f 0x400 -c dedup.bam
+
+    # View the header information after deduplicating.
+    samtools view -H dedup.bam
+
+    # Adding read groups to alignment file.
+    picard AddOrReplaceReadGroups INPUT=dedup.bam OUTPUT=aligned.bam SM=sample1 PL=illumina PU=platform LB=lib1
+
+    # View the header information after adding read group information.
+    samtools view -H align.bam
+
+    # You can pipe commands from one into the other
+    # There are also shorter version of the paramters: INPUT=I OUTPUT=O METRICS_FILE=M etc
+    alias dedup='picard MarkDuplicates'
+    alias readgroups='picard AddOrReplaceReadGroups'
+
+    # This can be chained like so to skip the intermediate file.
+    # not all tools can take streams as some tools may need to make multiple passes
+    # over the files.
+    dedup M=report.txt O=/dev/stdout I=experiment.bam | readgroups I=/dev/stdin O=aligned.bam SM=sample1 PL=illumina PU=platform LB=lib1
+
+{%  endmarkdown %}
+{%  endblock %}
