@@ -73,10 +73,11 @@ Let's see what our snp callers say:
     # Run the Haplotype Caller.
     gatk -T HaplotypeCaller -R $REF -I experiment.bam -o gatk-haplotype.vcf
 
-See {% link 'gatk/gatk_snpcalling.html' %} for the details on how to run `GATK` for this
+See {% link 'gatk/gatk_snpcalling.html' %} for the details on how to run prepare the reference for `GATK` for this
 particular example.
 
-Let's see what they say:
+Compare the SNP callers. Note just how wildy different their output are. Only the GATK Haplotype caller
+produces the expected SNP calls.
 
 <img src="img/homopolymer-vcf.png" class="img-responsive">
 

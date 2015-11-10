@@ -8,9 +8,9 @@
 {% markdown %}
 
 The guide below assumes that the data has been prepared similarly to what is shown in
-{% link  'bcftools_snpcalling.html' %}
+{% link  'bcftools_snpcalling.html' %}. Then the SNP calling would proceed as:
 
-	freebayes -f $REF experiment1.bam experiment2.bam experiment3.bam > variants-freebayes.vcf
+	freebayes --use-mapping-quality --ploidity 1 -f $REF experiment1.bam experiment2.bam experiment3.bam > variants-freebayes.vcf
 
 {%  endmarkdown %}
 {%  endblock %}

@@ -7,6 +7,29 @@
 {% block body %}
 
 {% markdown %}
+### What are SNPs?
+
+There is a lot of imprecision in properly defining SNPs. For example the Wikipedia:
+
+> A single nucleotide polymorphism, also known as simple nucleotide polymorphism,
+> (SNP, pronounced snip; plural snips) is a DNA sequence variation occurring commonly within a
+> population (e.g. 1%) in which a single nucleotide - A, T, C or G in the genome
+> (or other shared sequence) differs between members of a biological species or paired chromosomes ...
+> [see more][wikipedia-snp]
+
+The problem with this definitions and many similar ones is that the variation that occurs may
+in involve more than one base. While an `A` to `C` transversion is a SNP what should
+we call the `A` to `CT` change? Is that an `A` to `C` transversion plus an insertion of `T`, or
+is it an insertion of `CT` in place of the `A`. Are those two SNPs or just one polymorphism?
+
+In the end even though SNP includes the words "single nucleotide" it has come to describe
+all small variations (polymorphisms) in a genome. Even though technically those are not SNPs.
+The word INDELs are also commonly used to describe insertions/deletions in the genome.
+
+In general SNPs designate single nucleotide changes and small INDELs.
+
+[wikipedia-snp]: [https://en.wikipedia.org/wiki/Single-nucleotide_polymorphism]
+
 ### Pileups
 
 The pileup format is a data representation that is generated from a SAM/BAM file and shows nucleotides
@@ -53,25 +76,31 @@ KM034562v1  738     .       T       C      100     PASS    AF=1.0    GT      0/1
 each base to be at a given position). It then uses this likelhood to call variations:
 
 ```
-samtools mpileup -uvf reference.fa file1.bam file2.bam file3.bam | bcftools call -vm -O v > variants.vcf
+samtools mpileup -uvf reference.fa alignment.bam | bcftools call -vm -O v > variants.vcf
 ```
 
 Learn more about SNP calling with `bcftools` on: {%  link "bcftools/bcftools_snpcalling.html" %}
 
 - - -
-### SNP calling with FreeBayes
+### SNP calling with Freebayes
 
 Example:
 
 ```
-freebayes ---use-mapping-quality --ploidity 1 -f reference.fa file1.bam file2.bam file3.bam > variants.vcf
+freebayes -f reference.fa alignment.bam > variants.vcf
 ```
 Learn more about SNP calling with `freebayes` on: {%  link "freebayes/freebayes_snpcalling.html" %} (TODO)
 
 - - -
 ### SNP calling with GATK
 
-Learn more about SNP calling with `gatk` on: {%  link "gatk/gatk_snpcalling.html" %} (TODO)
+Example:
+
+```
+gatk -T HaplotypeCaller -R reference.fa -I alignment.bam -o variants.vcf
+```
+
+Learn more about SNP calling with `gatk` on: {%  link "gatk/gatk_snpcalling.html" %}
 
 - - -
 ### How misalignment causes incorrect SNP calls.
