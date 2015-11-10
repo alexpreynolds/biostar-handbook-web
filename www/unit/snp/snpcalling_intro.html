@@ -50,7 +50,7 @@ Samtools can generate genotype likelhoods from these coverages.
 [5things]: http://massgenomics.org/2012/03/5-things-to-know-about-samtools-mpileup.html
 [pileup-spec]: https://en.wikipedia.org/wiki/Pileup_format
 
-Learn more about the pileup commands: {%  link "samtools_pileup.html" %}
+Learn more about the pileup command in **{%  link "samtools_pileup.html" %}**
 
 - - -
 ### The Variant Call Format
@@ -69,6 +69,8 @@ KM034562v1  738     .       T       C      100     PASS    AF=1.0    GT      0/1
 * Short summary on VCF format: http://www.htslib.org/doc/vcf.html
 * VCF Specification: http://samtools.github.io/hts-specs/
 
+[vcf-poster]: http://vcftools.sourceforge.net/VCF-poster.pdf
+
 - - -
 ### SNP calling with bcftools
 
@@ -79,7 +81,7 @@ each base to be at a given position). It then uses this likelhood to call variat
 samtools mpileup -uvf reference.fa alignment.bam | bcftools call -vm -O v > variants.vcf
 ```
 
-Learn more about SNP calling with `bcftools` on: {%  link "bcftools/bcftools_snpcalling.html" %}
+Learn more about using `bcftools` in **{%  link "bcftools/bcftools_snpcalling.html" %}**
 
 - - -
 ### SNP calling with Freebayes
@@ -89,7 +91,7 @@ Example:
 ```
 freebayes -f reference.fa alignment.bam > variants.vcf
 ```
-Learn more about SNP calling with `freebayes` on: {%  link "freebayes/freebayes_snpcalling.html" %} (TODO)
+Learn more about using `freebayes` in **{%  link "freebayes/freebayes_snpcalling.html" %}** (TODO)
 
 - - -
 ### SNP calling with GATK
@@ -100,7 +102,7 @@ Example:
 gatk -T HaplotypeCaller -R reference.fa -I alignment.bam -o variants.vcf
 ```
 
-Learn more about SNP calling with `gatk` on: {%  link "gatk/gatk_snpcalling.html" %}
+Learn more about using `gatk` in **{%  link "gatk/gatk_snpcalling.html" %}**
 
 - - -
 ### How misalignment causes incorrect SNP calls.
@@ -117,7 +119,7 @@ Align and investigate the two outputs:
     local-align.sh CCAAACCCCCCCTCCCCCGCTTC CCAAACCCCCCCCTCCCCCCGCTTC
     local-align.sh CCAAACCCCCCCTCCCCCGCTTC CCAAACCCCCCCCTCCCCCCGCTTC -gapopen 9
 
-We will work through this problem on {%  link "snp/snpcalling_homopolymers.html" %}
+We will work through this problem in **{%  link "snp/snpcalling_homopolymers.html" %}**
 
 - - -
 ### Additional reading
