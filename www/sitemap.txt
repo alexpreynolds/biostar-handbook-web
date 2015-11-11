@@ -17,6 +17,7 @@ https://www.biostarhandbook.com/tools/freebayes/freebayes_snpcalling.html
 https://www.biostarhandbook.com/tools/gatk/gatk_snpcalling.html
 https://www.biostarhandbook.com/tools/picard/picard_intro.html
 https://www.biostarhandbook.com/tools/samtools/samtools_pileup.html
+https://www.biostarhandbook.com/tools/snpeff/snpeff_intro.html
 https://www.biostarhandbook.com/tools/trimmomatic/trimmomatic_intro.html
 https://www.biostarhandbook.com/tools/unix/bash-profile.html
 https://www.biostarhandbook.com/tools/unix/unix-intro.html

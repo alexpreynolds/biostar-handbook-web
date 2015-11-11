@@ -1,0 +1,65 @@
+{% extends "unitbase.html" %}
+{% load pytags %}
+{# title =  Unix #}
+{# subtitle = survival guide #}
+{# name = A bioinformatician's command line survival guide  #}
+
+{% block body %}
+
+{% markdown %}
+
+#### 1: Use sequence aware tools!
+
+Unix tools are generic text processing tools. They are great to produce
+quick evaluations. Be careful in how you use them. For example the following way
+to find the length of a sequence is incorrect:
+
+    cat reference.fa | grep -v ">" | wc -c
+
+This counts more than just the number of nucleotides in the sequence file `reference.fa`.
+It will also count the new lines character the end of each line. You should use a sequence
+aware tool like bioawk:
+
+    cat reference.fa | bioawk -c fastx ' { print length($seq) } '
+
+Or a simpler and potentially faster way to find the lengths of **all** sequences in a file:
+
+    # Creates a simple index file
+    samtools faidx reference.fa
+    more reference.fa.fai
+
+
+#### 2: grep matches everywhere on the line
+
+Grep is a pattern matcher it will match the pattern anywhere on the line.
+It is very easy to match more than what you intended.
+
+The error of matching more is a lot harder to notice than the error or matching less than needed.
+
+For anything but the simplest patterns use `egrep` and build `regular expressions` that describe
+the boundaries (anchors) of the match.
+
+    # Wrong pattern
+    # Which gff line contains the value 62. It could match 162 or 621 as well.
+    cat data.gff | grep '62'
+
+    # The value of 62 anchored on the left and right by tabs.
+    cat data.gff | egrep '\t62\t`
+
+#### 3. There is a wide range of unix like tools
+
+Get a good sense of what each of the following tools do:
+
+* `bioawk` - bioinformatics aware awk
+* `seqtk` - sequence manipulation toolkit: extract random sample, transform sequences, trim etc
+* `tabtk` - tab toolkit, the missing compomnents from unix `cut`
+* `tabix` - interval query of large tabular files.
+    
+Tibit: all the above are by Heng Li.
+
+
+
+
+{% endmarkdown %}
+
+{% endblock %}
