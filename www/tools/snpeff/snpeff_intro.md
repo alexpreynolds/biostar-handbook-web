@@ -17,6 +17,9 @@ and we need to align against the same genome.
 	# ebola_zaire   Ebola Zaire Virus    KJ660346.1   OK
 	# http://downloads.sourceforge.net/project/snpeff/databases/v4_1/snpEff_v4_1_ebola_zaire.zip
 
+	# We need to download that database to use it
+	snpEff download ebola_zaire
+
 Note the version number of the accession number `KJ660346.1` the actual version number
 may be higher. It is typically the best idea is to use the exact versions even if a newer
 one is available.
