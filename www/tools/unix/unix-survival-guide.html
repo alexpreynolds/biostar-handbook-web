@@ -28,13 +28,11 @@ Or a simpler and potentially faster way to find the lengths of **all** sequences
     samtools faidx reference.fa
     more reference.fa.fai
 
-
-#### 2: grep matches everywhere on the line
+- - -
+#### 2: grep (and other matchers) find matches on the entire input line
 
 Grep is a pattern matcher it will match the pattern anywhere on the line.
-It is very easy to match more than what you intended.
-
-The error of matching more is a lot harder to notice than the error or matching less than needed.
+It is very easy to match more than what you intended. The error of matching more is a lot harder to notice than the error or matching less than needed.
 
 For anything but the simplest patterns use `egrep` and build `regular expressions` that describe
 the boundaries (anchors) of the match.
@@ -46,7 +44,35 @@ the boundaries (anchors) of the match.
     # The value of 62 anchored on the left and right by tabs.
     cat data.gff | egrep '\t62\t`
 
-#### 3. There is a wide range of unix like tools
+- - -
+#### 3. Beyond grep: ack
+
+Finding content in files can be tedious. While grep searches a single file we
+often want to find content where we don't know the file that might contain the information.
+We could combine a `find` and `grep` like so:
+
+    # Search with grep for the word bwa in all the files of a subdirectory
+    grep bwa $(find . -type f)
+
+The first tool that brough santiy to this was called `ack`. The above command turns into:
+
+    # With ack
+    ack bwa
+
+Installation:
+
+    brew install ack
+
+For more details and installation on other platforms visit [Beyond Grep][ack]. Over time
+a number of similar but faster
+tools have been released, but these have more complex installations [ag: silver searcher][ag] and [Sift][sift]
+
+[ack]: http://beyondgrep.com/
+[ag]: http://geoff.greer.fm/ag/
+[sift]: https://sift-tool.org/info.html
+
+- - -
+#### 4. There is a wide range of unix like tools
 
 Get a good sense of what each of the following tools do:
 
@@ -54,11 +80,20 @@ Get a good sense of what each of the following tools do:
 * `seqtk` - sequence manipulation toolkit: extract random sample, transform sequences, trim etc
 * `tabtk` - tab toolkit, the missing compomnents from unix `cut`
 * `tabix` - interval query of large tabular files.
-    
-Tibit: all the above are by Heng Li.
 
+Note: all the above software were written  by Heng Li.
 
+#### 5. Advanced data processing at command line tools: Miller, csvkit
 
+These tools feel like one step away from being a full fledged programming languages.
+Are a lot more powerful than basic Unix tools but require learning a local and specific
+rules for that tool. You can do marvelous data analytics with them.
+
+* [Miller][miller] is like sed, awk, cut, join, and sort for name-indexed data such as CSV.
+* [csvkit][csvkit] a suite of utilities for converting to and working with CSV and tabular data
+
+[csvkit]: https://csvkit.readthedocs.org
+[miller]: http://johnkerl.org/miller/doc/index.html
 
 {% endmarkdown %}
 
