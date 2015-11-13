@@ -13,4 +13,4 @@ bedtools closest -a peaks.bed -b genes.bed -iu -D ref
 bedtools closest -a peaks.bed -b genes.bed -id -D ref
 
 # note that if there is no gene upstream of our peak it will not report
-# anything if we tell it to ignore downstream genes
+# anything if we tell it to ignore downstream genes 
