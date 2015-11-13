@@ -1,0 +1,14 @@
+chr1	25	75	read1	50	-	1
+chr1	30	80	read2	50	-	1
+chr1	50	100	read3	50	-	1
+chr1	60	110	read5	50	+	1
+chr1	120	170	read6	50	+	1
+chr1	150	200	read4	50	-	1
+chr1	480	530	read8	50	+	1
+chr1	500	550	read9	50	+	1
+chr1	580	630	read10	50	+	1
+chr1	920	970	read12	50	+	1
+chr1	1000	1050	read13	50	+	1
+chr1	1100	1150	read14	50	+	1
+chr1	1500	1550	read16	50	-	1
+chr1	1670	1720	read17	50	-	1

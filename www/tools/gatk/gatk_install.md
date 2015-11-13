@@ -11,9 +11,9 @@ The software works on all platforms that run java.
 **Installation**
 
 Register on the webpage and download the `GenomeAnalysisTK-3.4-46.tar.bz2` file. The version
-of the sofware will change in time.
+of the software will change in time.
 
-```bash
+```
 mkdir -p ~/src/gatk
 mv ~/Downloads/GenomeAnalysisTK-3.4-46.tar.bz2 ~/src/gatk
 cd ~/src/gatk
@@ -23,9 +23,9 @@ Test the installation
 
 	java -jar ~/src/gatk/GenomeAnalysisTK.jar -h
 	
-Create a script that launches gatk:
+Create a script that launches `gatk``:
 
-```bash
+```
 echo '#!/bin/bash' > ~/bin/gatk
 echo 'java -jar ~/src/gatk/GenomeAnalysisTK.jar $@' >> ~/bin/gatk
 

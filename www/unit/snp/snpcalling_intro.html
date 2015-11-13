@@ -9,7 +9,7 @@
 {% markdown %}
 ### What are SNPs?
 
-There is a lot of imprecision in properly defining SNPs. For example the Wikipedia:
+There is a lot of imprecision in properly defining SNPs. For example the Wikipedia states:
 
 > A single nucleotide polymorphism, also known as simple nucleotide polymorphism,
 > (SNP, pronounced snip; plural snips) is a DNA sequence variation occurring commonly within a
@@ -17,8 +17,8 @@ There is a lot of imprecision in properly defining SNPs. For example the Wikiped
 > (or other shared sequence) differs between members of a biological species or paired chromosomes ...
 > [see more][wikipedia-snp]
 
-The problem with this definitions and many similar ones is that the variation that occurs may
-in involve more than one base. While an `A` to `C` transversion is a SNP what should
+The problem with this definition and many similar ones is that the variation that occurs may
+involve more than one base. While an `A` to `C` transversion is a SNP what should
 we call the `A` to `CT` change? Is that an `A` to `C` transversion plus an insertion of `T`, or
 is it an insertion of `CT` in place of the `A`. Are those two SNPs or just one polymorphism?
 
@@ -26,10 +26,11 @@ In the end even though SNP includes the words "single nucleotide" it has come to
 all small variations (polymorphisms) in a genome. Even though technically those are not SNPs.
 The word INDELs are also commonly used to describe insertions/deletions in the genome.
 
-In general SNPs designate single nucleotide changes and small INDELs.
+In general SNPs designate small nucleotide changes including insertions and deletions.
 
 [wikipedia-snp]: [https://en.wikipedia.org/wiki/Single-nucleotide_polymorphism]
 
+- - -
 ### Pileups
 
 The pileup format is a data representation that is generated from a SAM/BAM file and shows nucleotides

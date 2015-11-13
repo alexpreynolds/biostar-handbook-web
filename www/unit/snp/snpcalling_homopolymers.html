@@ -6,8 +6,15 @@
 
 {% block body %}
 {% markdown %}
+Low complexity regions may produce counfounding alignments that are difficult to resolve.
+For example a mutation with two insertions flanked by homopolymers may be very challenging to
+resolve:
 
-- - -
+    CCAAACCCCCCC-T-CCCCCGCTTC
+    CCAAACCCCCCCCTCCCCCCGCTTC
+
+We will now attempt to recreate this situation within a realistic data analysis scenario.
+
 {%  endmarkdown %}
 
 {%  include_markdown "reference/download_human_data.md" %}
@@ -15,11 +22,6 @@
 {%  include_markdown "reference/simulate_experiment.md" %}
 
 {%  markdown %}
-
-    We want to simulate the effects of introducing the mutation
-
-    CCAAACCCCCCC-T-CCCCCGCTTC
-    CCAAACCCCCCCCTCCCCCCGCTTC
 
 Create the modification for the `T` base at position 310:
 
@@ -42,7 +44,7 @@ Create the modification for the `T` base at position 310:
     alias generate_experimental_data='dwgsim -d 200 -r 0 -N 5000 $REAL experiment'
 
     # Generate and create the alignment.
-    generate_exprimental_data; align_experimental_data
+    generate_experimental_data; align_experimental_data
 
 Here is what happened at position `310`
 

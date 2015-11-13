@@ -9,6 +9,8 @@ import re, logging, textwrap
 
 from pygments import highlight
 
+logger = logging.getLogger('pyblue')
+
 import bleach
 from pyblue.templatetags.pytags import load
 register = template.Library()
@@ -66,6 +68,25 @@ def simplecode(context, pattern):
     text = load(context=context, pattern=pattern)
     html = markdown("```\n{}\n```").format(text)
     return html
+
+@register.simple_tag(takes_context=True)
+def path(context, word, text=None):
+    start = context['page']
+    files = context['files']
+    items = filter(lambda x: re.search(word, x.fname, re.IGNORECASE), files)
+    items = list(items)
+    if not items:
+        f = files[0]
+        logger.error("link '%s' does not match" % word)
+        rpath = "#"
+    else:
+        f = items[0]
+        if len(items) > 1:
+            logger.warn("link '%s' matches more than one item: %s" % (word, items))
+        rpath = f.relpath(start=start)
+
+    return rpath
+
 
 def fix_indent(text):
     "Creates "

@@ -1,32 +1,31 @@
 ## Bedtools
 
-The bedtools suite is a collection of command line tools useful for a wide-range of genomic analyses. The most widely used tools are useful for genomic arithmetic or in other words the application of set theory to the analysis of genomic intervals. Common commands include but aren't limited to *intersect*, *subtract*, *merge*, *flank*, *closest*, and *complement*. However, there are many more that can be combined in novel ways to answer an incredible number of biological questions in genomics.
+Collectively, the bedtools utilities are a swiss-army knife of tools for a wide-range of
+genomics analysis tasks. The most widely-used tools enable genome arithmetic: that is,
+set theory on the genome.
 
-Documentation: http://bedtools.readthedocs.org/en/latest/
+Website: http://bedtools.readthedocs.org/en/latest/  
+Tutorial: http://quinlanlab.org/tutorials/cshl2014/bedtools.html
 
-**Mac OS X**
+**Mac OSX**:
 
     brew update
     brew info bedtools
     brew install bedtools
 
-**Linux**
+**All Platforms**
 
-Fedora/CentOS
+Installation is identical on all platforms:
 
-    yum install BEDTools
+	cd ~/src
+	curl -OL https://github.com/arq5x/bedtools2/releases/download/v2.25.0/bedtools-2.25.0.tar.gz
+	tar zxvf bedtools-2.25.0.tar.gz
+	cd bedtools2
+	make
 
-Ubuntu/Debain
+	# Link bedtools to the bin folder
+	ln -s ~/src/bedtools2/bin/bedtools ~/bin/bedtools
 
-    apt-get install bedtools
+Test installation by running:
 
-**Source install**
-
-    cd ~/src
-    git clone https://github.com/arq5x/bedtools2
-    cd bedtools2
-    make
-
-The documentation above offers extensive explanations and graphical examples to better understand how to use the different tools and how they can be combined to answer biologically relevant questions. In addition one can look at this tutorial as well:
-
-Tutorial: http://quinlanlab.org/tutorials/cshl2014/bedtools.html
+	bedtools
