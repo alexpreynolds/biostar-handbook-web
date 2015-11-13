@@ -1,0 +1,37 @@
+{% extends "unitbase.html" %}
+{% load pytags %}
+{# title = Variant Annotations #}
+{# subtitle = characterizing the effects of variants #}
+{# name = Characterizing the effects of SNPs and small variations #}
+
+{% block body %}
+
+{% markdown %}
+### What is variant annotation
+
+Variant annotation means predicting the effects of genetic variants (SNPs, insertions, deletions,
+CNVs or structural variants) on the function of genes, transcripts,
+and protein sequence, as well as regulatory regions.
+
+Variant effect annotators typically include information multiple other datasources.
+
+- - -
+
+### Variant Annotators
+
+* [VEP: Variant Effect Predictor][vep] from Ensemble, a web based tool.
+* [snpEff][snpeff]: genetic variant annotation and effect prediction toolbox.
+* [AnnoVar][annovar]: software tool to functionally annotate genetic variants detected from diverse genomes.
+* [VAAST 2][vaast]: Variant annotation, analysis and search tool.
+
+[vep]: http://www.ensembl.org/info/docs/tools/vep/index.html
+[annovar]:  http://annovar.openbioinformatics.org/en/latest/
+[snpeff]: http://snpeff.sourceforge.net/index.html
+[vaast]: http://www.yandell-lab.org/software/vaast.html
+
+- - -
+{%  endmarkdown %}
+
+{%  include_markdown "snpeff/snpeff_intro.md" %}
+
+{% endblock %}

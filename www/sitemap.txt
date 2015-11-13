@@ -21,6 +21,7 @@ https://www.biostarhandbook.com/tools/trimmomatic/trimmomatic_intro.html
 https://www.biostarhandbook.com/tools/unix/bash-profile.html
 https://www.biostarhandbook.com/tools/unix/unix-intro.html
 https://www.biostarhandbook.com/tools/unix/unix-shell-scripts.html
+https://www.biostarhandbook.com/tools/unix/unix-survival-guide.html
 https://www.biostarhandbook.com/ucsc/trackhub/handbookhub.html
 https://www.biostarhandbook.com/unit/example.html
 https://www.biostarhandbook.com/unit/align/next-gen-aligners.html
@@ -35,4 +36,5 @@ https://www.biostarhandbook.com/unit/sam/sam-format.html
 https://www.biostarhandbook.com/unit/snp/snpcalling_homopolymers.html
 https://www.biostarhandbook.com/unit/snp/snpcalling_intro.html
 https://www.biostarhandbook.com/unit/sra/short-read-archive.html
+https://www.biostarhandbook.com/unit/variant_annotation/variant_annotation_intro.html
 https://www.biostarhandbook.com/unit/visualization/genomic-visualization.html
