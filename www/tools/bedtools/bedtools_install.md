@@ -4,7 +4,8 @@ Collectively, the bedtools utilities are a swiss-army knife of tools for a wide-
 genomics analysis tasks. The most widely-used tools enable genome arithmetic: that is,
 set theory on the genome.
 
-Website: http://bedtools.readthedocs.org/en/latest/
+Website: http://bedtools.readthedocs.org/en/latest/  
+Tutorial: http://quinlanlab.org/tutorials/cshl2014/bedtools.html
 
 **Mac OSX**:
 

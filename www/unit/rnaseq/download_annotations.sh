@@ -20,7 +20,7 @@ wget http://plasmodb.org/common/downloads/release-26/Pfalciparum3D7/gff/data/Pla
 
 ## clean up files for ease of use
 
-# remove suerpfolous fasta header information
+# remove suerpfluous fasta header information
 cat ./data/anno/tmp_genome.fasta | awk '{if($0 ~ />/) {split($0, X, " "); print X[1]} else {print $0}}' > ./data/anno/pf3d7_genome.fasta
 cat ./data/anno/tmp_transcriptome.fasta | awk '{if($0 ~ />/) {split($0, X, " "); print X[1]} else {print $0}}' > ./data/anno/pf3d7_transcriptome.fasta
 
