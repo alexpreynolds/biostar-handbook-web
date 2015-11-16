@@ -28,6 +28,7 @@ https://www.biostarhandbook.com/unit/align/next-gen-aligners.html
 https://www.biostarhandbook.com/unit/blast/blast-intro.html
 https://www.biostarhandbook.com/unit/emboss/emboss-intro.html
 https://www.biostarhandbook.com/unit/entrez/ncbi-entrez.html
+https://www.biostarhandbook.com/unit/intervals/genome-arithmetic.html
 https://www.biostarhandbook.com/unit/ontology/gene-ontology.html
 https://www.biostarhandbook.com/unit/programming/programming-intro.html
 https://www.biostarhandbook.com/unit/qc/fastq-quality-control.html
