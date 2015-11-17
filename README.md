@@ -1,4 +1,14 @@
-### Contributing to the Biostar Handbook
+
+### Biostar Handbook
+
+This repository is an online companion for the Biostar Handbook:
+
+See: https://www.biostarhandbook.com/
+
+### Contributors
+
+* Istvan Albert, https://github.com/ialbert
+* Phil Ross, https://github.com/thephilross
 
 Contributions need to be made via GitHub: https://github.com/ialbert/biostar-handbook-web
 
@@ -23,7 +33,7 @@ other details.
 Restart the server if you add a new file as the directory tree 
 is scanned only once on startup. Changes to files however will 
 be visible right away.
-    
+
 ### Content
 
 Content is divided into subdirectories of the  `www/unit` directory. 
@@ -40,3 +50,4 @@ Content is divided into subdirectories of the  `www/unit` directory.
 1. Bootstrap 2.3 styling is enabled.
 
 You can also consult the [pyblue documentation](http://ialbert.github.io/pyblue/) for more details.
+

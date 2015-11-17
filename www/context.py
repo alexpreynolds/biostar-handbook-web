@@ -27,26 +27,6 @@ def find(target, pattern):
 # Collect installation files.
 TOOL_INSTALL = find("tools", "_install.md")
 
-
-CHAPTERS = [
-     # Keep this last chapter.
-    "setup/software-installation.html",
-    "tools/install-everything.html",
-    "unix/unix-intro.html",
-    "entrez/ncbi-entrez.html",
-    "ontology/gene-ontology.html",
-    "emboss/emboss-intro.html",
-    "blast/blast-intro.html",
-    "sra/short-read-archive.html",
-    "qc/fastq-quality-control.html",
-    "unix/unix-shell-scripts.html",
-    "align/next-gen-aligners.html",
-    "sam/SAM-format.html",
-    "programming/programming-intro.html",
-    "visualization/genomic-visualization.html",
-    "snp/snpcalling_intro.html",
-]
-
 NAVBAR = [
     ("index.html", '<span class="glyphicon glyphicon-home" aria-hidden="true"></span> Home'),
     ("search.html", '<span class="glyphicon glyphicon-search" aria-hidden="true"></span> Search'),
