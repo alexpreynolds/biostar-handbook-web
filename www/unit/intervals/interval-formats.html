@@ -14,15 +14,16 @@
 Although genomes exist in three-dimensional space, in bioinformatics we often simplify our
 model of the genome to two dimensions in order to facilitate visualization and analysis
 tasks. Hence, coordinates for spatially describing genomic loci tend to follow the general
-pattern of chromosome: `start`, `end` where "start" and "end" are both integers that represent the
+pattern of `chromosome`, `start`, `end` where "start" and "end" are both integers that represent the
 left and right positions of an interval. Since nucleic acid molecules are polar
 there is a directionality to each interval typically indicated by the `strand` column of the data.
 
-There are two common interval representation formats:
+There are two common interval representation formats `BED`and `GFF`. Each is a tab delimited
+format where columns have different designations:
 
 * [GFF3: Generic Feature Format][gff3-format]
-* [BED Browser Extensible Data][bed-format]
-    
+* [BED: Browser Extensible Data][bed-format]
+
 In addition GFF has prior versions (that should be avoided as much as possible) such as:
 
 * [GFF2: Generic Feature Format][gff2-format] and
@@ -142,7 +143,7 @@ The `blockStart` is relative to the start coordinate at column `2`.
 
     KJ660346	999	8000	Tic	0	+	999	8000	.	4	1000,1000,1000,1000 0,2000,4000,6000
     KJ660346	999	8000	Tac	0	+	999	8000	.	3	1000,1000,1000  0,4000,6000
-    KJ660346	999	8000	Toe	0	+	999	8000	.	3	1000,1000   0,4000
+    KJ660346	999	8000	Toe	0	+	999	8000	.	2	1000,1000   0,4000
 
 <img src="img/relationships.png" class="img-responsive">
 
