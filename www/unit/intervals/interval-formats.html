@@ -8,7 +8,7 @@
 {% block body %}
 
 {% markdown %}
-
+- - -
 ### Genomic Intervals
 
 Although genomes exist in three-dimensional space, in bioinformatics we often simplify our
@@ -20,9 +20,9 @@ there is a directionality to each interval typically indicated by the `strand` c
 
 There are two common interval representation formats:
 
-* [BED Browser Extensible Data][bed-format] and
-* [GFF3: Generic Feature Format][gff3-format].
-
+* [GFF3: Generic Feature Format][gff3-format]
+* [BED Browser Extensible Data][bed-format]
+    
 In addition GFF has prior versions (that should be avoided as much as possible) such as:
 
 * [GFF2: Generic Feature Format][gff2-format] and
@@ -32,8 +32,10 @@ The fundamental difference between the two main representation formats:
 
 1. The coordinate system:
 
-    * `BED`: is 0 based, non-inclusive on the right, `[0, 5)` ->  `0,1,2,3,4` whereas
-    * `GFF`: 1 based, inlcusive on both ends, `[1,5]` -> `1,2,3,4,5`
+    * `GFF`: 1 based, inclusive on both ends. This means that `[1,5]` contains `1,2,3,4,5`
+       and that coordinate `1` is the first coordinate of the genome.
+    * `BED`: is 0 based, non-inclusive on the right. This means that the interval `[1, 5)` contains  `1,2,3,4`
+       and coordinate `1` is the second coordinate of the genome (`0` is the first).
 
 2. Hierachical data representation:
 
@@ -45,6 +47,7 @@ The fundamental difference between the two main representation formats:
 [gff3-format]: http://www.sequenceontology.org/gff3.shtml
 [gtf-format]: http://mblab.wustl.edu/GTF22.html
 
+- - -
 ### BED Format
 
 Create and visualize data relative to a genomic build:
@@ -82,10 +85,11 @@ IGV now shows fourth column as label and adds "fishbones" to show the directiona
 
 <img src="img/6column-bed.png" class="img-responsive">
 
+- - -
 ### GFF files
 
-The same information as GTF and GFF3 files. Save them into separate files and must be TAB separated.
-We now need to add information such as `source` and `type`.
+We will now represent the same information as GTF and GFF3 files. Save these into separate files
+and rember to check for them to be TAB separated. For GFF/GTF we  need to add information such as `source` and `type`.
 Example GTF file:
 
     KJ660346    lecture    CDS    101    200    .    -    .    gene "Happy"; protein_id "HAP2"
@@ -99,14 +103,16 @@ All together will look like this (note how the GTF is drawn slightly differently
 
 <img src="img/bed-and-gff.png" class="img-responsive">
 
+- - -
 ### Hierarchical relationships
 
-A relationship where multiple features belong together. For example specifiy all exons of a transcript.
+A relationship indicates multiple features that belong together. For example we need to specifiy all exons of a transcript.
 Lets take a gene called `Happy` that has four exons. These four exons can form three transcripts
-`Tic` all four exons, `Tac` built from 1st, 3rd and 4th exon, and `Toe` build from 1st and 3rd exon.
+`Tic` all four exons, `Tac` built from 1st, 3rd and 4th exon, and `Toe` build from 1st and 3rd exon. We'll
+build a representation for it with different standards.
 
-The GFF2 representation repeates each entry as many times as needed even if it means enterting the
-same line many times.
+The GFF2 representation repeats each entry as many times as needed even if it means enterting the
+redundant data:
 
     ##gff-version 2
     KJ660346	demo	exon	1000	2000	.	+	.	gene_id "Happy"; transcript_id "Tic";
@@ -121,7 +127,8 @@ same line many times.
     KJ660346	demo	exon	1000	2000	.	+	.	gene_id "Happy"; transcript_id "Toe";
     KJ660346	demo	exon	5000	6000	.	+	.	gene_id "Happy"; transcript_id "Toe";
 
-GFF3 representation tags each entry with the "Parent", that is the feature name it belongs to.
+GFF3 representation shortens the above by taggin each entry with the "Parent". This is the feature name
+it belongs to.
 
     ##gff-version 3
     KJ660346	demo	exon	1000	2000	.	+	.	Parent=Tic,Tac,Toe;
@@ -131,6 +138,7 @@ GFF3 representation tags each entry with the "Parent", that is the feature name 
 
 In the `BED` representation each transcript is fully specified on one line. The columns `10`, `11` and `12`
 called `blockCount`, `blockSize` and `blockStart` specifiy the units by which a feature is split.
+The `blockStart` is relative to the start coordinate at column `2`.
 
     KJ660346	999	8000	Tic	0	+	999	8000	.	4	1000,1000,1000,1000 0,2000,4000,6000
     KJ660346	999	8000	Tac	0	+	999	8000	.	3	1000,1000,1000  0,4000,6000
