@@ -8,8 +8,11 @@ body {
     color: #363636;
     font-family: "proxima-nova", "Segoe UI", "Helvetica Neue", Helvetica, Arial, sans-serif;
     font-size: 16px;
-    line-height: normal;
+    line-height: 1.6;
 }
+
+
+h1,h2,h3{line-height:1.2}
 
 blockquote {
     font-size: 16px;
