@@ -17,6 +17,10 @@ PLoS Computational Biology][pcbi.1004393]
 
 [pcbi.1004393]: http://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1004393
 
+Note that this tutorial uses different data analysis strategies than the publication above.
+Some of the data names and annotations files have been changed and simplified. We are also pursuing
+different data processing methodologies.
+
 - - -
 
 ### Install the data
@@ -28,7 +32,53 @@ has been simplified.
 
 - - -
 
+### Simple alignment with bwa
 
+While bwa was not originally designed as a spliced aligner the bwa mem method works suprisingly well.
+
+	# The bam conversion shortcut.
+	alias bam='samtools view -b - | samtools sort -o - booyah'
+
+	# Set up some variables. These allow you to see what changes and what does not.
+	export GTF=annot/genes_chr22_ERCC92.gtf
+	export REF=refs/chr22_ERCC92.fa
+	export IDX=refs/chr22_ERCC92
+	export READ1=data/UHR_Rep1_Mix1.r1.fq
+	export READ2=data/UHR_Rep1_Mix1.r2.fq
+
+	# Run bwa mem on this data.
+	bwa index $REF
+	bwa mem $REF $READ1 $READ2 | bam > bwa.bam
+	samtools index bwa.bam
+
+	# Make a bedgraph (coverage track)
+	samtools faidx $REF
+	bedtools genomecov -ibam bwa.bam -g $REF.fai -split -bg > bwa.bedgraph
+
+Now run Tophat on the same dataset:
+
+	# Set up a few shortcuts
+
+	# Build a bowtie2 index
+	bowtie2-build $REF $IDX
+
+	# Run a tophat with no external information.
+	tophat2 -o tophat-simple $IDX $READ1 $READ2
+	samtools index tophat-simple/accepted_hits.bam
+
+	# Run tophat with with annotations.
+	tophat2 -o tophat-annot -G $GTF $IDX  $READ1 $READ2
+	samtools index tophat-annot/accepted_hits.bam
+
+	# Run tophat after adding all known information
+	# Also setting up a transcriptome based alignment
+	tophat2 -r 60 --library-type fr-firststrand -o tophat-best --transcriptome-index transx -G $GTF $IDX $READ1 $READ2
+	samtools index tophat-best/accepted_hits.bam
+
+Here is an IGV view of the results:
+
+	# Run tophat
+	tophat2 -p 4 -r 60 --library-type fr-firststrand --rg-id=UHR_Rep1 --rg-sample=UHR_Rep1_ERCC-Mix1 -o UHR_Rep1_ERCC-Mix1 -G $GTF --transcriptome-index trans refs/chr22_ERCC92.fa  data/HBR_Rep1_Mix2.r1.fq data/HBR_Rep1_Mix2.r2.fq
 
 {% endmarkdown %}
 
