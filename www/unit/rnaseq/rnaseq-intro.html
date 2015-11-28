@@ -1,0 +1,30 @@
+{% extends "unitbase.html" %}
+{% load pytags %}
+{# title =  RNA-Seq #}
+{# subtitle = transcriptome analysis #}
+{# name = RNA-Seq and transcriptome analysis  #}
+
+{% block body %}
+
+{% markdown %}
+
+### Tutorial 1: Informatics for RNA-seq: A web resource for analysis on the cloud
+
+The first tutorial uses data from: [Malachi Griffith*, Jason R. Walker, Nicholas C. Spies, Benjamin
+J. Ainscough, Obi L. Griffith*. 2015.
+Informatics for RNA-seq: A web resource for analysis on the cloud. 11(8):e1004393.
+PLoS Computational Biology][pcbi.1004393]
+
+[pcbi.1004393]: http://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1004393
+
+Note that while we use the data published in the publication above the tutorial may deviate
+from those practices.
+
+Follow the tutorial at {% link "griffith-intro.html" %}
+
+- - -
+
+
+{% endmarkdown %}
+
+{% endblock %}

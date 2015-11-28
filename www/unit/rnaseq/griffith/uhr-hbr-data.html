@@ -1,0 +1,62 @@
+{% extends "unitbase.html" %}
+{% load pytags %}
+{# title =  GriffthLab RNA-Seq #}
+{# subtitle = obtain the dataset #}
+{# name = Install the UHR and BHR data #}
+
+{% block body %}
+
+{% markdown %}
+
+The Github repository for the original tutorial can be found at: https://github.com/griffithlab/rnaseq_tutorial
+
+### Data
+
+The test data consists of two commercially available RNA samples:
+
+* Universal Human Reference (UHR) that contains RNA isolated from a diverse
+  set of 10 cancer cell lines.
+* Human Brain Reference (HBR) is total RNA isolated from the brains of 23
+  Caucasians, male and female, of varying age but mostly 60-80 years old.
+
+In addition, a spike-in control was used. An aliquot of the [ERCC ExFold
+RNA Spike-In Control Mixes](https://github.com/griffithlab/rnaseq_tutorial/wiki/ResourceFiles/ERCC.pdf)
+to each sample.
+
+The spike-in consists of 92 transcripts that are present in known concentrations
+across a wide abundance range (from very few copies to many copies).
+Adding controls allows us to test the degree to which the RNA-seq assays
+(including all laboratory and analysis steps) accurately reflect the
+relative abundance of transcript species within a sample.
+
+There are two 'mixes' of these transcripts to allow an assessment of
+differential expression output between samples if we put one mix in each of
+your two comparisons. In our case, Mix1 was added to the UHR sample,
+and Mix2 was added to the HBR sample.
+
+We also have **3** complete experimental replicates for each sample.
+
+### Changes
+
+Some of the data names and annotations files have been changed and simplified.
+
+	# Create the reference genome directory.
+	mkdir -p ~/appbio/rnaseq
+
+	# Switch to the directory.
+	cd ~/appbio/rnaseq
+
+	# Obtain and unpack the data.
+	curl -O https://www.biostarhandbook.com/static/download/rnaseq_lecture.tar.gz
+
+	# Investigate the data
+	tar xzvf rnaseq_lecture.tar.gz
+
+Investigate the downloaded archive. Look at the directory structure and file naming convetions.
+There are sequencing reads, references and annotations.
+
+{% endmarkdown %}
+
+Continue to {% link "griffith-intro.html" %}
+
+{% endblock %}
