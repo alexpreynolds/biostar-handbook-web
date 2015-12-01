@@ -38,6 +38,7 @@ https://www.biostarhandbook.com/unit/rnaseq/rnaseq-intro.html
 https://www.biostarhandbook.com/unit/rnaseq/rnaseq-quantification.html
 https://www.biostarhandbook.com/unit/rnaseq/griffith/griffith-intro.html
 https://www.biostarhandbook.com/unit/rnaseq/griffith/uhr-hbr-data.html
+https://www.biostarhandbook.com/unit/rnaseq/stranded/strand-specific-rnaseq-intro.html
 https://www.biostarhandbook.com/unit/sam/sam-format.html
 https://www.biostarhandbook.com/unit/snp/snpcalling_homopolymers.html
 https://www.biostarhandbook.com/unit/snp/snpcalling_intro.html
