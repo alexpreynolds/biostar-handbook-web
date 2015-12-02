@@ -8,9 +8,92 @@
 
 {% markdown %}
 
-### 1. Strand Specific RNA sequencing
+### MARC: MinION Analysis and Reference Consortium
 
+* [MinION Analysis and Reference Consortium: Phase 1 data release and analysis][marc1]
+ 	Ip CLC, Loose M, Tyson JR et al., F1000Research 2015, 4:1075
 
+[marc1]: http://f1000research.com/articles/4-1075/v1
+
+The data for the project can be found at:
+
+http://www.ebi.ac.uk/ena/data/view/PRJEB11008
+
+> The way the data at EBI is laid out is surprisingly inefficient.
+> It takes some time to figure out what is what.
+
+	mkdir minion
+	cd minion
+	curl -O ftp://ftp.sra.ebi.ac.uk/vol1/fastq/ERR968/ERR968972/ERR968972_1.fastq.gz
+
+	# Uncompress the data
+	gunzip ERR968972_1.fastq.gz
+
+	# How many sequences are there? Each sequence record starts with @ERR968972
+	cat ERR968972_1.fastq | grep -c "@ERR968972"
+
+	# Find the sequence lenght distribution.
+	# This will produce a list of sequence lenghts.
+	cat ERR968972_1.fastq | bioawk -c fastx '{ print length($seq) }'
+
+	# Tabtk has the ability to produce summary statistics
+	# Look at the help for tabtk
+	tabtk num
+
+	# With the -Q flag
+	# number, mean, min, max, std.dev, skewness, 25%-percentile, median, 75%, 2.5%, 97.5%
+	cat ERR968972_1.fastq | bioawk -c fastx '{ print length($seq) }' | tabtk num -Q
+
+	# Produces
+	# 28915	4035.69	17	79421	3630.23	1.54156	577	3455	6546	196	11700
+
+	# Create a fastqc report
+	fastqc ERR968972_1.fastq
+
+	# Data correction is essential.
+	# Let's see how well it aligns as it came off the instrument
+
+	# Make an e-coli reference directory.
+	# Well name it the same way as IGV does to be able to display it readily.
+	mkdir -p ~/refs/ecoli
+	efetch -db nucleotide -id NC_000913.2 -format fasta | seqret -sid NC_000913.2 -filter > ~/refs/ecoli/k12.fa
+
+	# Create a shortcut to the file
+	REF=~/refs/ecoli/k12.fa
+	bwa index $REF
+
+	# The conversion shortcut.
+	alias bam='samtools view -b - | samtools sort -o - booyah'
+
+	# The normal bwa parameters don't work that well.
+	bwa mem $REF ERR968972_1.fastq | bam > bwa-default.bam
+	samtools index bwa-default.bam
+
+	# -x STR        read type. Setting -x changes multiple parameters unless overriden
+	#	pacbio: -k17 -W40 -r10 -A1 -B1 -O1 -E1 -L0  (PacBio reads to ref)
+    #   ont2d: -k14 -W20 -r10 -A1 -B1 -O1 -E1 -L0  (Oxford Nanopore 2D-reads to ref)
+    #   intractg: -B9 -O16 -L5  (intra-species contigs to ref)
+
+	# There are minion specific parameter settings
+	# This will take much longer. Rule: the "harder" an algorithm tries
+	# the slower it get.
+	bwa mem -x ont2d $REF ERR968972_1.fastq | bam > bwa-ont2d.bam
+	samtools index bwa-ont2d.bam
+
+	# How many alignment with the two methods?
+	samtools view -c -F 4 bwa-default.bam
+	# 3362
+
+	samtools view -c -F 4 bwa-ont2d.bam
+	# 17833
+
+The resulting alignments look like these
+
+<img src="img/minion-alignments.png" class="img-responsive">
+
+View a few `CIGAR` strings.
+
+Performing error correction between the reads is a new field of research.
 
 - - -
 
