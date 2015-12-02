@@ -18,11 +18,11 @@ Dawn Anne Thompson, Nir Friedman,	Andreas Gnirke	& Aviv Regev.
 
 Download the run information for paper
 
-	esearch -db sra -query PRJNA127357  | efetch -format runinfo > runinfo.txt
+	esearch -db sra -query PRJNA127357  | efetch -format runinfo > runinfo.csv
 
 Investigate what we know about the runs:
 
-	cat runinfo.txt | tabtk cut -d csv -f 1,7,12,16,17
+	cat runinfo.csv | tabtk cut -d csv -f 1,7,12,16,17
 
 It produces the following information
 
@@ -37,12 +37,38 @@ It produces the following information
 	SRR059169	152	GSM542251: Hybrid	PAIRED	220
 	SRR059170	152	GSM542251: Hybrid	PAIRED	220
 
+We will want to display our results in IGV we need
+to download the same yeast genome file that IGV uses to align against
+
+	#
+	# Download the sacCer3 genome build that is available inside IGV
+	#
+	mkdir -p ~/refs/sc
+
+	# Download the archive. This actuall contains multiple files.
+    # Uncompress and concatenate all into a single file.
+    # We are using the -O flag to stream results to standard output.
+	curl http://hgdownload.soe.ucsc.edu/goldenPath/sacCer3/bigZips/chromFa.tar.gz | tar xzv -O > ~/refs/sc/sacCer3.fa
+
+    # View a few of the first lines
+    # to make sure it all worked.
+    head ~/refs/sc/sacCer3.fa
+
+	# Index the yeast genome file.
+	bwa index ~/refs/sc/sacCer3.fa
+
 How big is the yeast genome?
 
+    # We always want to index genomes.
 	samtools faidx ~/refs/sc/sacCer3.fa
+
+    # Look at the index file it has created.
+    cat ~/refs/sc/sacCer3.fa.fai
+
+    # How many reads are there in total.
 	cat ~/refs/sc/sacCer3.fa.fai |awk '{sum += $2; print sum/10^6, "million" }' | tail -1
 
-produces
+produces the result:
 
 	12.1571 million
 
@@ -59,16 +85,22 @@ That can be computed as:
 	echo '10 * 12 / 76' | bc -l
 
 `N = 1.5 million` reads. But the transcriptome is much shorter than the genome and in addition
-it expresses at different rates. Let's estimate the transcript size. Get the same data as displayed in IGV.
+it expresses at different rates.
 
-	# Download the tab formatted data from UCSC.
+Let's estimate the transcript size. Get the same annotation data
+as displayed in IGV. Alas we can only get it in a non standard
+text format. We need to turn it into BED format ourselves.
+
+	# Download the tab formatted data from UCSC, uncompress
+    # then store it in a file.
 	curl http://hgdownload.soe.ucsc.edu/goldenPath/sacCer3/database/sgdGene.txt.gz | gunzip -c > sgdGene.txt
 
 	# We can turn that into a BED file.
 	cat sgdGene.txt | awk  ' {OFS="\t"; print $3,$5,$6,$2,0,$4 } ' > genes.bed
 
-	# Compute the running lenght of transcriptome
-	bedtools merge -i genes.bed | awk '{ sum=sum + $3 - $2; print sum } ' | tail -1
+	# Compute the running length of transcriptome
+    # We need to merge potentially overlapping features.
+	bedtools merge -i genes.bed | awk '{ sum = sum + $3 - $2; print sum } ' | tail -1
 
 with the new transcript size `G=8.9` million so the 10x average coverage leads to `N = 1.2 million` reads.
 The difference here is not radical because the yeast genome is tightly packed with genes, higher order eukaryotes
@@ -84,20 +116,7 @@ Download the data, 1 million reads from two experiments one is RNA Ligation the 
 
 Check what the experiments say:
 
-	cat runinfo.txt | tabtk cut -d csv -f 1,7,12,16,17
-
-Since we want to display in IGV we need to download the same yeast genome file to align against
-
-	#
-	# Download the sacCer3 genome build that is available inside IGV
-	#
-	mkdir -r ~/refs/sc
-
-	# Download the file, uncompress and concatenate into one file.
-	curl http://hgdownload.soe.ucsc.edu/goldenPath/sacCer3/bigZips/chromFa.tar.gz | tar xzvf > ~/refs/sc/sacCer3.fa
-
-	# Index the yeast genome file.
-	bwa index ~/refs/sc/sacCer3.fa
+	cat runinfo.csv | tabtk cut -d csv -f 1,7,12,16,17
 
 Generate the alignments:
 
