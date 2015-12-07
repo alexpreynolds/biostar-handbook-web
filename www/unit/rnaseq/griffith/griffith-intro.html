@@ -46,35 +46,44 @@ While bwa was not originally designed as a spliced aligner the bwa mem method wo
 	# different tools
 
 	# Reference genome
-	REF=annot/refs/22_ERCC.fa
+	REF=annot/refs/22_ERCC92.fa
 
 	# Reference annotations
-	GTF=annot/refs/22_ERCC.gff3
+	GTF=annot/refs/22_ERCC92.gtf
 
 	# The index to store under.
-	IDX=annot/refs/chr22_ERCC92
+	IDX=annot/refs/22_ERCC92
 
 	# Shortcut to the reads
-	READ1=data/UHR_Rep1_Mix1.r1.fq
-	READ2=data/UHR_Rep1_Mix1.r2.fq
+	R1=data/UHR_Rep1.R1.fq
+	R2=data/UHR_Rep1.R2.fq
 
-Now run Tophat on the same dataset:
-
-	# Build a bowtie2 index
+	# Build a bowtie2 index.
 	bowtie2-build $REF $IDX
 
+	# If you have hisat2 build index
+	# with that as well.
+	hisat2-build $REF $IDX
+
+	# Also create a samtools index.
+	samtools faidx $REF
+
+Now run Tophat (or HiSat2) on the same dataset:
+
 	# Run a tophat with no external information.
-	tophat2 -o tophat-simple $IDX $READ1 $READ2
+	tophat2 -o tophat-simple $IDX $R1 $R2
 	samtools index tophat-simple/accepted_hits.bam
 
 	# Often it is hard to see where you have data. It is handy to build
 	# a coverage file (bedgraph)
-	samtools faidx $REF
 	bedtools genomecov -ibam tophat-simple/accepted_hits.bam -g $REF.fai -split -bg > tophat-simple/accepted_hits.bedgraph
 
 	# Bedgraph is inefficient for large files, what we typically use ar bigWig files
 	# that are built to load
 	bedGraphToBigWig tophat-simple/accepted_hits.bedgraph $REF.fai tophat-simple/accepted_hits.bw
+
+	# You can also run hisat to produce alignments
+	hisat2-align-s $IDX -1 $R1 -2 $R2 | bam > tophat-simple/hisat.bam; samtools index tophat-simple/hisat.bam
 
 Above we ran tophat in its simplest form. Just index and data. Tophat
 generates a large number of outputs. Investigate those and look at what

@@ -17,8 +17,8 @@ For example `bedGraphToBigWig` on MacOS X:
 	curl $URL/bedGraphToBigWig > ~/bin/bedGraphToBigWig
 	chmod +x ~/bin/bedGraphToBigWig
 
-	curl $URL/calc > ~/bin/calc
-	chmod +x ~/bin/calc
+	curl $URL/faToTwoBit > ~/bin/faToTwoBit
+	chmod +x ~/bin/faToTwoBit
 
 You can also obtain all codes an place them into
 

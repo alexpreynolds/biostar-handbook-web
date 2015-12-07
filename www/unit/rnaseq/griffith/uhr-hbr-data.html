@@ -69,23 +69,17 @@ Visit Ensemble data download site: http://useast.ensembl.org/info/data/ftp/index
 
 
 	# Find and download the sequence for chromosome 22
-	curl -O ftp://ftp.ensembl.org/pub/release-82/fasta/homo_sapiens/dna/Homo_sapiens.GRCh38.dna.chromosome.22.fa.gz
+	curl -O ftp://ftp.sanger.ac.uk/pub/gencode/Gencode_human/release_23/gencode.v23.annotation.gtf.gz
+	gunzip gencode.v23.annotation.gtf.gz
 
+	# Keep only data for chromosome 22
+	cat gencode.v23.annotation.gtf | awk ' $1=="chr22" { print $0 } ' > 22.gtf
 
-	# Find and download the data
-	curl -O ftp://ftp.ensembl.org/pub/release-82/gff3/homo_sapiens/Homo_sapiens.GRCh38.82.gff3.gz
-
-	# Unzip the file.
-	gunzip Homo_sapiens.GRCh38.82.gff3.gz
-
-	# Keep data for chromosome 22 only
-	# We need the first line of the gff3 file
-	head -1 Homo_sapiens.GRCh38.82.gff3 > Homo_sapiens.GRCh38.82.chr22.gff3
-
-	# Append the rest of chromosome 22 to the file.
-	cat Homo_sapiens.GRCh38.82.gff3 | awk ' $1 == '22' { print $0 }' >> Homo_sapiens.GRCh38.82.chr22.gff3
-
-
+	# Get the GENCODE data then extract chromosome 22
+	curl -O ftp://ftp.sanger.ac.uk/pub/gencode/Gencode_human/release_23/GRCh38.primary_assembly.genome.fa.gz
+	gunzip GRCh38.primary_assembly.genome.fa.gz
+	samtools faidx GRCh38.primary_assembly.genome.fa
+	samtools faidx GRCh38.primary_assembly.genome.fa chr22 > 22.fa
 
 {% endmarkdown %}
 
