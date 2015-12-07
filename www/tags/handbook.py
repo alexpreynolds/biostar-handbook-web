@@ -88,9 +88,6 @@ def path(context, word, text=None):
     return rpath
 
 
-def fix_indent(text):
-    "Creates "
-
 class MarkDownNode(template.Node):
     CALLBACKS = [ top_level_only ]
     def __init__(self, nodelist, anchor, title=''):
