@@ -46,14 +46,46 @@ Some of the data names and annotations files have been changed and simplified.
 	# Switch to the directory.
 	cd ~/appbio/rnaseq
 
-	# Obtain and unpack the data.
-	curl -O https://www.biostarhandbook.com/static/download/rnaseq_lecture.tar.gz
+	# Set a shortcut to the data
+	URL=https://www.biostarhandbook.com/static/download/griffith_rnaseq.tar.gz
+
+	# Obtain and unpack the data in one shot.
+	curl $URL | tar xzv
 
 	# Investigate the data
-	tar xzvf rnaseq_lecture.tar.gz
+	cd griffith_rnaseq
+
+
+
 
 Investigate the downloaded archive. Look at the directory structure and file naming convetions.
 There are sequencing reads, references and annotations.
+
+
+#### How were these files made?
+
+
+Visit Ensemble data download site: http://useast.ensembl.org/info/data/ftp/index.html
+
+
+	# Find and download the sequence for chromosome 22
+	curl -O ftp://ftp.ensembl.org/pub/release-82/fasta/homo_sapiens/dna/Homo_sapiens.GRCh38.dna.chromosome.22.fa.gz
+
+
+	# Find and download the data
+	curl -O ftp://ftp.ensembl.org/pub/release-82/gff3/homo_sapiens/Homo_sapiens.GRCh38.82.gff3.gz
+
+	# Unzip the file.
+	gunzip Homo_sapiens.GRCh38.82.gff3.gz
+
+	# Keep data for chromosome 22 only
+	# We need the first line of the gff3 file
+	head -1 Homo_sapiens.GRCh38.82.gff3 > Homo_sapiens.GRCh38.82.chr22.gff3
+
+	# Append the rest of chromosome 22 to the file.
+	cat Homo_sapiens.GRCh38.82.gff3 | awk ' $1 == '22' { print $0 }' >> Homo_sapiens.GRCh38.82.chr22.gff3
+
+
 
 {% endmarkdown %}
 
