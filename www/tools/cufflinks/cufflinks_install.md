@@ -23,4 +23,4 @@ We may need to roll back and use an older version of cufflinks as below.
 
 	cd ~/src
     curl -L http://cole-trapnell-lab.github.io/cufflinks/assets/downloads/cufflinks-2.2.1.Linux_x86_64.tar.gz | tar xzv
-	export PATH=/Users/ialbert/src/cufflinks-2.2.1.Linux_x86_64:$PATH
+	export PATH=~/src/cufflinks-2.2.1.Linux_x86_64:$PATH
