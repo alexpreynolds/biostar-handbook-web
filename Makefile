@@ -9,7 +9,7 @@ serve:
 
 html:
 	mkdir -p $(OUTPUT)
-	pyblue make --no-time -r $(WEB) -o $(OUTPUT)
+	pyblue make --verbose --no-time -r $(WEB) -o $(OUTPUT)
 	echo $(OUTPUT)
 
 web: html

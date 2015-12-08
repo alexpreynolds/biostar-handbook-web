@@ -35,7 +35,7 @@ Note: we have moved annotations to genome build hg38
 
 - - -
 
-### Simple alignment with bwa
+### Prepare the environment
 
 While bwa was not originally designed as a spliced aligner the bwa mem method works suprisingly well.
 
@@ -62,6 +62,10 @@ While bwa was not originally designed as a spliced aligner the bwa mem method wo
 
 	# Also create a samtools index.
 	samtools faidx $REF
+
+- - -
+
+### Running Tophat
 
 Now run Tophat (or HiSat2) on the same dataset:
 
@@ -116,6 +120,8 @@ genome and the transcriptome. We'll also set readgroups and sample ids.
 	tophat2 -p 2 -r 60 --library-type fr-firststrand -o $LABEL --rg-id=$LABEL --rg-sample=$LABEL --transcriptome-index indexdir -G $GTF $IDX data/$LABEL.R1.fq data/$LABEL.R2.fq
 	samtools index $LABEL/accepted_hits.bam
 
+- - -
+
 ### Generate all alignments
 
 This can be very tedious. Two strategies:
@@ -167,6 +173,8 @@ it into `runall.sh`):
 Now you can run this script like so:
 
 	bash runall.sh
+
+- - -
 
 ### Differential expression
 
