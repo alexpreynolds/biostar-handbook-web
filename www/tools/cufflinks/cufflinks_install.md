@@ -17,7 +17,7 @@ We may need to roll back and use an older version of cufflinks as below.
     curl -L http://cole-trapnell-lab.github.io/cufflinks/assets/downloads/cufflinks-2.1.1.OSX_x86_64.tar.gz | tar xzv
 
 	# Add this to your PATH or link each program to the bin
-	export PATH=/Users/ialbert/src/cufflinks-2.1.1.OSX_x86_64:$PATH
+	export PATH=~/src/cufflinks-2.1.1.OSX_x86_64:$PATH
 
 **Linux**:
 
