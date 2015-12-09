@@ -1,0 +1,105 @@
+{% extends "unitbase.html" %}
+{% load pytags %}
+{# title =  Compare RNA-Seq #}
+{# subtitle = compare  #}
+{# name = Comparing RNA-Seq differential expression methods #}
+
+{% block body %}
+
+{% markdown %}
+
+### Prerequistes
+
+Install the data as described in {% link "uhr-hbr-data.html" %}
+
+The tutorial operates on data that is explained in more detail in
+{% link "griffith-intro.html" %}.
+
+- - -
+
+### Quantifying with Kallisto
+
+# Reference genome
+
+	# Reference sequence
+	REF=annot/refs/22_ERCC92.fa
+
+	# Reference annotations
+	GTF=annot/refs/22_ERCC92.gtf
+
+	# The reference file for the transcripts only
+	TRANS_GTF=annot/refs/22_ERCC92.transcript.gtf
+
+	# The transcript file we will create.
+	TRANS_REF=annot/refs/22_ERC92_transcripts.fa
+
+	# The transcrpiptome index.
+	TRANS_IDX=annot/refs/22_ERCC92_transcripts.fa.kallisto.idx
+
+	# Kallisto will quantify against a transcriptome
+	# so we need the sequence of the transcripts.
+	# There is a tool that comes with tophat
+	# that can extract transcripts using annotation and a reference
+
+
+	# The file needs to be modified to rename the
+	# sequences from >1 foo to >foo
+	sed -i '' 's/>[0-9]* />/' $TRANS_REF
+
+	# Build an index with Kallisto
+	# This will take a little bit (5-10 minutes)
+	kallisto index $TRANS_REF -i $TRANS_IDX
+
+	# Quantify with Kallisto
+	kallisto quant -o kallisto_output -i $TRANS_IDX data/UHR_Rep1.R1.fq data/UHR_Rep1.R2.fq
+
+	# Look at the resulting file
+	head kallisto_output/abundance.tsv
+
+We can now run the full kallisto quantification with
+
+	#
+	# Align all samples in the UHR vs BHR project
+	#
+
+	# The transcrpiptome index.
+	TRANS_IDX=annot/refs/22_ERCC92_transcripts.fa.kallisto.idx
+
+	for LABEL in UHR_Rep1 UHR_Rep2 UHR_Rep3 HBR_Rep1 HBR_Rep2 HBR_Rep3;
+	do
+		echo Aligning $LABEL
+		kallisto quant -o $LABEL -i $TRANS_IDX data/$LABEL.R1.fq data/$LABEL.R2.fq
+	done;
+
+put that into `runkallisto.sh`:
+
+	bash runkallisto.sh
+
+Combine all data by listing it
+
+	# The paste command lines up the file.
+	# It is essential that the file has the same order!!!
+	paste U*/abundance.tsv H*/abundance.tsv  | head
+
+	# Put all into a file
+	paste U*/abundance.tsv H*/abundance.tsv  > combined.txt
+
+	# Cut out the columns that we actually need
+	cat combined.txt | cut -f 1,5,10,15,20,25,30 | head
+
+	# This is the final data to be analyzed.
+	cat combined.txt | cut -f 1,4,9,14,19,24,29 > counts.txt
+	cat combined.txt | cut -f 1,5,10,15,20,25,30 > tpms.txt
+
+
+A poor man's RNA-Seq analyzer:
+
+	# Produce the fold change for each transcript.
+	cat expression.txt | awk ' { OFS="\t"; fold=($3 + $4 + $5)/($6 + $7 + $7 + 1); print($1, fold) } ' | sort -k2,2 -rn > foldchange.txt
+
+
+
+
+{% endmarkdown %}
+
+{% endblock %}

@@ -37,7 +37,7 @@ Note: we have moved annotations to genome build hg38
 
 ### Prepare the environment
 
-While bwa was not originally designed as a spliced aligner the bwa mem method works suprisingly well.
+These commands will make running tools a lot simpler:
 
 	# The commands below need to be run
 	# from the directory obtained above
@@ -91,9 +91,8 @@ Now run Tophat (or HiSat2) on the same dataset:
 	hisat2-build $REF $IDX
 	hisat2-align-s $IDX -1 $R1 -2 $R2 | bam > tophat-simple/hisat.bam; samtools index tophat-simple/hisat.bam
 
-Above we ran tophat in its simplest form. Just index and data. Tophat
-generates a large number of outputs. Investigate those and look at what
-files it has created. Results go into the `tophat-simple` folder.
+Above we ran tophat in its simplest form. Just index and run on the reads. Tophat
+generates a large number of output files. Results go into the `tophat-simple` folder.
 Each run of tophat generates an entire folder.
 
 {% img "screenshot640.png" css="img-responsive" %}
