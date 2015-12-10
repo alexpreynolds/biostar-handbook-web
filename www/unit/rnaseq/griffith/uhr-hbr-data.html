@@ -46,14 +46,41 @@ Some of the data names and annotations files have been changed and simplified.
 	# Switch to the directory.
 	cd ~/appbio/rnaseq
 
-	# Obtain and unpack the data.
-	curl -O https://www.biostarhandbook.com/static/download/rnaseq_lecture.tar.gz
+	# Set a shortcut to the data
+	URL=https://www.biostarhandbook.com/static/download/griffith_rnaseq.tar.gz
+
+	# Obtain and unpack the data in one shot.
+	curl $URL | tar xzv
 
 	# Investigate the data
-	tar xzvf rnaseq_lecture.tar.gz
+	cd griffith_rnaseq
+
+	# To see all the files in the directory use
+	find .
+
 
 Investigate the downloaded archive. Look at the directory structure and file naming convetions.
 There are sequencing reads, references and annotations.
+
+
+#### How were these files made?
+
+
+Visit Ensemble data download site: http://useast.ensembl.org/info/data/ftp/index.html
+
+
+	# Find and download the sequence for chromosome 22
+	curl -O ftp://ftp.sanger.ac.uk/pub/gencode/Gencode_human/release_23/gencode.v23.annotation.gtf.gz
+	gunzip gencode.v23.annotation.gtf.gz
+
+	# Keep only data for chromosome 22
+	cat gencode.v23.annotation.gtf | awk ' $1=="chr22" { print $0 } ' > 22.gtf
+
+	# Get the GENCODE data then extract chromosome 22
+	curl -O ftp://ftp.sanger.ac.uk/pub/gencode/Gencode_human/release_23/GRCh38.primary_assembly.genome.fa.gz
+	gunzip GRCh38.primary_assembly.genome.fa.gz
+	samtools faidx GRCh38.primary_assembly.genome.fa
+	samtools faidx GRCh38.primary_assembly.genome.fa chr22 > 22.fa
 
 {% endmarkdown %}
 

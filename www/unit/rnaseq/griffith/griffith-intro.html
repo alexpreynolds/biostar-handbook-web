@@ -10,16 +10,16 @@
 
 ### Informatics for RNA-seq: A web resource for analysis on the cloud
 
-Based on [Malachi Griffith*, Jason R. Walker, Nicholas C. Spies, Benjamin
+This tutorial is based on the paper:
+
+* [Malachi Griffith*, Jason R. Walker, Nicholas C. Spies, Benjamin
 J. Ainscough, Obi L. Griffith*. 2015.
 Informatics for RNA-seq: A web resource for analysis on the cloud. 11(8):e1004393.
 PLoS Computational Biology][pcbi.1004393]
 
 [pcbi.1004393]: http://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1004393
 
-Note that this tutorial uses different data analysis strategies than the publication above.
-Some of the data names and annotations files have been changed and simplified. We are also pursuing
-different data processing methodologies.
+The Github repository for the original tutorial can be found at: https://github.com/griffithlab/rnaseq_tutorial
 
 - - -
 
@@ -27,58 +27,215 @@ different data processing methodologies.
 
 Install the data as described in {% link "uhr-hbr-data.html" %}
 
-Note that while we use the data published in the publication above the data naming and content
+Note that while we use the data published in the publication above
+the data naming and content
 has been simplified.
+
+Note: we have moved annotations to genome build hg38
 
 - - -
 
-### Simple alignment with bwa
+### Prepare the environment
 
-While bwa was not originally designed as a spliced aligner the bwa mem method works suprisingly well.
+These commands will make running tools a lot simpler:
+
+	# The commands below need to be run
+	# from the directory obtained above
 
 	# The bam conversion shortcut.
 	alias bam='samtools view -b - | samtools sort -o - booyah'
 
-	# Set up some variables. These allow you to see what changes and what does not.
-	export GTF=annot/genes_chr22_ERCC92.gtf
-	export REF=refs/chr22_ERCC92.fa
-	export IDX=refs/chr22_ERCC92
-	export READ1=data/UHR_Rep1_Mix1.r1.fq
-	export READ2=data/UHR_Rep1_Mix1.r2.fq
+	# Set up some variables. These allow you to see the differences between invoking
+	# different tools
 
-	# Run bwa mem on this data.
-	bwa index $REF
-	bwa mem $REF $READ1 $READ2 | bam > bwa.bam
-	samtools index bwa.bam
+	# Reference genome
+	REF=annot/refs/22_ERCC92.fa
 
-	# Make a bedgraph (coverage track)
-	samtools faidx $REF
-	bedtools genomecov -ibam bwa.bam -g $REF.fai -split -bg > bwa.bedgraph
+	# Reference annotations
+	GTF=annot/refs/22_ERCC92.gtf
 
-Now run Tophat on the same dataset:
+	# The bowtie index.
+	IDX=annot/refs/22_ERCC92
 
-	# Set up a few shortcuts
-
-	# Build a bowtie2 index
+	# Build a bowtie2 index.
 	bowtie2-build $REF $IDX
 
+	# Also create a samtools index.
+	samtools faidx $REF
+
+- - -
+
+### Running Tophat
+
+Now run Tophat (or HiSat2) on the same dataset:
+
+	# Shortcut to the reads
+	R1=data/UHR_Rep1.R1.fq
+	R2=data/UHR_Rep1.R2.fq
+
 	# Run a tophat with no external information.
-	tophat2 -o tophat-simple $IDX $READ1 $READ2
+	tophat2 -o tophat-simple $IDX $R1 $R2
 	samtools index tophat-simple/accepted_hits.bam
 
-	# Run tophat with with annotations.
-	tophat2 -o tophat-annot -G $GTF $IDX  $READ1 $READ2
+	# Often it is hard to see where you have datain IGV
+	# We have to zoom in to see it. It is handy to build
+	# a file that shows the coverage (bedgraph).
+	bedtools genomecov -ibam tophat-simple/accepted_hits.bam -g $REF.fai -split -bg > tophat-simple/accepted_hits.bedgraph
+
+	# Bedgraph is inefficient for large files.
+	# What we typically use are so called bigWig files that are built to load much faster.
+	bedGraphToBigWig tophat-simple/accepted_hits.bedgraph $REF.fai tophat-simple/accepted_hits.bw
+
+	# You can also run hisat to produce alignments.
+	# HISTAT is much faster.
+	hisat2-build $REF $IDX
+	hisat2-align-s $IDX -1 $R1 -2 $R2 | bam > tophat-simple/hisat.bam; samtools index tophat-simple/hisat.bam
+
+Above we ran tophat in its simplest form. Just index and run on the reads. Tophat
+generates a large number of output files. Results go into the `tophat-simple` folder.
+Each run of tophat generates an entire folder.
+
+{% img "screenshot640.png" css="img-responsive" %}
+
+We can run tophat with with known annotations:
+
+	tophat2 -o tophat-annot -G $GTF $IDX  $R1 $R2
 	samtools index tophat-annot/accepted_hits.bam
 
-	# Run tophat after adding all known information
-	# Also setting up a transcriptome based alignment
-	tophat2 -r 60 --library-type fr-firststrand -o tophat-best --transcriptome-index transx -G $GTF $IDX $READ1 $READ2
-	samtools index tophat-best/accepted_hits.bam
+We can add even more additional parameters to and instruct it to align to both the
+genome and the transcriptome. We'll also set readgroups and sample ids.
 
-Here is an IGV view of the results:
+	# The parameters are getting out of hand
+	# Let's try to simplify the command.
 
-	# Run tophat
-	tophat2 -p 4 -r 60 --library-type fr-firststrand --rg-id=UHR_Rep1 --rg-sample=UHR_Rep1_ERCC-Mix1 -o UHR_Rep1_ERCC-Mix1 -G $GTF --transcriptome-index trans refs/chr22_ERCC92.fa  data/HBR_Rep1_Mix2.r1.fq data/HBR_Rep1_Mix2.r2.fq
+	# Factor out the variable regions from the command
+	# You can then override those and rerun the command
+	LABEL=UHR_Rep1
+
+	# Build and echo the command until you get it right
+	echo tophat2 -p 2 -r 60 --library-type fr-firststrand -o $LABEL --rg-id=$LABEL --rg-sample=$LABEL --transcriptome-index indexdir -G $GTF $IDX data/$LABEL.R1.fq data/$LABEL.R2.fq
+
+	# Run the mapper.
+	tophat2 -p 2 -r 60 --library-type fr-firststrand -o $LABEL --rg-id=$LABEL --rg-sample=$LABEL --transcriptome-index indexdir -G $GTF $IDX data/$LABEL.R1.fq data/$LABEL.R2.fq
+	samtools index $LABEL/accepted_hits.bam
+
+- - -
+
+### Generate all alignments
+
+This can be very tedious. Two strategies:
+
+List each command separately and save it into a file.
+
+	LABEL=UHR_Rep1
+	tophat2 -p 2 -r 60 --library-type fr-firststrand -o $LABEL --rg-id=$LABEL --rg-sample=$LABEL --transcriptome-index indexdir -G $GTF $IDX data/$LABEL.R1.fq data/$LABEL.R2.fq
+	samtools index $LABEL/accepted_hits.bam
+
+	LABEL=UHR_Rep2
+	tophat2 -p 2 -r 60 --library-type fr-firststrand -o $LABEL --rg-id=$LABEL --rg-sample=$LABEL --transcriptome-index indexdir -G $GTF $IDX data/$LABEL.R1.fq data/$LABEL.R2.fq
+	samtools index $LABEL/accepted_hits.bam
+
+	LABEL=UHR_Rep3
+	tophat2 -p 2 -r 60 --library-type fr-firststrand -o $LABEL --rg-id=$LABEL --rg-sample=$LABEL --transcriptome-index indexdir -G $GTF $IDX data/$LABEL.R1.fq data/$LABEL.R2.fq
+	samtools index $LABEL/accepted_hits.bam
+
+This is actually a really good strategy to learn the process.  Just list each command separately.
+
+Or, find the common parts of each command and factor it out into variables
+There are several way to go about it. For example we could also build a
+second script that runs the aligner for each sample. It could look like this (save
+it into `runall.sh`):
+
+	#
+	# Align all samples in the UHR vs BHR project
+	#
+
+	# Reference genome
+	REF=annot/refs/22_ERCC92.fa
+
+	# Reference annotations
+	GTF=annot/refs/22_ERCC92.gtf
+
+	# The bowtie index.
+	IDX=annot/refs/22_ERCC92
+
+	for LABEL in UHR_Rep1 UHR_Rep2 UHR_Rep3 HBR_Rep1 HBR_Rep2 HBR_Rep3;
+	do
+		echo Aligning $LABEL
+		tophat2 -p 2 -r 60 --library-type fr-firststrand -o $LABEL --rg-id=$LABEL --rg-sample=$LABEL --transcriptome-index indexdir -G $GTF $IDX data/$LABEL.R1.fq data/$LABEL.R2.fq
+		samtools index $LABEL/accepted_hits.bam
+
+		# generate a coverage file as well.
+		bedtools genomecov -ibam $LABEL/accepted_hits.bam -g $REF.fai -split -bg > $LABEL.bedgraph
+	done;
+
+Now you can run this script like so:
+
+	bash runall.sh
+
+- - -
+
+### Differential expression
+
+Depending on the quality and accuracy of the data
+
+	u1=UHR_Rep1/accepted_hits.bam
+	u2=UHR_Rep2/accepted_hits.bam
+	u3=UHR_Rep3/accepted_hits.bam
+	h1=HBR_Rep1/accepted_hits.bam
+	h2=HBR_Rep2/accepted_hits.bam
+	h3=HBR_Rep3/accepted_hits.bam
+
+	# List the files as comma separated groups.
+	cuffdiff -p 4 -o cuffdiff $GTF $u1,$u2,$u3 $h1,$h2,$h3
+
+Evaluate the results in the `cuffdiff` output directory:
+
+	# Go to the directory
+	cd cuffdiff
+
+	# Look at the gene expression file.
+	cat gene_exp.diff  | cut -f 1,2,10,13 | head
+
+	# Sort by fold change and keep only lines that pass
+	# The word "yes" is listed if the q-value passes a treshold
+	cat gene_exp.diff  | grep yes | sort -k10,10 -rn | cut -f 1,3,10,13 | head -3
+
+Produces: transcript id, name, fold change, q-value (corrected p-value):
+
+	ENSG00000130540.13	SULT4A1	    6.61468	   0.000137086
+	ENSG00000186732.13	MPPED1	    6.36449	   0.00205916
+	ENSG00000008735.13	MAPK8IP2	5.62784	   0.000137086
+
+Here is what `SULT4A1` looks like in IGV.
+
+{% img "screenshot642.png" css="img-responsive" %}
+
+Do a little work to investigate how the values for `SULT4A1` might have been produced:
+
+	# What is known about gene SULT4
+	cat annot/refs/22_ERCC92.gtf  | grep SULT4A1 | head -2
+
+	# data for one transcript
+	cat annot/refs/22_ERCC92.gtf  | grep ENST00000330884.8
+
+	# Put the data into sut4.gff
+	cat annot/refs/22_ERCC92.gtf  | grep ENST00000330884.8 > sult4.gtf
+
+Compute the coverages with bedtools:
+
+	bedtools multicov -bams $u1 $u2 $u3 $h1 $h2 $h3 -bed sult4.gtf
+
+	# Cut out only some of the columns
+	bedtools multicov -bams $u1 $u2 $u3 $h1 $h2 $h3 -bed sult4.gtf | cut -f 1,3,10-16
+
+THis produces the output with columns chromosome, type, coverage of the feature
+for each of the file:
+
+	chr22	transcript  50  57  38  690  846  770
+	chr22	exon        7    9   4  427  459  428
+	chr22	UTR         6    9   4  380  423  402
+	chr22	stop_codon  0    0   0   24   35   26
 
 {% endmarkdown %}
 
