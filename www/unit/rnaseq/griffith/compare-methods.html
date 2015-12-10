@@ -65,6 +65,20 @@ Then run it as:
 
 	R --vanilla --silent  < deseq.r
 
+But wait there is more. There is a newer version of `DE Seq` called `DE Seq 2`, it produces even more
+differentially expressed genes. For that you need the code called {% link 'de/deseq2.r' 'deseq2.r'%} and an simple
+experimental design text file called {% link 'de/design.txt' 'design.txt' %}
+
+Then run it as:
+
+	# Get the script and the
+	curl -O https://www.biostarhandbook.com/unit/rnaseq/de/deseq2.r
+	curl -O https://www.biostarhandbook.com/unit/rnaseq/de/design.txt
+
+	R --vanilla --silent  < deseq2.r
+
+- - -
+
 ### Quantifying with Kallisto
 
 Kallisto is a new method that is intended to perform RNA-Seq quantification

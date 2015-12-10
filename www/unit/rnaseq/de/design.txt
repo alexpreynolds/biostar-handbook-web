@@ -1,0 +1,7 @@
+samples	condition
+UHR_Rep1	control
+UHR_Rep2	control
+UHR_Rep3	control
+HBR_Rep1	treatment
+HBR_Rep2	treatment
+HBR_Rep3	treatment
