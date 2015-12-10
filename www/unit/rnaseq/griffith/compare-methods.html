@@ -15,9 +15,65 @@ Install the data as described in {% link "uhr-hbr-data.html" %}
 The tutorial operates on data that is explained in more detail in
 {% link "griffith-intro.html" %}.
 
+The tutorial assumes that the alignments have already been performed and
+the commands are run from the same directory as in the previous tutorial.
+
 - - -
 
+### Quntifying with featureCounts
+
+`featureCounts` comes with the `subread` package.
+
+	# Reference annotations
+	GTF=annot/refs/22_ERCC92.gtf
+
+	# Count features over genes
+	featureCounts -a $GTF -o UHR_Rep1/fcounts-gene.txt  UHR_Rep1/accepted_hits.bam
+
+	# Count features over transcripts
+	featureCounts -a $GTF -o UHR_Rep1/fcounts-transcript.txt -g transcript_id UHR_Rep1/accepted_hits.bam
+
+Lets automate that, count features for all projects. featureCounts allows us to list all files in
+one shot. That's nice:
+
+	# Store output in a different folder
+	mkdir -p fcounts
+
+	# Count features on all genes
+	featureCounts -a $GTF -o fcounts/gene.txt  U*/accepted_hits.bam H*/accepted_hits.bam
+
+	# Count features on all transcripts
+	featureCounts -a $GTF -g transcript_id -o fcounts/transcript.txt  U*/accepted_hits.bam H*/accepted_hits.bam
+
+We need to prepare the data to run a differential expression tool on it.
+
+	# Check the structure of the count file
+	# to note which columns are the ones you want
+	cat fcounts/gene.txt | head
+
+	# We also don't want the comment line
+	cat fcounts/gene.txt | cut -f 1,7-12 > counts.txt
+
+We can now put these counts through DE-seq and produce a new file for
+differential expression. The following file will
+need to be run through `R`. Save it as say `deseq.r` and run it in the same directory that
+your data is in.
+
+{% include_markdown "deseq.md" %}
+
+Then run it as:
+
+	R --vanilla --silent  < deseq.r
+
 ### Quantifying with Kallisto
+
+Kallisto is a new method that is intended to perform RNA-Seq quantification
+without an alignment step.
+
+* Kalisto: https://pachterlab.github.io/kallisto/
+* Differential expression Sleuth: http://pachterlab.github.io/sleuth/
+
+The method claims untold benefits in speed, efficiency.
 
 # Reference genome
 
@@ -40,7 +96,6 @@ The tutorial operates on data that is explained in more detail in
 	# so we need the sequence of the transcripts.
 	# There is a tool that comes with tophat
 	# that can extract transcripts using annotation and a reference
-
 
 	# The file needs to be modified to rename the
 	# sequences from >1 foo to >foo
@@ -91,13 +146,14 @@ Combine all data by listing it
 	cat combined.txt | cut -f 1,4,9,14,19,24,29 > counts.txt
 	cat combined.txt | cut -f 1,5,10,15,20,25,30 > tpms.txt
 
-
-A poor man's RNA-Seq analyzer:
+A poor man's RNA-Seq analyzer (this section is unfinished):
 
 	# Produce the fold change for each transcript.
 	cat expression.txt | awk ' { OFS="\t"; fold=($3 + $4 + $5)/($6 + $7 + $7 + 1); print($1, fold) } ' | sort -k2,2 -rn > foldchange.txt
 
+But a better way would be to do
 
+https://liorpachter.wordpress.com/2015/08/17/a-sleuth-for-rna-seq/
 
 
 {% endmarkdown %}

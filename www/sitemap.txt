@@ -37,6 +37,7 @@ https://www.biostarhandbook.com/unit/programming/programming-intro.html
 https://www.biostarhandbook.com/unit/qc/fastq-quality-control.html
 https://www.biostarhandbook.com/unit/rnaseq/rnaseq-intro.html
 https://www.biostarhandbook.com/unit/rnaseq/rnaseq-quantification.html
+https://www.biostarhandbook.com/unit/rnaseq/griffith/compare-methods.html
 https://www.biostarhandbook.com/unit/rnaseq/griffith/griffith-intro.html
 https://www.biostarhandbook.com/unit/rnaseq/griffith/uhr-hbr-data.html
 https://www.biostarhandbook.com/unit/rnaseq/stranded/strand-specific-rnaseq-intro.html
