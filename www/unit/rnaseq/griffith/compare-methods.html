@@ -54,16 +54,21 @@ We need to prepare the data to run a differential expression tool on it.
 	# We also don't want the comment line
 	cat fcounts/gene.txt | cut -f 1,7-12 > counts.txt
 
-We can now put these counts through DE-seq and produce a new file for
-differential expression. The following file will
-need to be run through `R`. Save it as say `deseq.r` and run it in the same directory that
+We can now put these counts through `DE-seq` and produce a new file for
+differential expression. The file {% link 'de/deseq1.r' %}  will
+need to be run through `R`. Save it as say `deseq1.r` and run it in the same directory that
 your data is in.
 
-{% include_markdown "deseq.md" %}
+Open R and paste in the following.
 
-Then run it as:
+	source("http://bioconductor.org/biocLite.R")
+	biocLite("DESeq")
+	biocLite("DESeq2")
 
-	R --vanilla --silent  < deseq.r
+Now you can run the following:
+
+	curl -O https://www.biostarhandbook.com/unit/rnaseq/de/deseq1.r
+	R --vanilla --silent  < deseq1.r
 
 But wait there is more. There is a newer version of `DE Seq` called `DE Seq 2`, it produces even more
 differentially expressed genes. For that you need the code called {% link 'de/deseq2.r' 'deseq2.r'%} and an simple
