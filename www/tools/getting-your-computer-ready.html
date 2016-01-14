@@ -1,0 +1,58 @@
+{% extends "unitbase.html" %}
+{% load pytags %}
+{# title =  Get ready for bioinformatics #}
+{# subtitle =  do it once #}
+{# name = Get your computer ready for bioinformatics #}
+
+{% block body %}
+
+{% markdown %}
+
+### Basic concepts
+
+Bioinformatics requires the installation of software tools that usually are distributed in
+various formats:
+
+* "binary code" that can be run directly on the target computer.
+* programs that require the presence of another programming language: `java`, `python`, `ruby` or `perl`.
+* source code that needs to be "compiled" to create a "binary" program.
+* programs accessed via web interfaces that typically require the use of a web browser
+
+In addition some software tools may require other additional software to be present.
+
+- - -
+
+### Steps that only need to be done once
+
+There are separate instructions for Max OSX, Linux and Windows computers.
+Follow only the instructions for your platform. There may be multiple steps required
+to get through.
+
+* {% link "hardware-setup" %}
+
+- - -
+
+### Install a TEXT editor
+
+Microsoft Word is **NOT** a text editor. Sooner or later it will  cause (devious) problems.
+Best if you start using a proper text editor. Essential features:
+
+* Ability to show **TAB** characters versus multiple **SPACE** characters.
+  Mixing up TABS and SPACES is a very common error. Copy-pasting from a web
+  page often turns a TAB into SPACE characters (yes very annoying). We need the ability
+  to see the difference if necessary.
+* Show line numbering. Lets us to identify the line where an error is reported.
+* Switch line endings. Line endings have variants: Unix, Windows or Mac OS 9 endings.
+  (Mac OSX uses Unix line endings). All files should have a  Unix line ending mode.
+  Your editor needs to have the ability to convert line endings to Unix format.
+
+Recommendation: [Sublime Text 2](http://www.sublimetext.com/2) that is
+available for all platforms but there
+are many other options with different tradeoffs. Please download and install this editor.
+
+**Note:** We use [PyCharm](https://www.jetbrains.com/pycharm/) and we use it for both text editing and programming
+but this may be an overkill for just doing bioinformatics.
+
+{% endmarkdown %}
+
+{% endblock %}

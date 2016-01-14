@@ -1,0 +1,98 @@
+{% extends "base.html" %}
+{% load pytags %}
+{# title = Biostar Handbook #}
+{# subtitle = bioinformatics survival guide #}
+{# navtab = index #}
+{# name = Home #}
+
+{% block body %}
+
+{% markdown %}
+
+### BMMB 852 Fall 2015: Applied Bioinformatics
+
+- - -
+
+The webpage contains materials as presented for the BMMB 852 Applied Bioinformatics in the Fall of 2015.
+
+Below please find the table of contents that groups subjects
+by topics and is ordered to facilitate locating
+sections. The complexity of
+material varies across these sections.
+
+- - -
+
+#### Computer Setup
+
+* {% link 'getting-your-computer-ready.html' %}
+* {% link 'how-to-install-everything.html' %}
+
+#### Computational skills
+
+* {% link 'unix-intro.html' %}
+* {% link 'unix-shell-scripts.html' %}
+* {% link 'programming-intro.html' %}
+* {% link 'unix-survival-guide.html' %}
+
+#### Data Sources
+
+* {% link 'ncbi-entrez.html' %}
+* {% link 'short-read-archive.html' %}
+
+#### Data Visualization
+
+* {% link 'genomic-visualization.html' %}
+
+#### Data quality control and post processing
+
+* {% link 'fastq-quality-control.html' %}
+* {% link 'picard_intro.html' %}
+
+#### Functional Analysis
+
+* {% link 'gene-ontology.html' %}
+
+#### Sequence Alignments
+
+* {% link 'emboss-intro.html' %}
+* {% link 'blast-intro.html' %}
+* {% link 'next-gen-aligners.html' %}
+* {% link 'SAM-format.html' %}
+
+#### Identifying Genomic Variations
+
+* {% link 'snpcalling_intro.html' %}
+
+#### Variant Annotation
+
+* {% link 'variant_annotation_intro.html' %}
+
+#### Genomic interval data
+
+* {% link 'genomic-intervals.html' %}
+
+#### MinION sequencing platform
+
+* {% link 'minion/minion-intro.html' %}
+
+#### Gene Expression and Transcriptome Analysis
+
+* {% link 'rnaseq/rnaseq-intro.html' %}
+
+
+- - -
+
+### Frequently Asked Questions
+
+* {% link "getting-your-computer" %} - start here.
+* {% link "hardware-setup" %} - hardware setup.
+* {% link "how-to-install-everything" %} - installation instruction for every tool in the book.
+* {% link "how-to-set-the-path" %} - you need to tell the computer where to look for it.
+* {% link "bash-profile.html" %} - how to apply settings for every terminal.
+* {% link "nuked-the-path.html" %} - because one day everyone does.
+
+[book]: https://leanpub.com/biostarhandbook
+
+{% endmarkdown %}
+
+{% endblock %}

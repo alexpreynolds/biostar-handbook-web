@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% load pytags %}
+{# title = Biostar Handbook #}
+{# subtitle = bioinformatics survival guide #}
+{# navtab = index #}
+{# name = Home #}
+
+{% block body %}
+
+{% markdown %}
+
+### BMMB 852 Spring 2016: Applied Bioinformatics
+
+The content on this page will grow gradually as we add more content.
+
+- - -
+
+**Lets get started**
+
+There is no bioinformatics without running software tools. Your first mission is to
+get your system ready.
+
+* {% link "getting-your-computer-ready" %}
+
+- - -
+
+[book]: https://leanpub.com/biostarhandbook
+
+{% endmarkdown %}
+
+{% endblock %}

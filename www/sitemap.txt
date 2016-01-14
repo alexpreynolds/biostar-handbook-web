@@ -2,11 +2,13 @@ https://www.biostarhandbook.com/about.html
 https://www.biostarhandbook.com/contribute.html
 https://www.biostarhandbook.com/data.html
 https://www.biostarhandbook.com/index.html
-https://www.biostarhandbook.com/tools/computer-setup.html
+https://www.biostarhandbook.com/2015/2015-index.html
+https://www.biostarhandbook.com/2016/2016-index-world-campus.html
+https://www.biostarhandbook.com/tools/getting-your-computer-ready.html
+https://www.biostarhandbook.com/tools/hardware-setup.html
 https://www.biostarhandbook.com/tools/have-you-nuked-the-path.html
 https://www.biostarhandbook.com/tools/how-to-install-everything.html
 https://www.biostarhandbook.com/tools/how-to-set-the-path.html
-https://www.biostarhandbook.com/tools/software-installation.html
 https://www.biostarhandbook.com/tools/bbmap/bbmap-help-seqanswers.html
 https://www.biostarhandbook.com/tools/bbmap/bbmap-help.html
 https://www.biostarhandbook.com/tools/bbmap/bbmap_main.html

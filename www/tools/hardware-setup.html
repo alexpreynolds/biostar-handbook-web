@@ -1,19 +1,17 @@
 {% extends "unitbase.html" %}
 {% load pytags %}
-{# title =  System Setup #}
-{# subtitle = needs to be done once #}
+{# title =  Hardware Setup #}
+{# subtitle = this only needs to be done once #}
 {# name = How do I set up my computer? #}
 
 {% block body %}
 {% markdown %}
 
-
-These tasks only need to be done once for each platform.
+These tasks only need to be done once.The recommended platforms are Ubuntu Linux and Mac OS X.
 
 - - -
 
-## Mac OS X
-
+## Setting up a Mac OS X based computer
 
 ### Install XCode Command Line Tools
 
@@ -28,6 +26,8 @@ changes in the license. Users can accept the new license by typing:
     sudo xcodebuild -license
 
 or by starting XCode itself.
+
+- - -
 
 ### Install Homebrew
 
@@ -75,9 +75,13 @@ In those cases you need to set write permissions to those directories with:
 **Note:** even when regularly updated the brewed formulas may install
 older versions of the software.
 
+- - -
+
 ### Install Java
 
 Install [Java for Mac OS X](https://www.java.com/en/download/help/mac_install.xml)
+
+- - -
 
 ### Set the Finder Preferences
 
@@ -87,9 +91,12 @@ is named as your username.
 My username is `ialbert`, yours will be different. See below:
 
 ![Finder Preferences](/img/finder-preferences.png)
+
+**DONE**: Your Mac is now ready for bioinformatics.
+
 - - -
 
-## Linux
+# Setting up Linux based computer
 
 Select a well established Linux distribution: Ubuntu
 
@@ -99,32 +106,43 @@ Depending on the Linux distribution's intial configuration one may install some,
 package shown below. Moreover the naming of these libraries occasionally changes. Please report
 errors via the ticketing system. For Ubuntu Linux the following instructions were required.
 
+    # Update your linux package. You may need to run this periodically.
+    sudo apt-get update && sudo apt-get upgrade
+
     # Install a number of required libraries.
     sudo apt-get install -y curl build-essential ncurses-dev byacc zlib1g-dev python-dev git cmake
 
     # Install java and python libraries.
     sudo apt-get install -y unzip default-jre python-pip
 
-    # You may also need to install common perl modules that are not always included.
-    sudo perl -MCPAN -e 'install "LWP::Simple"'
-    sudo perl -MCPAN -e 'install "HTML::Entities"'
-
 Depending on your linux distribution software may be prepackaged. Typically
 however these prepackaged versions lag the current versions.  For example
 you may be able to install the EMBOSS tools with:
 
-    sudo apt-get install emboss
+    sudo apt-get -y install emboss
+
+You may also need to install common perl modules that sometimes are not included.
+During the first run it will ask for a lot of parameters. Selecting the defaults should be fine.
+
+    sudo perl -MCPAN -e 'install "LWP::Simple"'
+    sudo perl -MCPAN -e 'install "HTML::Entities"'
+
+**DONE**: Your Linux system is now ready for bioinformatics.
 
 - - -
 
-## Windows/Cygwin
+## Setting up a Windows based computer
 
 ### Install Cygwin
 
 Ensure that you have selected all packages during installation. This is a bit counterintuitive
 in the setup interface. You need to click the "plus" icon twice until all packages are selected.
 
+(todo)
+
 ### Install Java
+
+(todo)
 
 {% endmarkdown %}
 {% endblock %}
