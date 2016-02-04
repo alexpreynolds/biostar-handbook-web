@@ -1,6 +1,6 @@
-## EDirect
+## Entrez Direct
 
-Entrez Direct consist of a suite of sripts written in the Perl language that can
+Entrez Direct consist of a suite of scripts written in the Perl language that can
 be used to connect to the NCBI Entrez data interfaces.
 The suite includes commands that coresponds to each of the Entrez API endpoints:
 `esearch`, `efetch`, `elink`, `efilter`, `epost`, `einfo` as well as a tool called `xtract`
@@ -33,4 +33,23 @@ More informmation: NCBI Webpage: [Entrez Direct Book: E-utilities on the UNIX Co
 
 Test installation by running:
 
+	efetch -help
+	
+It will print an output similar to:
+
+	efetch 2.50
+	
+	-format        Format of record or report
+	-mode          text, xml, asn.1, json
+	
+	-db            Database name
+	-id            Unique identifier or accession number
+	...
+	
+To test efetch obtain a dataset:
+
     efetch -db=nuccore -format=fasta -id=AF086833 | head 
+
+Note: there is a program called `efetch` included with some versions of Linux that is named
+identically but is unrelated to the program above.
+

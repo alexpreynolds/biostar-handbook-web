@@ -11,7 +11,6 @@
 This page contains the following sections:
 
 * [Using Edirect](#intro)
-* [Taxonomy searches with Entrez](#taxonomy)
 * [Getting data from SRA](#sra)
 
 Software installation help: {% link "install-everything" %}
@@ -22,19 +21,50 @@ Software installation help: {% link "install-everything" %}
 - - -
 ### Using Edirect
 
-Short intro to efetch, esearch and elink
+Short intro to `efetch`, `esearch` and `elink`.
 
-{% code "entrez/ncbi-edirect-basics.sh" %}
-{% endmd %}
+When we know the accession numbers for a data entry we
+can fetch them
+
+    efetch -db=nuccore -format=fasta -id=AF086833 > AF086833.fa
 
 
-{% md taxonomy %}
-- - -
-### Taxonomy searches with Entrez
+The type of the output (and the information content) will depend on the
+data format.
 
-On the NCBI taxonomy
+    efetch -db=nuccore -format=gb -id=AF086833 > AF086833.gb
 
-{% code "entrez/ncbi-edirect-taxonomy.sh" %}
+
+Depending on the output format we can further customize the output,
+Select a subsection of the sequence:
+
+    efetch -db=nuccore -format=fasta -id=AF086833 -seq_start=1 -seq_stop=3
+
+Will fetch:
+
+    >gb|AF086833.2|:1-3 Ebola virus - Mayinga, Zaire, 1976, complete genome
+    CGG
+
+
+Efetch may also be customized to operate on the positive of negative strands (labeled 1 or 2).
+Investigate the sequence that you get when strand=2. What is the relation of it to the sequence on strand=1?
+
+    efetch -db=nuccore -format=fasta -id=AF086833 -seq_start=1 -seq_stop=5 -strand=1
+    efetch -db=nuccore -format=fasta -id=AF086833 -seq_start=1 -seq_stop=5 -strand=2
+
+As it turns out what you get are `CGGAC` and `GTCCG` thus the second sequence is
+the reverse complement of the first. Note how this is not actually what the command says that it does.
+The actual sequence on the reverse between coordinates from `1 -> 5`
+is the complement of the forward sequence: `GCCTG`. What the tool actually
+reports is the sequence in the `5 -> 1` direction. This may indeed be what many life
+scientists using the tool actually want but note how we could have not known that
+simply looking at the invocation of the tool (nor of its help). We had to verify it
+for ourselves.
+
+In general what tools do when invoked to operate on the reverse strand will vary and
+are source of numerous and very devious bugs. Trust no one! Always verify it yourself.
+
+
 {% endmd %}
 
 {% md sra %}
@@ -43,7 +73,49 @@ On the NCBI taxonomy
 
 Short read archive is
 
-{% code "entrez/ncbi-edirect-sra.sh" %}
+    #
+    # Get run information from
+    #
+    # This is the Ebola Sequencing project for: url goes here
+    #
+    esearch -db nucleotide -query PRJNA257197
+
+Produces a so called "web environment" that can be passed into another tool:
+
+    <ENTREZ_DIRECT>
+	  <Db>nucleotide</Db>
+	  <WebEnv>NCID_1_53199995_130.14.22.215_9001_1454341979_176891528_0MetA0_S_MegaStore_F_1</WebEnv>
+	  <QueryKey>1</QueryKey>
+	  <Count>249</Count>
+	  <Step>1</Step>
+	</ENTREZ_DIRECT>
+
+A different web enviroment is produced if a different database is searched:
+
+    esearch -db protein -query PRJNA257197
+
+
+To actually produce the data run:
+
+    esearch -db nucleotide -query PRJNA257197 | efetch -format fasta > ebola.fasta
+
+
+We can also search the [Short Read Archive (SRA)](http://www.ncbi.nlm.nih.gov/sra) for
+datasets deposited for a project:
+
+    esearch -db sra -query PRJNA257197  | efetch -format runinfo > runinfo.csv
+
+Produces a fairly large CSV file that contains metadata (although most of it is useless
+and the most important ones are almost always missing)
+
+To filter for patterns that match `SRR` and to store the first ten run ids in a file
+we could write:
+
+	cat runinfo.csv | cut -f 1 -d ',' | grep SRR | head > runids.txt
+
+We can now automate downloading the data via the sra toolkit in the following way:
+
+	cat runids.txt | xargs -n 1 fastq-dump -X 15000 --split-files $1
 
 {% endmd %}
 
