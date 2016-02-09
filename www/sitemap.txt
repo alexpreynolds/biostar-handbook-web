@@ -4,6 +4,7 @@ https://www.biostarhandbook.com/data.html
 https://www.biostarhandbook.com/index.html
 https://www.biostarhandbook.com/2015/2015-index.html
 https://www.biostarhandbook.com/2016/2016-index-world-campus.html
+https://www.biostarhandbook.com/book/handbook.html
 https://www.biostarhandbook.com/tools/getting-your-computer-ready.html
 https://www.biostarhandbook.com/tools/hardware-setup.html
 https://www.biostarhandbook.com/tools/have-you-nuked-the-path.html
