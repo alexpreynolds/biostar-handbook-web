@@ -4,7 +4,9 @@ https://www.biostarhandbook.com/data.html
 https://www.biostarhandbook.com/index.html
 https://www.biostarhandbook.com/2015/2015-index.html
 https://www.biostarhandbook.com/2016/2016-index-world-campus.html
-https://www.biostarhandbook.com/book/handbook.html
+https://www.biostarhandbook.com/basics/sequence-alignment.html
+https://www.biostarhandbook.com/book/code.html
+https://www.biostarhandbook.com/book/ontology/gene-ontology.html
 https://www.biostarhandbook.com/tools/getting-your-computer-ready.html
 https://www.biostarhandbook.com/tools/hardware-setup.html
 https://www.biostarhandbook.com/tools/have-you-nuked-the-path.html
@@ -35,7 +37,6 @@ https://www.biostarhandbook.com/unit/intervals/genome-arithmetic.html
 https://www.biostarhandbook.com/unit/intervals/genomic-intervals.html
 https://www.biostarhandbook.com/unit/intervals/interval-formats.html
 https://www.biostarhandbook.com/unit/minion/minion-intro.html
-https://www.biostarhandbook.com/unit/ontology/gene-ontology.html
 https://www.biostarhandbook.com/unit/programming/programming-intro.html
 https://www.biostarhandbook.com/unit/qc/fastq-quality-control.html
 https://www.biostarhandbook.com/unit/rnaseq/rnaseq-intro.html
