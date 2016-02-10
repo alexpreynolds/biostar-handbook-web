@@ -137,23 +137,24 @@ Then keep adding building the command one step at the time:
 Then finish by building out the entire command to tally the annotations by year with:
 
     cat assoc.txt | cut -f 14 | awk '{ print substr($1, 1, 4) }' | sort | uniq -c | sort -k 2,2 -n  | awk '{ print $2, $1 }
-    #  2000 6
-    #  2001 2005
-    #  2002 1101
-    #  2003 11116
-    #  2004 3469
-    #  2005 4626
-    #  2006 8467
-    #  2007 5161
-    #  2008 9622
-    #  2009 13087
-    #  2010 14751
-    #  2011 23580
-    #  2012 16370
-    #  2013 73306
-    #  2014 35418
-    #  2015 47472
-    #  2016 220641
+
+    #  2000        6
+    #  2001     2005
+    #  2002     1101
+    #  2003    11116
+    #  2004     3469
+    #  2005     4626
+    #  2006     8467
+    #  2007     5161
+    #  2008     9622
+    #  2009    13087
+    #  2010    14751
+    #  2011    23580
+    #  2012    16370
+    #  2013    73306
+    #  2014    35418
+    #  2015    47472
+    #  2016   220641
 
 We do note that the counts in the last line in the file appear to be massively larger than the others.
 This is even more curious if we consider that we running this analysis in the second month of 2016
