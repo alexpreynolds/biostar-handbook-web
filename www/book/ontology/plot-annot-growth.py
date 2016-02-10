@@ -26,25 +26,19 @@ values = filter(None, values)
 
 # Latest year's counts are always is inflated with unreliable data
 values = values[:-1]
-labels = [ x[0] for x in values ]
-counts = [ int(x[1]) for x in values ]
-width = 2
-xpos = [ x  for x  in  range(len(counts)) ]
+labels = [x[0] for x in values]
+counts = [int(x[1]) for x in values]
+xpos = [x for x in range(len(counts))]
 
 plt.bar(xpos, counts)
 plt.ylabel('New Annotations')
 plt.xlabel('Year')
 
-xticks = [ x + 0.4 for x in xpos ]
-yticks = [ "{:,}".format(x) for x in counts]
+xticks = [x + 0.4 for x in xpos]
+yticks = ["{:,}".format(x) for x in counts]
 plt.xticks(xticks[1::2], labels[1::2])
 
 plt.title('New Annotations per Year')
 
-#plt.show()
-plt.savefig("annotation-growth.png")
-
-
-
-
-
+plt.show()
+#plt.savefig("annotation-growth.png")
