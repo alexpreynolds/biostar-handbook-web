@@ -62,7 +62,7 @@ How many gene <-> association mappings?
 
 The gene names are in column 3. Let's see why the tabulator is so useful.
 
-    cat assoc.txt | cut -f 3 | tabulate | head
+    cat assoc.txt | cut -f 3 | tabulate | head -20
 
 Note how it produces a sorted list of the most frequent gene names in the association file.
 It basically counts how many times each gene name occurs in the file, then sorts the results
@@ -166,6 +166,10 @@ Before we investigate that let's plot the growth of data for the years up to 201
 see that the most annotations seem to have been added in `2013`:
 
 <img src="annotation-growth.png" class="img-responsive">
+
+Where as cumulatively the annotation growth is:
+
+<img src="cumulative-growth.png" class="img-responsive">
 
 Now how about that pesky counts in 2016? The seventh column of the GO file contains the so called
 evidence code.
