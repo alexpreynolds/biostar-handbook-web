@@ -1,2 +1,2 @@
-
+# Custom Django tag library.
 

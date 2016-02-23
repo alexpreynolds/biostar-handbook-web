@@ -6,7 +6,9 @@ https://www.biostarhandbook.com/2015/2015-index.html
 https://www.biostarhandbook.com/2016/2016-index-world-campus.html
 https://www.biostarhandbook.com/basics/sequence-alignment.html
 https://www.biostarhandbook.com/book/code.html
-https://www.biostarhandbook.com/book/ontology/gene-ontology.html
+https://www.biostarhandbook.com/book/ontology/david.html
+https://www.biostarhandbook.com/book/ontology/geneset.html
+https://www.biostarhandbook.com/book/ontology/go.html
 https://www.biostarhandbook.com/tools/getting-your-computer-ready.html
 https://www.biostarhandbook.com/tools/hardware-setup.html
 https://www.biostarhandbook.com/tools/have-you-nuked-the-path.html
