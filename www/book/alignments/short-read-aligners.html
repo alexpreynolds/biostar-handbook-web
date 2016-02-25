@@ -1,0 +1,124 @@
+{% extends "unitbase.html" %}
+{% load pytags %}
+{% load handbook %}
+{# title =  BWA, Bowtie and others #}
+{# subtitle = the fast and the furious #}
+{# name = Sequence alignment with high-throughput aligners #}
+
+{% block body %}
+
+{% markdown %}
+
+### High-throughput aligners.
+
+High throughput aligners need to process hundreds of millions
+or even billions of measurements. For that reason
+their alignment protocols are less rigorous, in return they
+operate at blazing speeds. While the invocations or even performance
+of tools may appear similar there can be tremendous differences in the following:
+
+* how the alignment mode can be customized: every tool can find exact or near exact matches
+  but the performance may be very different for sequences that are less similar to the reference
+* the lenghts of the shortest and longest reads that the aligner can efficiently
+  process.
+* what tools report beyond the required standard fields: how many alternative
+  alignments can the tool find, the number of optional SAM tags
+
+The vast majority of NGS aligner comparison papers are not useful as they tend to focus
+on objective measures: speed, accuracy wherease the reason that there are so many
+options is that the output of tools needs to be different across different application domains.
+
+- - -
+{% endmarkdown %}
+
+{% md refs %}
+### Set up the references
+
+Get the reference genome of the 1976 Mayinga Ebola outbreak
+
+    # We'll store the reference genome in a separate directory.
+    mkdir -p ~/refs/ebola
+
+    # Create a shortcut to the reference via an environment variable
+    REF=~/refs/ebola/1976.fa
+
+    # Download the sequence from NCBI
+    efetch -db=nuccore -format=fasta -id=AF086833 > $REF
+
+    # Download 100 reads from the SRR1972739 experiment
+    # This represents data from the 2014 outbreak.
+    fastq-dump -X 1000 --split-files SRR1972739
+
+    # Create shortcuts to the read 1 and read 2
+    R1=SRR1972739_1.fastq
+    R2=SRR1972739_2.fastq
+
+We will now explore aligning this same data with different short read aligners
+
+{% endmd %}
+
+{% md bwa %}
+- - -
+### Using BWA
+
+    # Prepare (index) the genome. This only needs to be done once.
+    bwa index $REF
+
+    # Take a look what files have been created.
+    ls ~/refs/ebola/
+
+    # Running bwa will provide help on its usage.
+    bwa
+
+    # Bwa uses subcommand mechanisms. A subcommand opens
+    # a new set of flags and options.
+    bwa mem
+
+    # Run the bwa aligner. The first parameter is the index
+    # the second parameter is the query. It will
+    # handle both fasta and fastq formats.
+    bwa mem $REF $R1 $R2 > bwa.sam
+
+{% endmd %}
+
+{% md bowtie %}
+- - -
+### Using Bowtie2
+
+    # Prepare (index) the genome. This only needs to be done once.
+    # Bowtie indexing requires you to specify the index name.
+    bowtie2-build $REF $REF
+
+    # Take a look what files have been created.
+    ls ~/refs/ebola/
+
+    # Running bwa will provide help on its usage.
+    bowtie2
+
+    # Run the bowtie2 aligner. By default
+    # Bowtie2 expects a fastq query, ours is fasta format
+    bowtie2 -x $REF -1 $R1 -2 $R2 > bowtie.sam
+
+{% endmd %}
+
+{% md bbmap %}
+- - -
+### Using BBMap
+
+    # Prepare (index) the genome. This only needs to be done once.
+    # The path sets the index location.
+    IDX=~/refs/ebola/
+    bbmap.sh ref=$REF path=$IDX
+
+    # Take a look what files have been created.
+    ls ~/refs/ebola/
+
+    # Running bbmap.sh will provide help on its usage.
+    bbmap.sh
+
+    # Run the bbmap aligner.
+    bbmap.sh in=$R1 in2=$R2 path=$IDX out=bbmap.sam
+
+{% endmd %}
+
+{% endblock %}

@@ -3,7 +3,7 @@
 mkdir -p ~/refs/refseq
 cd ~/refs/refseq/
 
-# Since blast database downloads are so common
+# Since blast database downloads are so shared
 # the blast package includes an update script.
 update_blastdb.pl --showall
 

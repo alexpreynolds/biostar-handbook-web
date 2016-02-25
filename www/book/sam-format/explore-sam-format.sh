@@ -46,7 +46,7 @@ samfile | cut -f 7,8,9
 # No qualities in this case since it was a FASTA file.
 samfile | cut -f 10,11
 
-# The remaining columns are optional. Some of the most common ones:
+# The remaining columns are optional. Some of the most shared ones:
 # NM: number of mismatches
 # AS: Alignment score
 # MD: Mismatching positions

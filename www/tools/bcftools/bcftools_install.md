@@ -23,14 +23,13 @@ and outputs to the standard output (stdout). Several commands can thus be combin
 	
 **Source code installation: Mac OSX, Linux, Cygwin/Windows**
 
-```bash
-cd ~/src
-curl -OL https://github.com/samtools/bcftools/releases/download/1.2/bcftools-1.2.tar.bz2
-tar jxvf bcftools-1.2.tar.bz2
-cd bcftools-1.2
-make
-export PATH=~/src/bcftools-1.2:$PATH
-```
+	cd ~/src
+	curl -OL https://github.com/samtools/bcftools/releases/download/1.2/bcftools-1.2.tar.bz2
+	tar jxvf bcftools-1.2.tar.bz2
+	cd bcftools-1.2
+	make
+	export PATH=~/src/bcftools-1.2:$PATH
+
 
 Test that the installation succeeded:
     

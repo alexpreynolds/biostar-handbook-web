@@ -9,11 +9,16 @@
 {% markdown %}
 
 One of the most frustrating issues faced by newcomers is how to run a program
-they have just installed.
+they have just installed. Suppose you install the program `samtools` and you try
+to run it you could get this:
+
+    $ fastq-dump
+    fastq-dump: command not found
 
 The main concept to remember here is that our computers
-typically search only a few limited locations when looking for an executable. We often
-need to tell our computer how to find a program in a new location. Here are solutions
+look at only a few locations when trying to find a program. When we install
+a new program we
+need to tell our computer of the new locations . There are different ways to do this:
 
 - - -
 
@@ -43,14 +48,14 @@ we need add the location of the program to the so called *search path* of the sh
 
     export PATH=~/src/sratoolkit.2.5.2-mac64/bin:$PATH
 
-The new `PATH` will be constructed as the new directory + `:` + old value of the `PATH`.
+The new `PATH` will be constructed as the `new directory` + `:` + `old value` of the `PATH`.
 Now we should be able to run the program as
 
     fastq-dump
 
-Now the above is great solution but typing the export into each terminal is tedious.
+Now the above is great solution but typing thsi export command each time is tedious.
 We want to apply the setting automatically. In this case you need to append this information
-to the so called *shell profile*. See the page {% link "bash-profile.html" %}
+to the so called *shell profile*. See the page {% link "set-bash-profile.html" %}
 
 - - -
 
@@ -78,19 +83,11 @@ ln -s ~/src/sratoolkit.2.5.2-mac64/bin/fastq-dump ~/bin/fastq-dump
 
 Of course we still need to add `~/bin` to our path. But this now only needs to
 be done once. After that simply linking the program into `~/bin` will make it available
-everywhere:
+everywhere. The export command simply becomes.
 
     export PATH=~/bin:$PATH
 
-To load these settings automatically see the page {% link "bash-profile.html" %}
-
-- - -
-
-Shortcuts to other installation related information:
-
-* {% link "computer-setup" %} - hardware setup.
-* {% link "how-to-install-everything" %} - to install every tool in this book.
-* {% link "bash-profile.html" %} - to ensure that your settings are applied automatically.
+To load these settings automatically see the page {% link "set-bash-profile.html" %}
 
 {% endmarkdown %}
 {% endblock %}

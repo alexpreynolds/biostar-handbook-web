@@ -23,16 +23,14 @@ Main installation instructions
 
 **Mac OSX and Linux installation**:
 
-```bash
-cd ~/src
-git clone --recursive git://github.com/ekg/freebayes.git
-cd freebayes
-make
-# For reasons that I don't yet understand the first make command
-# fails but the second succeeds.
-make
-ln -s ~/src/freebayes/bin/freebayes ~/bin/freebayes
-```
+	cd ~/src
+	git clone --recursive git://github.com/ekg/freebayes.git
+	cd freebayes
+	make
+	# For reasons that I don't yet understand the first make command
+	# fails but the second succeeds.
+	make
+	ln -s ~/src/freebayes/bin/freebayes ~/bin/freebayes
 
 Test installation by running:
 

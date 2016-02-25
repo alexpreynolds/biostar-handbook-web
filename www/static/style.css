@@ -71,5 +71,5 @@ p {
 }
 
 :not(.nav) > li {
-    padding-bottom: 1ex;
+    //padding-bottom: 0.5ex;
 }

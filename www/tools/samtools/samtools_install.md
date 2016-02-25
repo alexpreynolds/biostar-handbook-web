@@ -59,6 +59,9 @@ What's with the `booyah``? It is bioinformatics! A parameter
 that is required to be there but not actually used in any way.
 
 Rock on!
-    
+
+Note: when run in a parallel environment `samtools sort` will need the `-T` parameter set 
+to ensure that temporary files are named differently! Wildly unexpected, mindboggingly confusing 
+(and obviously wrong) results will tacitly be generated otherwise! Trust us on this one :-)
        
   

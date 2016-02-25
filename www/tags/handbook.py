@@ -7,7 +7,6 @@ from pyblue.templatetags.pytags import markdown
 
 import re, logging, textwrap
 
-from pygments import highlight
 
 logger = logging.getLogger('pyblue')
 
@@ -50,10 +49,19 @@ def top_level_only(attrs, new=False):
 
 ANCHOR_PATTERN = '<a name="%s"></a>'
 TOP_LINK = '<a class="btn btn-default btn-xs btn-info" href="#top">&laquo; back to top</a>'
+BACK_LINK = '<a class="btn btn-default btn-xs btn-success" href="javascript: history.go(-1)">&laquo; Go Back</a>'
+
+BOOK_COVER = '''
+<a href="https://leanpub.com/biostarhandbook"><img src="../img/cover.png" class="img-responsive {css} col-sm-{size}" alt="book cover"></a>
+'''
 
 @register.simple_tag
 def top():
     return TOP_LINK
+
+@register.simple_tag
+def back():
+    return BACK_LINK
 
 @register.simple_tag
 def anchor(name):
@@ -62,6 +70,10 @@ def anchor(name):
 @register.simple_tag
 def img(src, css):
     return '<img src="{}" class="{}">'.format(src, css)
+
+@register.simple_tag
+def cover(size=4, css="pull-right"):
+    return BOOK_COVER.format(size=size, css=css)
 
 @register.simple_tag(takes_context=True)
 def simplecode(context, pattern):

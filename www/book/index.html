@@ -1,0 +1,80 @@
+{% extends "base.html" %}
+{% load pytags %}
+{# title = Biostar Handbook Online #}
+{# subtitle = bioinformatics survival guide #}
+{# navtab = index #}
+{# name = Biostar Handbook Online #}
+
+{% block body %}
+
+{% markdown %}
+
+### Biostar Handbook Online
+
+
+This page contains materials that closely tracks the content presented in
+the [Biostar Handbook][book].
+
+- - -
+
+#### Computer Setup
+
+{%  cover 2 %}
+
+Bioinformatics would not exists without computers. The first
+step is to turn your system into a computational powerhouse.
+
+* {% link 'get-ready.html' %}
+* {% link 'how-to-install-everything.html' %}
+
+Running software tools has oh so many some pitfalls. Refer to the pages below:
+
+* {% link "how-to-set-the-path.html" %}
+* {% link "set-bash-profile.html" %}
+* {% link "minimal-bash-profile.html" %}
+
+- - -
+
+#### Using the Unix command line
+
+The ability to use Unix commands is required to perform bioinformatics data
+analysis with command line tools.
+
+* {% link "unix-shell-intro" %}
+* {% link "unix-intro.html" %}
+
+- - -
+
+#### Biological Data Sources
+
+Automating data access is an important skill for a bioinformatician.
+
+* {% link 'ncbi-entrez.html' %}
+
+- - -
+
+#### Data quality control and post processing
+
+Quality control (abbreviated as QC) is the process of improving
+data by removing identifiable errors from it.
+
+* {% link 'fastq-quality-control.html' %}
+
+- - -
+
+#### Sequence Alignments
+
+Local and global alignments. Running short read mappers.
+
+* {% link 'emboss-intro.html' %}
+* {% link 'short-read-aligners.html' %}
+
+- - -
+
+[book]: https://leanpub.com/biostarhandbook
+
+{%  endmarkdown %}
+
+{% back %}
+
+{% endblock %}

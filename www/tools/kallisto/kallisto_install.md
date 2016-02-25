@@ -1,5 +1,4 @@
-### Kallisto
-
+## Kallisto pseudo-aligner
 
 	mkdir -p ~/src
 	cd src

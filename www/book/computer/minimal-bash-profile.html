@@ -1,0 +1,40 @@
+{% extends "unitbase.html" %}
+{% load pytags %}
+{# title =  Minimal Bash profile #}
+{# subtitle = this is how I start #}
+{# name = A simple, minimal bash profile #}
+
+{% block body %}
+
+{% markdown %}
+
+Below is what we consider a minimal bash configuration file
+that is still universally useful. This is how we start on every system.
+As you gain more expertise expand the file with commands
+that are useful in your work.
+
+    # Aliases are a way to customize command names
+    # For a Mac OSX.
+    alias ls='ls -hG'
+
+    # On linux use the following:
+    # alias ls='ls -h --color'
+
+    # Safe versions of the default commands.
+    alias rm='rm -i'
+    alias mv='mv -i'
+    alias cp='cp -i'
+
+    # Extend the path to add the ~/bin folder.
+    export PATH=~/bin:$PATH
+
+    # This makes the prompt much more user friendly. But it does look ridiculous.
+    export PS1='\[\e]0;\w\a\]\n\[\e[32m\]\u@\h \[\e[33m\]\w\[\e[0m\]\n\$ '
+
+*Note*: do yourself a favor and customize the way
+the terminal looks. You can vary font sizes, colors. It makes
+a tremendous difference.
+
+{% endmarkdown %}
+
+{% endblock %}

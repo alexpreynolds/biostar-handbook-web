@@ -28,7 +28,37 @@ There are separate instructions for Max OSX, Linux and Windows computers.
 Follow only the instructions for your platform. There may be multiple steps required
 to get through.
 
-* {% link "hardware-setup" %}
+* {% link "computer-setup" %}
+
+- - -
+
+### Directory layout
+
+We recommend that all tools be placed under the same directory. We recommend
+to use the `~/src` for all downloaded tools. Here `~` stands for the
+so called home directory that your Terminal will open into. We also recommend that you
+create a `~/bin` directory that is added to the execution path. This
+avoids having to extend the path for each tool. We will download
+and install reference genomes into the `~/refs` directory. You will
+need to do the following from a terminal:
+
+    # This will store the downloaded program sources
+    mkdir -p ~/src
+
+    # This folder will store shortcuts to all tools
+    mkdir -p ~/bin
+
+    # This folder will store the reference genomes and annotations
+    mkdir -p ~/refs
+
+One of the early challenges here is that by default the Mac
+OSX Finder won't even show you the home directory that your Terminal
+opens into. You will need to make sure to enable it in the
+Finder as described in: {% link "computer-setup" %}.
+More information on how to create directories and what these commands mean
+is covered in the chapter discussing the Unix operating system.
+
+See also: {% link "how-to-set-the-path" %} and {% link "minimal-bash-profile" %}
 
 - - -
 

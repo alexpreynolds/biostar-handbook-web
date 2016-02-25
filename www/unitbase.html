@@ -2,12 +2,15 @@
 {# subtitle = unitbase #}
 {% block bodyhead %}
 <div class="chapter title">
-    <a class="btn btn-default btn-xs btn-success" href="javascript: history.go(-1)">&laquo; Go Back</a> &bull;
-    <a class="btn btn-default btn-xs btn-success" href="/"> <span class="glyphicon glyphicon-home" aria-hidden="true"></span> Home Page</a> &bull;
-    This is <b>{{page.title}}</b> section for
-    the <a href="https://leanpub.com/biostarhandbook">
-        <span class="glyphicon glyphicon-book" aria-hidden="true"></span> Biostar Handbook</a>.
+    {%  back %} &bull;
 
+    This is <b>{{page.title}}</b> section for
+    the <a href="/">
+        <span class="glyphicon glyphicon-book" aria-hidden="true"></span> Biostar Handbook</a>.
 </div>
 {% endblock %}
 {% block navbar %}<hr> {% endblock %}
+{%  block bodyend %}
+<hr>
+{%  back %}
+{%  endblock %}

@@ -16,11 +16,11 @@ This package includes BBMap, a short read aligner, as well as various other bioi
 
 Installation is identical on all platforms:
 
-```bash
-cd ~/src
-curl -OL http://sourceforge.net/projects/bbmap/files/BBMap_35.50.tar.gz
-tar zxvf BBMap_35.50.tar.gz
-```
+
+	cd ~/src
+	curl -OL http://sourceforge.net/projects/bbmap/files/BBMap_35.50.tar.gz
+	tar zxvf BBMap_35.50.tar.gz
+
 
 Test installation by running:
 

@@ -12,26 +12,25 @@ Trimmomatic: A flexible trimmer for Illumina Sequence Data. Bioinformatics][trim
 
 **Works on all platforms that support java**
 
-```bash
-cd ~/src
-curl -O http://www.usadellab.org/cms/uploads/supplementary/Trimmomatic/Trimmomatic-0.33.zip
-unzip Trimmomatic-0.33.zip
+	cd ~/src
+	curl -O http://www.usadellab.org/cms/uploads/supplementary/Trimmomatic/Trimmomatic-0.33.zip
+	unzip Trimmomatic-0.33.zip
+	
+	# The program can be invoked via
+	java -jar ~/src/Trimmomatic-0.33/trimmomatic-0.33.jar
+	
+	# The ~/src/Trimmomatic-0.33/adapters/ directory contains
+	# Illumina specific adapter sequences.
+	ls ~/src/Trimmomatic-0.33/adapters/
+	
+	# The program can be run as
+	java -jar ~/src/Trimmomatic-0.33/trimmomatic-0.33.jar
+	
+	# To simplify the invocation create a script in the ~/bin folder:
+	echo '#!/bin/bash' > ~/bin/trimmomatic
+	echo 'java -jar ~/src/Trimmomatic-0.33/trimmomatic-0.33.jar $@' >> ~/bin/trimmomatic
+	chmod +x ~/bin/trimmomatic
 
-# The program can be invoked via
-java -jar ~/src/Trimmomatic-0.33/trimmomatic-0.33.jar
-
-# The ~/src/Trimmomatic-0.33/adapters/ directory contains
-# Illumina specific adapter sequences.
-ls ~/src/Trimmomatic-0.33/adapters/
-
-# The program can be run as
-java -jar ~/src/Trimmomatic-0.33/trimmomatic-0.33.jar
-
-# To simplify the invocation create a script in the ~/bin folder:
-echo '#!/bin/bash' > ~/bin/trimmomatic
-echo 'java -jar ~/src/Trimmomatic-0.33/trimmomatic-0.33.jar $@' >> ~/bin/trimmomatic
-chmod +x ~/bin/trimmomatic
-```
 
 Test installation by running:
 
