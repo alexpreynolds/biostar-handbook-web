@@ -25,10 +25,16 @@ of tools may appear similar there can be tremendous differences in the following
   alignments can the tool find, the number of optional SAM tags
 
 The vast majority of NGS aligner comparison papers are not useful as they tend to focus
-on objective measures: speed, accuracy wherease the reason that there are so many
-options is that the output of tools needs to be different across different application domains.
+on what they consider "objective" measures: speed, accuracy. These in the end are not all that different across aligners.
+In addition the minimally required information that all aligners must produce is very limited and can
+be inadequate for many application domains. Hence the conclusions of most aligner comparison papers typically miss
+the most important differences between the various alternatives.
 
-The sections below demonstrate how we run the tools with their default settings. As noted in the
+The main reason for having so many
+alternatives is that scientists very often need to customize the way aligners operate and, in
+addition they need more detailed information on how the alignment was computed.
+
+The sections below demonstrate how to use a number of tools with their default settings. As noted in the
 handbook each of these can be customized to change the scoring, algorithm sensitivity and
 reporting.
 

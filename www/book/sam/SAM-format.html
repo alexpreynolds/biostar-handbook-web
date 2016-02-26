@@ -1,0 +1,127 @@
+{% extends "unitbase.html" %}
+{% load pytags %}
+{# title = SAM #}
+{# subtitle = sequence alignment maps #}
+{# name = Alignment representation: Sequence Alignment Maps (SAM) #}
+
+{% block body %}
+
+{% markdown %}
+
+- - -
+
+Essential links:
+
+* The [SAM format specification][sam-spec] keep it under your pillow
+* [Explain SAM Flags][explain-sam] to decipher the flag field of it. The new version of `samtools` is also able to list the flags.
+
+
+### Sam Flags
+
+The samtools `flags` allow us to select alignments that have certain properties.
+As of samtools 1.2 there is a `flags` command to covert the integer codes to human readable output:
+
+    # List all flags.
+    samtools flags
+
+    # Combine flags into a single number.
+    samtools flags PAIRED,PROPER_PAIR,REVERSE,MREVERSE
+    # 0x33    51    PAIRED,PROPER_PAIR,REVERSE,MREVERSE
+
+    # It works backwards as well.
+    samtools flags 51
+    # 0x33	51	PAIRED,PROPER_PAIR,REVERSE,MREVERSE
+
+[explain-sam]: https://broadinstitute.github.io/picard/explain-flags.html
+[sam-spec]: https://samtools.github.io/hts-specs/
+
+- - -
+
+{%  endmarkdown %}
+
+{% md format 'Explore the SAM format' %}
+
+Prepare a genome for alignment. We're using the Ebola genome of the 1976 outbreak.
+
+    mkdir -p ~/refs/ebola
+    REF=~/refs/ebola/1976.fa
+    efetch -db=nuccore -format=fasta -id=AF086833 > $REF
+    bwa index $REF
+
+What we want to prepare are four sequences with known properties and then we will align each
+separately:
+
+* A sequence that is an exact match,
+* A sequence from the reverse strand,
+* A sequence with a mismatch and,
+* A sequence with an insertion or deletion
+
+We will use the emboss tools called [seqret](http://emboss.sourceforge.net/apps/release/6.6/emboss/apps/seqret.html)
+and [msbar](http://emboss.sourceforge.net/apps/release/6.6/emboss/apps/msbar.html), powerful
+but somewhat unfriendly programs.
+To mutate the sequence you could edit it in an editor or use the `msbar` EMBOSS tool.
+It has the following values to its `-point` parameter.
+
+    -point  Types of point mutations to perform
+             0 None
+             1 Any of the following
+             2 Insertions
+             3 Deletions
+             4 Changes
+             5 Duplications
+             6 Moves
+
+This will create a file called `query.fa` with mutated sequences.
+
+    # Extract the first 50 bases, rename the sequence 'exact'
+    seqret -filter -send 50  -sid exact $REF > query.fa
+
+    # Extract the first 50 bases, reverse complement it, rename the sequence 'reverse'
+    seqret -filter -send 50 -srev -sid reverse $REF >> query.fa
+
+    # Mutate with a mismatch.
+    seqret -filter -send 50 $REF | msbar -filter -sid mismatch -point 4 >> query.fa
+
+    # Mutate with an insertion.
+    seqret -filter -send 50 $REF | msbar -filter -sid insertion -point 2 >> query.fa
+
+To visualize the alignments we could run `lastz` with so called text output
+
+    lastz $REF query.fa --format=text
+
+There will be an alignment for each query sequence, the last one being:
+
+    1 CGGACACACAAAAAGAAAGAAGAATTTTTAGGATCTTTTGTGT-GCGAAT
+      |||||||||||||||||||||||||||||||||||||||||||-||||||
+    1 CGGACACACAAAAAGAAAGAAGAATTTTTAGGATCTTTTGTGTGGCGAAT
+
+
+
+{% code "sam/explore-sam-format.sh" %}
+
+{% endmd %}
+
+{% md samtools-basics 'Using Samtools: Basics' %}
+
+Samtools is a magical tool that alone could be used
+to reproduce the majority of results in a suprising number publications.
+
+{% code "sam/samtools-commands.sh" %}
+
+{% endmd %}
+
+{% md advanced 'Using Samtools: Advanced usage' %}
+
+Evaluate simulated datasets
+
+{% code "sam/samtools-wgsim.sh" %}
+{% endmd %}
+
+{% md variation 'Using Samtools: Large scale rearrangments, pileups' %}
+
+Use samtools to investigate genome structure. Generate pileups.
+
+{% code "sam/samtools-variation.sh" %}
+{% endmd %}
+
+{% endblock %}

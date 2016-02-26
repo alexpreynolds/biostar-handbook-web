@@ -17,7 +17,7 @@ https://www.biostarhandbook.com/book/computer/set-bash-profile.html
 https://www.biostarhandbook.com/book/ontology/david.html
 https://www.biostarhandbook.com/book/ontology/geneset.html
 https://www.biostarhandbook.com/book/ontology/go.html
-https://www.biostarhandbook.com/book/sam-format/sam-format.html
+https://www.biostarhandbook.com/book/sam/sam-format.html
 https://www.biostarhandbook.com/tools/bbmap/bbmap-help-seqanswers.html
 https://www.biostarhandbook.com/tools/bbmap/bbmap-help.html
 https://www.biostarhandbook.com/tools/bbmap/bbmap_main.html
