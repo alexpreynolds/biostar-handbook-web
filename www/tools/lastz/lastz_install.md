@@ -15,15 +15,16 @@ All platforms (installs the latest version):
 	curl -O http://www.bx.psu.edu/~rsharris/lastz/newer/lastz-1.03.73.tar.gz
 	tar xzvf lastz-1.03.73.tar.gz 
 	cd lastz-distrib-1.03.73/ 
+	
+	# Build the tool. (see notes below).
 	make
+
+	# Link the executable to the ~/bin folder
+ 	ln -sf ~/src/lastz-distrib-1.03.73/src/lastz ~/bin
  	
 The compilation above may fail on the Mac due to overly stringent warnings (treats all warnings as errors).
 If that happens edit the file `~/src/lastz-distrib-1.03.73/src/Makefile`  and remove the `-Werror` flag for the
 `defineAll` variable. The program should compile successfully.
-
-Link the executables into the `~/bin` folder
-
-	ln -s lastz-distrib-1.03.73/src/lastz ~/bin 
 	
 The **Mac OSX** version that installs via brew is an older version though:
 

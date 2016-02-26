@@ -1,7 +1,7 @@
 {% extends "unitbase.html" %}
 {% load pytags %}
 {% load handbook %}
-{# title =  BWA, Bowtie and others #}
+{# title =  Short Read Aligners #}
 {# subtitle = the fast and the furious #}
 {# name = Sequence alignment with high-throughput aligners #}
 
@@ -27,6 +27,10 @@ of tools may appear similar there can be tremendous differences in the following
 The vast majority of NGS aligner comparison papers are not useful as they tend to focus
 on objective measures: speed, accuracy wherease the reason that there are so many
 options is that the output of tools needs to be different across different application domains.
+
+The sections below demonstrate how we run the tools with their default settings. As noted in the
+handbook each of these can be customized to change the scoring, algorithm sensitivity and
+reporting.
 
 - - -
 {% endmarkdown %}
@@ -70,8 +74,7 @@ We will now explore aligning this same data with different short read aligners
     # Running bwa will provide help on its usage.
     bwa
 
-    # Bwa uses subcommand mechanisms. A subcommand opens
-    # a new set of flags and options.
+    # Bwa uses subcommand mechanisms.
     bwa mem
 
     # Run the bwa aligner. The first parameter is the index
@@ -86,7 +89,6 @@ We will now explore aligning this same data with different short read aligners
 ### Using Bowtie2
 
     # Prepare (index) the genome. This only needs to be done once.
-    # Bowtie indexing requires you to specify the index name.
     bowtie2-build $REF $REF
 
     # Take a look what files have been created.
@@ -95,8 +97,7 @@ We will now explore aligning this same data with different short read aligners
     # Running bwa will provide help on its usage.
     bowtie2
 
-    # Run the bowtie2 aligner. By default
-    # Bowtie2 expects a fastq query, ours is fasta format
+    # Run the bowtie2 aligner.
     bowtie2 -x $REF -1 $R1 -2 $R2 > bowtie.sam
 
 {% endmd %}
@@ -106,7 +107,6 @@ We will now explore aligning this same data with different short read aligners
 ### Using BBMap
 
     # Prepare (index) the genome. This only needs to be done once.
-    # The path sets the index location.
     IDX=~/refs/ebola/
     bbmap.sh ref=$REF path=$IDX
 
@@ -118,6 +118,39 @@ We will now explore aligning this same data with different short read aligners
 
     # Run the bbmap aligner.
     bbmap.sh in=$R1 in2=$R2 path=$IDX out=bbmap.sam
+
+{% endmd %}
+
+{% md last %}
+- - -
+### Using LASTAL
+
+    # Prepare (index) the genome. This only needs to be done once.
+    lastdb -c $REF $REF
+
+    # Take a look what files have been created.
+    ls ~/refs/ebola/
+
+    # The LASTAL aligner produces MAF files by default.
+    lastal -Q 1 $REF $R1 > lastal.maf
+
+    # The default output is not SAM. There is script to convert the output.
+    maf-convert sam lastal.maf > lastal.sam
+
+{% endmd %}
+
+{% md last %}
+- - -
+### Using LASTZ
+
+LASTZ is a generic aligner that also works for short reads but cannot
+handle paried reads. It does however offer the most number of options
+in customizing how the alignment takes place.
+
+    # Lastz does not need an index.
+    lastz $REF $R1 --format=sam >lastz-r1.sam
+
+    lastz $REF $R2 --format=sam >lastz-r2.sam
 
 {% endmd %}
 
