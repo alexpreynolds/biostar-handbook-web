@@ -79,25 +79,53 @@ This will create a file called `query.fa` with mutated sequences.
     # Extract the first 50 bases, reverse complement it, rename the sequence 'reverse'
     seqret -filter -send 50 -srev -sid reverse $REF >> query.fa
 
-    # Mutate with a mismatch.
+    # Mutate with a mismatch. Rename the sequence to `mismatch`
     seqret -filter -send 50 $REF | msbar -filter -sid mismatch -point 4 >> query.fa
 
-    # Mutate with an insertion.
+    # Mutate with an insertion. Rename the sequence to `insertion`
     seqret -filter -send 50 $REF | msbar -filter -sid insertion -point 2 >> query.fa
 
 To visualize the alignments we could run `lastz` with so called text output
 
     lastz $REF query.fa --format=text
 
-There will be an alignment for each query sequence, the last one being:
+There will be an alignment for each query sequence. For example in my case
+the last one was. It shows the insertion of the bottom query sequence
+relative to the reference (top) sequence:
 
     1 CGGACACACAAAAAGAAAGAAGAATTTTTAGGATCTTTTGTGT-GCGAAT
       |||||||||||||||||||||||||||||||||||||||||||-||||||
     1 CGGACACACAAAAAGAAAGAAGAATTTTTAGGATCTTTTGTGTGGCGAAT
 
+Align the same with bwa and let's look at what the SAM file structure
+is like:
 
+    bwa mem $REF query.fa > query.sam
 
-{% code "sam/explore-sam-format.sh" %}
+From this SAM file cut different columns and look at their content:
+
+    # First three columns: QNAME, FLAG, RNAME
+    cat query.sam | cut -f 1,2,3
+
+    # Second three columns: POS, MAPQ, CIGAR
+    cat query.sam | cut -f 4,5,6
+
+    # Third three columns: RNEXT, PNEXT, TLEN
+    # These are set only for paired end sequencing runs.
+    cat query.sam | cut -f 7,8,9
+
+    # Last two columns: SEQ, QUAL
+    # No qualities in this case since it was a FASTA file.
+    cat query.sam | cut -f 10,11
+
+    # The remaining columns are optional. Some of the most commonly filled ones:
+    # NM: number of mismatches
+    # AS: Alignment score
+    # MD: Mismatching positions
+    # NH: Number of reported alignments that contains the query
+    # Read the SAM spec for the definition of TAG names that don't start with X.
+    # Read the aligner manual for the definition of TAG names that start with X
+    cat query.sam | cut -f 12,13,14
 
 {% endmd %}
 
