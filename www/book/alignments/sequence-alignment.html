@@ -3,11 +3,126 @@
 {% load handbook %}
 {# title =  Sequence Alignment #}
 {# subtitle = the basics of bioinformatics #}
-{# name = Sequence Alignment #}
+{# name = Sequence Alignment: Global and Local Pairwise Alignments #}
 
 {% block body %}
 
 {% markdown %}
+
+##Local and global alignments
+
+We have created two shell scripts around EMBOSS aligners to
+make exploratory alignments easier.
+
+See {% link "global-align" "global-align.sh" %} and {% link "local-align" "local-align.sh" %}
+
+### Install the aligment wrappers
+
+Install the wrappers for the EMBOSS aligners.
+
+    curl https://www.biostarhandbook.com/unit/emboss/global-align.sh > ~/bin/global-align.sh
+    curl https://www.biostarhandbook.com/unit/emboss/local-align.sh > ~/bin/local-align.sh
+
+    # Make the scripts executable.
+    chmod +x ~/bin/*-align.sh
+
+### Using the aligners
+
+The sequences `THISLINE`, `ISALIGNED` are based on a cute alignment example borrowed from
+Market Zvelebil, Jeremy Baum: Understanding Bioinformatics:
+
+Gobal alignments.
+
+    global-align.sh THISLINE ISALIGNED
+
+Produces (among other output):
+
+    a    1 THISLI--NE-      8
+             ||.:  ||
+    b    1 --ISALIGNED      9
+
+The same alignment as a local alignment:
+
+    local-align.sh THISLINE ISALIGNED
+
+Will produce
+
+    a    7 NE      8
+           ||
+    b    7 NE      8
+
+There are a number of other features that you can explore:
+
+    # Override the gap open penalty.
+    local-align.sh THISLINE ISALIGNED -gapopen 1
+
+    # Output formats: pair, msf, markx0, markx1, markx2 ...
+    local-align.sh THISLINE ISALIGNED -gapopen 1 -aformat msf
+
+    # Global alignment. Remove comment lines from output.
+    global-align.sh THISLINE ISALIGNED | grep -v '#'
+
+    # Override the gap open and gap extension penalty.
+    global-align.sh THISLINE ISALIGNED -gapopen 2 -gapextend 1
+
+We can customize the alignment substitution matrices. Download different scoring matrices
+from <ftp://ftp.ncbi.nlm.nih.gov/blast/matrices/>:
+
+    # This matrix is the "standard" EDNAFULL substitution matrix.
+    curl -O ftp://ftp.ncbi.nlm.nih.gov/blast/matrices/NUC.4.4
+
+    # View the matrix
+    cat NUC.4.4
+
+It contains:
+
+    #
+    # This matrix was created by Todd Lowe   12/10/92
+    #
+    # Uses ambiguous nucleotide codes, probabilities rounded to
+    #  nearest integer
+    #
+    # Lowest score = -4, Highest score = 5
+    #
+        A   T   G   C   S   W   R   Y   K   M   B   V   H   D   N
+    A   5  -4  -4  -4  -4   1   1  -4  -4   1  -4  -1  -1  -1  -2
+    T  -4   5  -4  -4  -4   1  -4   1   1  -4  -1  -4  -1  -1  -2
+    G  -4  -4   5  -4   1  -4   1  -4   1  -4  -1  -1  -4  -1  -2
+    C  -4  -4  -4   5   1  -4  -4   1  -4   1  -1  -1  -1  -4  -2
+    S  -4  -4   1   1  -1  -4  -2  -2  -2  -2  -1  -1  -3  -3  -1
+    W   1   1  -4  -4  -4  -1  -2  -2  -2  -2  -3  -3  -1  -1  -1
+    R   1  -4   1  -4  -2  -2  -1  -4  -2  -2  -3  -1  -3  -1  -1
+    ...
+
+More scoring matrices for proteins:
+
+    # Get the BLOSUM30, BLOSUM62, and BLOSUM90 matrices.
+    curl -O ftp://ftp.ncbi.nlm.nih.gov/blast/matrices/BLOSUM30
+    curl -O ftp://ftp.ncbi.nlm.nih.gov/blast/matrices/BLOSUM62
+    curl -O ftp://ftp.ncbi.nlm.nih.gov/blast/matrices/BLOSUM90
+
+Compare the substitution scores for Alanine. Each row corresponds to
+a different scoring matrix.
+
+    cat BLOSUM30 BLOSUM62 BLOSUM90 | egrep '^A'
+
+Do you see a change in scores by row?
+
+Compare the outputs for each of these. What effect does the scoring matrix have?
+
+    # Default alignment uses the BLOSUM62 substitution matrix.
+    local-align.sh THISLINE ISALIGNED | grep -v "#"
+
+    # Aligning with the BLOSUM30 substitution matrix.
+    local-align.sh THISLINE ISALIGNED -data BLOSUM30 | grep -v "#"
+
+    # Aligning with the BLOSUM62 substitution matrix.
+    local-align.sh THISLINE ISALIGNED -data BLOSUM90 | grep -v "#"
+
+
+
+
+
 {%  endmarkdown %}
 
 {% endblock %}
