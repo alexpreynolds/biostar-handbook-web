@@ -2,19 +2,23 @@
 {% load pytags %}
 {# title = SAM #}
 {# subtitle = sequence alignment maps #}
-{# name = Alignment representation: Sequence Alignment Maps (SAM) #}
+{# name = Representing billions of alignments: The Sequence Alignment Maps (SAM) #}
 
 {% block body %}
 
-{% markdown %}
+{% md sam %}
+
+A SAM file contains so called information on alignments.
+
+> **Reference:** The [SAM format specification][sam-spec]. Keep it under your pillow.
 
 - - -
 
-Essential links:
+### Creating SAM files
 
-* The [SAM format specification][sam-spec] keep it under your pillow
-* [Explain SAM Flags][explain-sam] to decipher the flag field of it. The new version of `samtools` is also able to list the flags.
-
+Please refer to {%  link 'short-read-aligners' %} on how to generate these.
+This tutorial will assume that you have at least the `bwa.sam`  file
+generated with instruction on that page.
 
 ### Sam Flags
 
@@ -37,7 +41,7 @@ As of samtools 1.2 there is a `flags` command to covert the integer codes to hum
 
 - - -
 
-{%  endmarkdown %}
+{%  endmd %}
 
 {% md format 'Explore the SAM format' %}
 

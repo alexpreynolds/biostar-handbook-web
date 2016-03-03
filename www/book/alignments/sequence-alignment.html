@@ -37,9 +37,9 @@ Gobal alignments.
 
 Produces (among other output):
 
-    a    1 THISLI--NE-      8
-             ||.:  ||
-    b    1 --ISALIGNED      9
+    a    1   THISLI--NE-    8
+               ||.:  ||
+    b    1   --ISALIGNED    9
 
 The same alignment as a local alignment:
 
@@ -47,9 +47,9 @@ The same alignment as a local alignment:
 
 Will produce
 
-    a    7 NE      8
-           ||
-    b    7 NE      8
+    a    7    NE     8
+              ||
+    b    7    NE     8
 
 There are a number of other features that you can explore:
 
@@ -110,17 +110,35 @@ Do you see a change in scores by row?
 
 Compare the outputs for each of these. What effect does the scoring matrix have?
 
-    # Default alignment uses the BLOSUM62 substitution matrix.
+Default alignment uses the `BLOSUM62` substitution matrix.
+
     local-align.sh THISLINE ISALIGNED | grep -v "#"
 
-    # Aligning with the BLOSUM30 substitution matrix.
+This is the alignment with `BLOSUM62`:
+
+    a                  7 NE      8
+                         ||
+    b                  7 NE      8
+
+Realign with the `BLOSUM30` substitution matrix.
+
     local-align.sh THISLINE ISALIGNED -data BLOSUM30 | grep -v "#"
 
-    # Aligning with the BLOSUM62 substitution matrix.
+produces:
+
+    a                  5 LINE      8
+                         :.||
+    b                  5 IGNE      8
+
+Aligning with the `BLOSUM62` substitution matrix
+
     local-align.sh THISLINE ISALIGNED -data BLOSUM90 | grep -v "#"
 
+will produce a slightly different output:
 
-
+    a                  4 SLI-NE      8
+                         :|| ||
+    b                  3 ALIGNE      8
 
 
 {%  endmarkdown %}

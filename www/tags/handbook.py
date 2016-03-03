@@ -5,8 +5,13 @@ from __future__ import print_function, unicode_literals, absolute_import, divisi
 from django import template
 from pyblue.templatetags.pytags import markdown
 
-import re, logging, textwrap
+import sys, re, logging, textwrap
 
+try:
+    import CommonMark
+except ImportError as exc:
+    print ("*** Please install CommonMark: pip install commonmark")
+    sys.exit()
 
 logger = logging.getLogger('pyblue')
 
@@ -111,7 +116,8 @@ class MarkDownNode(template.Node):
         text = self.nodelist.render(context)
         if self.title:
             text = "### %s\n\n%s" % (self.title, text)
-        text = markdown(text)
+        #text = markdown(text)
+        text = CommonMark.commonmark(text)
         link_anchor = ANCHOR_PATTERN % self.anchor
         text = bleach.linkify(text, callbacks=self.CALLBACKS, skip_pre=True)
         text = link_anchor + text + TOP_LINK
