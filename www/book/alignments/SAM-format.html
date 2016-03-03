@@ -12,6 +12,8 @@ A SAM file contains so called information on alignments.
 
 > **Reference:** The [SAM format specification][sam-spec]. Keep it under your pillow.
 
+[sam-spec]: https://samtools.github.io/hts-specs/
+
 - - -
 
 ### Creating SAM files
@@ -19,6 +21,35 @@ A SAM file contains so called information on alignments.
 Please refer to {%  link 'short-read-aligners' %} on how to generate these.
 This tutorial will assume that you have at least the `bwa.sam`  file
 generated with instruction on that page.
+
+The main program used to process SAM files is called samtools:
+
+    samtools
+
+Just as `bwa` (and as a matter of fact both were developed by the same author, Heng Li) samtools
+takes commands like `view`:
+
+    samtools view bwa.sam | head
+
+This generates 10 SAM records. Scroll to the right to see all columns.
+
+    SRR1972739.1	83	gi|10141003|gb|AF086833.2|	15684	60	69M32S	=	15600	-153	TTTAGATTTAACAAGATACCGAGAAAATGAATTGATTTATGACAATAATCCTCTAAAAGGAGGACTCAAATGAGATATTGCAATTGAGTCCTCCTTTTAGA	DDDDDEEEEEDEEFFFEDHHHHIJJJJJJJJJJJJJJJJJIGIJJJJJJJJJJJJJJJJJJJIGIGJJJJJJJJJJJJJJIJJJJJJIFHHHHFFFFFCCC	NM:i:2	MD:Z:27C16G24	AS:i:59	XS:i:0	SA:Z:gi|10141003|gb|AF086833.2|,15735,+,33M68S,60,0;
+    SRR1972739.1	2115	gi|10141003|gb|AF086833.2|	15735	60	33M68H	=	15600	-136	TCTAAAAGGAGGACTCAATTGCAATATCTCATT	CCCFFFFFHHHHFIJJJJJJIJJJJJJJJJJJJ	NM:i:0	MD:Z:33	AS:i:33	XS:i:0	SA:Z:gi|10141003|gb|AF086833.2|,15684,-,69M32S,60,2;
+    SRR1972739.1	163	gi|10141003|gb|AF086833.2|	15600	60	101M	=	15684	153	GTATAATCGTGCTCACCTTCATCTAACTAAGTGTTGCACCCGGGAGGTACCAGCTCAGTACTTAACATACACATCTACATTGGATTTAGATTTAACAAGAT	@BBFFFFFHHHHHJJJJJJJJJJJJJIIIJJGHIIJJJJJJJJIJJJGIJGIJJIJJJIJHHHHHHGFFFFFEEEEEEEDFDDDDDDDDDDEDDEDDDDDD	NM:i:3	MD:Z:0A44A14T40	AS:i:90	XS:i:0
+    SRR1972739.2	115	gi|10141003|gb|AF086833.2|	4919	60	101M	=	4863	-104	CAGGCTCCTGCGAATTGGAAACCAGGCTTTCCTCCAGGAGTTCGTTCTTCCACCAGTCCAACTACCCCAGTATTTCACCTTTGATTTGACAGCACTCAAAC	DDDDDDDDDDDDDDDEDDDDCDDEEEEEFFFHHHHHIIIJJJJJJJJJIJHGJJJJIJJIIIHFJJJJJJJJJIHGFJJJJJJJJJJIHHHGHFFFFFBBB	NM:i:1	MD:Z:51G49	AS:i:96	XS:i:0
+
+### SAM file structure
+
+Cut out one column at the time and read what the [SAM format specification][sam-spec] states about
+it.
+
+    # First column is called POS (POSition)
+    samtools view bwa.sam  | cut -f 1 | head
+
+    # Second column is called FLAG
+    samtools view bwa.sam | cut -f 2 | head
+
+The PDF version of the handbook explains in more detail what each of these fields mean.
 
 ### Sam Flags
 
@@ -36,10 +67,15 @@ As of samtools 1.2 there is a `flags` command to covert the integer codes to hum
     samtools flags 51
     # 0x33	51	PAIRED,PROPER_PAIR,REVERSE,MREVERSE
 
-[explain-sam]: https://broadinstitute.github.io/picard/explain-flags.html
-[sam-spec]: https://samtools.github.io/hts-specs/
+When we filter we subselect from the alignment based on the condition.
 
-- - -
+    # How many alignments do we have
+    samtools view bwa.sam | wc -l
+
+    # Counting alignments is such a common operations that there
+    # is a flag to do it
+    samtools view -c bwa.sam
+
 
 {%  endmd %}
 
