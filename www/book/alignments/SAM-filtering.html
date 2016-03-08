@@ -1,0 +1,195 @@
+{% extends "unitbase.html" %}
+{% load pytags %}
+{# title = SAM #}
+{# subtitle = sequence alignment maps #}
+{# name = Representing billions of alignments: The Sequence Alignment Maps (SAM) #}
+
+{% block body %}
+
+{% md sam %}
+
+A SAM file contains so called information on alignments.
+
+> **Reference:** The [SAM format specification][samspec]. Keep it under your pillow.
+
+[samspec]: https://samtools.github.io/hts-specs/
+
+- - -
+
+### Creating SAM files
+
+Please refer to {%  link 'short-read-aligners' %} on how to generate these.
+This tutorial will assume that you have at least the `bwa.sam`  file
+generated with instruction on that page.
+
+The main program used to process SAM files is called samtools:
+
+    samtools
+
+Just as `bwa` (and as a matter of fact both were developed by the same author, Heng Li) samtools
+takes commands like `view`:
+
+    samtools view bwa.sam | head
+
+This generates 10 SAM records. Scroll to the right to see all columns.
+
+    SRR1972739.1	83	gi|10141003|gb|AF086833.2|	15684	60	69M32S	=	15600	-153	TTTAGATTTAACAAGATACCGAGAAAATGAATTGATTTATGACAATAATCCTCTAAAAGGAGGACTCAAATGAGATATTGCAATTGAGTCCTCCTTTTAGA	DDDDDEEEEEDEEFFFEDHHHHIJJJJJJJJJJJJJJJJJIGIJJJJJJJJJJJJJJJJJJJIGIGJJJJJJJJJJJJJJIJJJJJJIFHHHHFFFFFCCC	NM:i:2	MD:Z:27C16G24	AS:i:59	XS:i:0	SA:Z:gi|10141003|gb|AF086833.2|,15735,+,33M68S,60,0;
+    SRR1972739.1	2115	gi|10141003|gb|AF086833.2|	15735	60	33M68H	=	15600	-136	TCTAAAAGGAGGACTCAATTGCAATATCTCATT	CCCFFFFFHHHHFIJJJJJJIJJJJJJJJJJJJ	NM:i:0	MD:Z:33	AS:i:33	XS:i:0	SA:Z:gi|10141003|gb|AF086833.2|,15684,-,69M32S,60,2;
+    SRR1972739.1	163	gi|10141003|gb|AF086833.2|	15600	60	101M	=	15684	153	GTATAATCGTGCTCACCTTCATCTAACTAAGTGTTGCACCCGGGAGGTACCAGCTCAGTACTTAACATACACATCTACATTGGATTTAGATTTAACAAGAT	@BBFFFFFHHHHHJJJJJJJJJJJJJIIIJJGHIIJJJJJJJJIJJJGIJGIJJIJJJIJHHHHHHGFFFFFEEEEEEEDFDDDDDDDDDDEDDEDDDDDD	NM:i:3	MD:Z:0A44A14T40	AS:i:90	XS:i:0
+    SRR1972739.2	115	gi|10141003|gb|AF086833.2|	4919	60	101M	=	4863	-104	CAGGCTCCTGCGAATTGGAAACCAGGCTTTCCTCCAGGAGTTCGTTCTTCCACCAGTCCAACTACCCCAGTATTTCACCTTTGATTTGACAGCACTCAAAC	DDDDDDDDDDDDDDDEDDDDCDDEEEEEFFFHHHHHIIIJJJJJJJJJIJHGJJJJIJJIIIHFJJJJJJJJJIHGFJJJJJJJJJJIHHHGHFFFFFBBB	NM:i:1	MD:Z:51G49	AS:i:96	XS:i:0
+
+### SAM file structure
+
+Cut out one column at the time and read what the [SAM format specification][sam-spec] states about
+it.
+
+    # First column is called POS (POSition)
+    samtools view bwa.sam  | cut -f 1 | head
+
+    # Second column is called FLAG
+    samtools view bwa.sam | cut -f 2 | head
+
+The PDF version of the handbook explains in more detail what each of these fields mean.
+
+### Sam Flags
+
+The samtools `flags` allow us to select alignments that have certain properties.
+As of samtools 1.2 there is a `flags` command to covert the integer codes to human readable output:
+
+    # List all flags.
+    samtools flags
+
+    # Combine flags into a single number.
+    samtools flags PAIRED,PROPER_PAIR,REVERSE,MREVERSE
+    # 0x33    51    PAIRED,PROPER_PAIR,REVERSE,MREVERSE
+
+    # It works backwards as well.
+    samtools flags 51
+    # 0x33	51	PAIRED,PROPER_PAIR,REVERSE,MREVERSE
+
+When we filter we subselect from the alignment based on the condition.
+
+    # How many alignments do we have
+    samtools view bwa.sam | wc -l
+
+    # Counting alignments is such a common operations that there
+    # is a flag to do it
+    samtools view -c bwa.sam
+
+
+{%  endmd %}
+
+{% md format 'Explore the SAM format' %}
+
+Prepare a genome for alignment. We're using the Ebola genome of the 1976 outbreak.
+
+    mkdir -p ~/refs/ebola
+    REF=~/refs/ebola/1976.fa
+    efetch -db=nuccore -format=fasta -id=AF086833 > $REF
+    bwa index $REF
+
+What we want to prepare are four sequences with known properties and then we will align each
+separately:
+
+* A sequence that is an exact match,
+* A sequence from the reverse strand,
+* A sequence with a mismatch and,
+* A sequence with an insertion or deletion
+
+We will use the emboss tools called [seqret](http://emboss.sourceforge.net/apps/release/6.6/emboss/apps/seqret.html)
+and [msbar](http://emboss.sourceforge.net/apps/release/6.6/emboss/apps/msbar.html), powerful
+but somewhat unfriendly programs.
+To mutate the sequence you could edit it in an editor or use the `msbar` EMBOSS tool.
+It has the following values to its `-point` parameter.
+
+    -point  Types of point mutations to perform
+             0 None
+             1 Any of the following
+             2 Insertions
+             3 Deletions
+             4 Changes
+             5 Duplications
+             6 Moves
+
+This will create a file called `query.fa` with mutated sequences.
+
+    # Extract the first 50 bases, rename the sequence 'exact'
+    seqret -filter -send 50  -sid exact $REF > query.fa
+
+    # Extract the first 50 bases, reverse complement it, rename the sequence 'reverse'
+    seqret -filter -send 50 -srev -sid reverse $REF >> query.fa
+
+    # Mutate with a mismatch. Rename the sequence to `mismatch`
+    seqret -filter -send 50 $REF | msbar -filter -sid mismatch -point 4 >> query.fa
+
+    # Mutate with an insertion. Rename the sequence to `insertion`
+    seqret -filter -send 50 $REF | msbar -filter -sid insertion -point 2 >> query.fa
+
+To visualize the alignments we could run `lastz` with so called text output
+
+    lastz $REF query.fa --format=text
+
+There will be an alignment for each query sequence. For example in my case
+the last one was. It shows the insertion of the bottom query sequence
+relative to the reference (top) sequence:
+
+    1 CGGACACACAAAAAGAAAGAAGAATTTTTAGGATCTTTTGTGT-GCGAAT
+      |||||||||||||||||||||||||||||||||||||||||||-||||||
+    1 CGGACACACAAAAAGAAAGAAGAATTTTTAGGATCTTTTGTGTGGCGAAT
+
+Align the same with bwa and let's look at what the SAM file structure
+is like:
+
+    bwa mem $REF query.fa > query.sam
+
+From this SAM file cut different columns and look at their content:
+
+    # First three columns: QNAME, FLAG, RNAME
+    cat query.sam | cut -f 1,2,3
+
+    # Second three columns: POS, MAPQ, CIGAR
+    cat query.sam | cut -f 4,5,6
+
+    # Third three columns: RNEXT, PNEXT, TLEN
+    # These are set only for paired end sequencing runs.
+    cat query.sam | cut -f 7,8,9
+
+    # Last two columns: SEQ, QUAL
+    # No qualities in this case since it was a FASTA file.
+    cat query.sam | cut -f 10,11
+
+    # The remaining columns are optional. Some of the most commonly filled ones:
+    # NM: number of mismatches
+    # AS: Alignment score
+    # MD: Mismatching positions
+    # NH: Number of reported alignments that contains the query
+    # Read the SAM spec for the definition of TAG names that don't start with X.
+    # Read the aligner manual for the definition of TAG names that start with X
+    cat query.sam | cut -f 12,13,14
+
+{% endmd %}
+
+{% md samtools-basics 'Using Samtools: Basics' %}
+
+Samtools is a magical tool that alone could be used
+to reproduce the majority of results in a suprising number publications.
+
+{% code "sam/samtools-commands.sh" %}
+
+{% endmd %}
+
+{% md advanced 'Using Samtools: Advanced usage' %}
+
+Evaluate simulated datasets
+
+{% code "sam/samtools-wgsim.sh" %}
+{% endmd %}
+
+{% md variation 'Using Samtools: Large scale rearrangments, pileups' %}
+
+Use samtools to investigate genome structure. Generate pileups.
+
+{% code "sam/samtools-variation.sh" %}
+{% endmd %}
+
+{% endblock %}
