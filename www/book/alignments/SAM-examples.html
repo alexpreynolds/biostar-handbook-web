@@ -74,19 +74,20 @@ relative to the reference (top) sequence:
       |||||||||||||||||||||||||||||||||||||||||||-||||||
     1 CGGACACACAAAAAGAAAGAAGAATTTTTAGGATCTTTTGTGTGGCGAAT
 
-Note here that depending where the mutation is inserted we may not be able to see
-detect it. For example a deletion at the end of the query won't show up at all.
+Note here that depending where the mutation is inserted we may not be able to
+detect it via alignments. For example a deletion at the end of the query won't show up at all.
 An insertion at the end of the query may be clipped etc. So you may need
 to rerun the generation routines a few times (or create them manually).
 Align the same with bwa and let's look at what the SAM file structure
 is like:
 
-    bwa mem $REF query.fa > results.sam
-
+    bwa mem $REF query.fa | bam > results.bam
+    samtools index results.bam
+    
 From this SAM file cut different columns and look at their content:
 
     # First three columns: QNAME, FLAG, RNAME
-    samtools view results.sam | cut -f 1,2,3
+    samtools view results.bam | cut -f 1,2,3
 
     # exact       0    gi|10141003|gb|AF086833.2|
     # reverse    16    gi|10141003|gb|AF086833.2|
@@ -94,7 +95,7 @@ From this SAM file cut different columns and look at their content:
     # insertion   0    gi|10141003|gb|AF086833.2|
 
     # The next three columns: POS, MAPQ, CIGAR
-    samtools view results.sam  | cut -f 4,5,6
+    samtools view results.bam  | cut -f 4,5,6
     # 1  60  50M
     # 1  60  50M
     # 1  60  50M
@@ -103,11 +104,11 @@ From this SAM file cut different columns and look at their content:
 
     # Third three columns: RNEXT, PNEXT, TLEN
     # These are set only for paired end sequencing runs.
-    samtools view results.sam  | cut -f 7,8,9
+    samtools view results.bam  | cut -f 7,8,9
 
     # Last two columns: SEQ, QUAL
     # No qualities in this case since it was a FASTA file.
-    samtools view results.sam | cut -f 10,11
+    samtools view results.bam | cut -f 10,11
     # We don't have paired end data.
 
     # The remaining columns are optional. Some of the most commonly filled ones:
@@ -117,13 +118,17 @@ From this SAM file cut different columns and look at their content:
     # NH: Number of reported alignments that contains the query
     # Read the SAM spec for the definition of TAG names that don't start with X.
     # Read the aligner manual for the definition of TAG names that start with X
-    samtools view results.sam  | cut -f 12,13,14
+    samtools view results.bam  | cut -f 12,13,14
     #
     # NM:i:0  MD:Z:50      AS:i:50
     # NM:i:0  MD:Z:50      AS:i:50
     # NM:i:1  MD:Z:14G35   AS:i:45
     # NM:i:1  MD:Z:50      AS:i:43
 
+Visualize and inspect the resulting BAM file in IGV:
+
+{% img "SAM-screenshot34.png" css="img-responsive"  %}
+
 {% endmd %}
-    
+
 {% endblock %}
