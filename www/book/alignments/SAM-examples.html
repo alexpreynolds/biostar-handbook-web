@@ -1,0 +1,129 @@
+{% extends "unitbase.html" %}
+{% load pytags %}
+{# title = SAM Examples #}
+{# subtitle = visualize known small mutations #}
+{# name = How small mutations are represented in the SAM format #}
+
+{% block body %}
+
+{% md sam %}
+
+> **Reference:** The [SAM format specification][samspec]. Keep it under your pillow.
+
+[samspec]: https://samtools.github.io/hts-specs/
+
+- - -
+
+Data preparation:
+
+    # Set up the various shortcuts
+    alias bam='samtools view -b - | samtools sort'
+    REF=~/refs/ebola/1976.fa
+
+    # Obtain and prepare the genome.
+    mkdir -p ~/refs/ebola
+    efetch -db=nuccore -format=fasta -id=AF086833 > $REF
+    bwa index $REF
+
+We want to prepare four sequences with known properties and then align each
+separately and view the results of the alignment:
+
+* A sequence that is an exact match,
+* A sequence from the reverse strand,
+* A sequence with a mismatch and,
+* A sequence with an insertion or deletion
+
+We will use the emboss tools called [seqret](http://emboss.sourceforge.net/apps/release/6.6/emboss/apps/seqret.html)
+and [msbar](http://emboss.sourceforge.net/apps/release/6.6/emboss/apps/msbar.html), powerful
+but somewhat unfriendly programs.
+To mutate the sequence we could edit it in an editor or use the `msbar` EMBOSS tool.
+It has the following values to its `-point` parameter.
+
+    -point  Types of point mutations to perform
+             0 None
+             1 Any of the following
+             2 Insertions
+             3 Deletions
+             4 Changes
+             5 Duplications
+             6 Moves
+
+This will create a file called `query.fa` with mutated sequences.
+
+    # Extract the first 50 bases, rename the sequence 'exact'
+    seqret -filter -send 50  -sid exact $REF > query.fa
+
+    # Extract the first 50 bases, reverse complement it, rename the sequence 'reverse'
+    seqret -filter -send 50 -srev -sid reverse $REF >> query.fa
+
+    # Mutate with a mismatch. Rename the sequence to `mismatch`
+    seqret -filter -send 50 $REF | msbar -filter -sid mismatch -point 4 >> query.fa
+
+    # Mutate with an insertion. Rename the sequence to `insertion`
+    seqret -filter -send 50 $REF | msbar -filter -sid insertion -point 2 >> query.fa
+
+To visualize the alignments we could run `lastz` with so called text output
+
+    lastz $REF query.fa --format=text
+
+There will be an alignment for each query sequence. For example in my case
+the last alignment shows the insertion of the bottom query sequence
+relative to the reference (top) sequence:
+
+    1 CGGACACACAAAAAGAAAGAAGAATTTTTAGGATCTTTTGTGT-GCGAAT
+      |||||||||||||||||||||||||||||||||||||||||||-||||||
+    1 CGGACACACAAAAAGAAAGAAGAATTTTTAGGATCTTTTGTGTGGCGAAT
+
+Note here that depending where the mutation is inserted we may not be able to see
+detect it. For example a deletion at the end of the query won't show up at all.
+An insertion at the end of the query may be clipped etc. So you may need
+to rerun the generation routines a few times (or create them manually).
+Align the same with bwa and let's look at what the SAM file structure
+is like:
+
+    bwa mem $REF query.fa > results.sam
+
+From this SAM file cut different columns and look at their content:
+
+    # First three columns: QNAME, FLAG, RNAME
+    samtools view results.sam | cut -f 1,2,3
+
+    # exact       0    gi|10141003|gb|AF086833.2|
+    # reverse    16    gi|10141003|gb|AF086833.2|
+    # mismatch    0    gi|10141003|gb|AF086833.2|
+    # insertion   0    gi|10141003|gb|AF086833.2|
+
+    # The next three columns: POS, MAPQ, CIGAR
+    samtools view results.sam  | cut -f 4,5,6
+    # 1  60  50M
+    # 1  60  50M
+    # 1  60  50M
+    # 1  60  48M3S
+    # 1  60  15M1I35M
+
+    # Third three columns: RNEXT, PNEXT, TLEN
+    # These are set only for paired end sequencing runs.
+    samtools view results.sam  | cut -f 7,8,9
+
+    # Last two columns: SEQ, QUAL
+    # No qualities in this case since it was a FASTA file.
+    samtools view results.sam | cut -f 10,11
+    # We don't have paired end data.
+
+    # The remaining columns are optional. Some of the most commonly filled ones:
+    # NM: number of mismatches
+    # AS: Alignment score
+    # MD: Mismatching positions
+    # NH: Number of reported alignments that contains the query
+    # Read the SAM spec for the definition of TAG names that don't start with X.
+    # Read the aligner manual for the definition of TAG names that start with X
+    samtools view results.sam  | cut -f 12,13,14
+    #
+    # NM:i:0  MD:Z:50      AS:i:50
+    # NM:i:0  MD:Z:50      AS:i:50
+    # NM:i:1  MD:Z:14G35   AS:i:45
+    # NM:i:1  MD:Z:50      AS:i:43
+
+{% endmd %}
+    
+{% endblock %}
