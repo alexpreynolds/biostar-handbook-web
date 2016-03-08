@@ -43,15 +43,25 @@ This generates 10 SAM records. Scroll to the right to see all columns.
 Cut out one column at the time and read what the [SAM format specification][sam-spec] states about
 it.
 
-    # First column is called POS (POSition)
+    # First column is called QNAME (Query Name)
     samtools view bwa.sam  | cut -f 1 | head
+    # SRR1972739.1
+    # SRR1972739.1
+    # SRR1972739.1
+    # SRR1972739.2
+    # SRR1972739.2
 
     # Second column is called FLAG
     samtools view bwa.sam | cut -f 2 | head
+    # 83
+    # 2115
+    # 163
+    # 115
+    #179
 
     # And so on. Investigate the 11+ columns
 
-The book version of the handbook explains in more detail what each of these fields mean.
+The book version of the handbook explains in more detail what each of these flags mean.
 
 ### Sam Flags
 
@@ -80,7 +90,7 @@ When we filter we subselect from the alignment based on the condition.
     samtools view -c bwa.sam
     # 2073
 
-### Convert to BAM format
+### Converting to BAM format
 
 The BAM conversion can be performed via:
 
@@ -90,7 +100,6 @@ Samtools will works identically on BAM file as well, it will detect the
 type of the file automatically:
 
     samtools view bwa.bam | head
-
 
 Most analyses require that the BAM file is sorted by coordinates and is indexed
 as well:
@@ -106,6 +115,7 @@ With this you can chain the `bam` command to the outputs that produce SAM format
 and bypass having the extra files:
 
     bwa mem $REF $R1 $R2 | bam > bwa.bam
+    samtools index bwa.bam
 
 ### Filtering BAM files
 
@@ -127,6 +137,15 @@ Now to select the reads that map onto the forward strand we do:
 
 	samtools flags 20
 	# 0x14	20	UNMAP,REVERSE
+
+### Visualize BAM files
+
+Sorted in indexed BAM files may be visualized in tools with graphical user interfaces
+for example [IGV](https://www.broadinstitute.org/igv/)  or [IGB](http://bioviz.org/igb/index.html).
+These tools may already have the genome of interest. If not the users need to create a custom
+genome file to visualize against. Please consult the documentation on how to do that.
+
+{% img "SAM-screenshot35.png" css="img-responsive"  %}
 
 {%  endmd %}
 
