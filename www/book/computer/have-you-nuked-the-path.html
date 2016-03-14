@@ -2,7 +2,7 @@
 {% load pytags %}
 {# title =  Troubles in your PATH  #}
 {# subtitle = when good PATHs go bad #}
-{# name = What to do when you accidentally nuke your PATH #}
+{# name = What to do when nothing seems to work #}
 
 {% block body %}
 
@@ -17,12 +17,12 @@ on a beautiful morning you'll do a:
     echo 'export PATH=~/bin:PATH' >> ~/.bash_profile
 
 The net effect of this is that even basic system programs
-that used to work won't do so anymore:
+that used to work before won't do so anymore:"
 
     $ ls
     -bash: ls: command not found
 
-Congratulations! You've just nuked your `PATH`. You forgot the
+**Congratulations!** You've just nuked your `PATH`. You forgot the
 `$` sign on the right hand side of the `PATH` variable. Instead
 of substituting the new `PATH` with the value of `$PATH`
 you are setting it to be the word `PATH`. Not so good.
@@ -32,6 +32,9 @@ Your command should have looked like this:
 
 Oops!
 
+Look at the bright side: there is probably no command line guru out there that did not do
+this at one point in their career. Hence you are well on your way to guru-ness. Rock on!
+
 - - -
 
 ### Explanation
@@ -39,14 +42,11 @@ Oops!
 Jules in Pulp Fiction explains it best:
 
 > The `PATH` to any righteous tool is beset on all sides by the
-> inequities of unix and the tyranny of environment variables.
+> inequities of Unix and the Tyranny of Environment Variables.
 >
 > Blessed is he who, in the name of charity and good will, shepherds the weak
 > through the valley of darkness, for he is truly his brother's keeper
 > and the finder of lost programs.
-
-Good news: there is probably no command line guru that did not do this at one point
-in their lives. So you are well on your way to guru-ness.
 
 - - -
 
@@ -60,11 +60,12 @@ Edit your `.bash_profile` with `nano` and remove the lines that cause the troubl
 
     nano ~/.bash_profile
 
-`nano` is very quirky. Take it as punishment meted out for clobbering your path.
+`nano` is a bit of a quirky editor. Take it as punishment meted out for clobbering your path.
 It could be worse. At least your don't have to use `vi`.
 
 Edit the file, correct the offending line(s) then save the file
-with `crtl + O` (that is capital letter O) then exit the editor.
+with `ctrl + O` (that is capital letter O) then exit the editor with
+`ctrl + X`.
 
 Open a NEW terminal window and verify that your "corrections" make sense.
 Rinse and repeat until it works.
