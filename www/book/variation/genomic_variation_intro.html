@@ -32,9 +32,10 @@ to describe small nucleotide changes including insertions and deletions.
 
 - - -
 
+### Generate alignments
 
-Let's walk through the process of producing pileups first.
-To generate a pileup first we need to align data:
+Even though we saw most of these commands we now add to these a few steps
+that make it more realistic
 
     mkdir -p ~/refs/ebola
 
@@ -48,6 +49,9 @@ To generate a pileup first we need to align data:
     # Rename the sequence to just KJ660346
     efetch -db nucleotide -id KJ660346 -format fasta | seqret -filter -sid KJ660346 > $REF
 
+    # We do need to create another index so that GATK works.
+    samtools dict $REF > ~/refs/ebola/KJ660346.dict
+
     # Obtain the data
     fastq-dump -X 20000 --split-files SRR1972739
 
@@ -56,6 +60,9 @@ To generate a pileup first we need to align data:
     R2=SRR1972739_2.fastq
 
     # We will tag our reads by sample.
+    # What this does is embeds information into the alignment
+    # on the origin of the data. Allows us to have data from different
+    # experiments all in the same BAM file.
     TAG='@RG\tID:mydata\tSM:ebola\tLB:library1'
 
     # Perform the alignment.
@@ -64,8 +71,60 @@ To generate a pileup first we need to align data:
     # Index the alignment file.
     samtools index bwa.bam
 
+- - -
 
-Samtools can generate genotype likelhoods from these coverages.
+### Pileups
+
+Pileups are a data representation that show the base composition over at a given coordinate:
+
+    # Pileup with a reference file.
+    samtools mpileup -f $REF bwa.bam | head
+
+    # KJ660346	46	G	1	^].	C
+    # KJ660346	47	A	1	.	@
+    # KJ660346	48	A	1	.	C
+    # KJ660346	49	T	1	.	F
+    # KJ660346	50	A	1	.	F
+
+    # Pileups can take location coordinates
+    samtools mpileup -f $REF bwa.bam -r KJ660346:1000-1005
+    # KJ660346	1000	A	138	.$....,,.,,.,,,..,,,,,,........,,,,,,....,,,,,,,,..,,,,,,,,,,,.,,,..,,,,,,,,,,,,....,,,.....,.,,,,...,.,.........,......,.....,,,,.....^].^].^].^],	BEAEEFFEFFEHHHeEHIJJHIEnlECEEEJJJJJJFDBFJJJJJJJJFjHJJJJIIJJJJoJHJHHJHIIJJIJJJJH[JJJrJJJJJJJI9IJJJIJJJkFJIDJIJIJJGJJJJIJGJJJJGH>DEFFC<CBC@B
+    # KJ660346	1001	G	138	.$.$.$.$,,.,,.,,,..,,,,,,........,,,,,,....,,,,,,,,..,,,,,,,,,,,.,,,..,,,,,,,,,,,,....,,,.....,.,,,,...,.,.........,......,.....,,,,.........,	DADDCFDFFDFFHbDHFHGFHDmlEEEEEJJJJJJFB?FJJJJJJJJFkHJIJIJGIIJJhJHJHHJHHIJJGIJJJGdJJJsJJJJIJJJ4IJIJJJJJh?IECJJIGJJHJJJJJJJJJJJGHCAEFFFDFCHCBF
+    # KJ660346	1002	T	135	,,.,,.,,,..,,,,,,........,,,,,,....,,,,,,,,..,,,,,,,,,,,.,,,..,,,,,,,,,,,$,....,,,.....,,,,,...,.,.........,......,.....,,,,.........,^].^],	@BEFFDFFH`CHFHHDHEnjE@CEEJIIIJJD>@FJJJJJIJJEjHIGJHJIIIJJjIDJHEJEHIIIIIJJ;HQFCGpJJDIHIJJJJGJBGGIhFIHHIIIBJIDIIIHHGIJHJF:FACEEDFDF@?BBCCC
+    # KJ660346	1003	A	135	,$,.,,.,,,..,,,,,,........,,,,,,....,,,,,,,,..,,,,,,,,,,,.,,,..,,,,,,,,,,,....,,,.....,.,,,,...,.,.........,......,.....,,,,.........,.,	@@DFDDFDD`CHHHHHHDlkDCCDDJIJIIJE@:FJJJJJHIJFfFIIJHJHIIJJoHJJHHJ@HHHHIHJIF]EHFpIJHJGJJI9IJGIFIEJgDIGGJJHGJIHHIJIHIIJIJIBDCCEFFFDFFAFDCC>
+    # KJ660346	1004	C	134	,$.,,.,,,.$.,,,,,,........,,,,,,....,,,,,,,,..,,,,,,,,,,,.,,,..,,,,,,,,,,,....,,,.....,.,,,,...,.,.........,......,.....,,,,.........,.,	@DCFDFFF2CHHHFFGDmkDDDDDJIJJJIEA@EJJJJJJJJFeIJIJJJJIIJJnJIJHHJHHIJJIJJJGhGIIrJJIIIJJJ?JJIJCJIJiFIIDJJIHJJIIIJJIJJJJJIFI@CEHHFFFFFFFCCC
+    # KJ660346	1005	A	135	.,,.,,,.,,,,,,........,,,,,,....,,,,,,,,..,,,,,,,,,,,.,,,..,,,,,,,,,,,....,,,.....,.,,,,...,.,.........,......,.....,,,,.........,.,^].^].^].	gCCDFFFDFHHHHHDlkDCCCDJJJJJJECCEJJJJJJIJFeIJEJJIJIJJJjJIJHHJEEIJJIJJJDjGIJsJJJJIJJJ@JJJJFiGJjFIJEJJIIJJIkJJJIJJJJJJBG@EEHGFFFFGFFCFA@<B
+
+
+    # Pileups can take SAM flags in the --rf (required flag) or --ff (filtering flag)
+    #
+    # Pileup from reads on reverse strand.
+    samtools mpileup --rf 16 -f $REF bwa.bam -r KJ660346:1,000-1,003
+    #
+    # KJ660346	1000	A	75	,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,^],	FFFFHHHFHIJJHIJJJJJJJJJJJJJJHJJJJIIJJJJJHHJJHIIJJIJJJJHJJJJIIJJJJFGHGH>DECB
+    # KJ660346	1001	G	75	,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,	CFFFFFHCHFHGFHJJJJJJJJJJJJJJHJIJIJGIIJJJDHJJHHIJJGIJJJGJJJJJIJIJJ?HHJHCAEFF
+    # KJ660346	1002	T	76	,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,$,,,,,,,,,,,,,,,,,,,,,^],	@BFFFFH@HFHHDHJIIIJJJJJJJIJJHIGJHJIIIJJICDJJEHIIIIIJJ;HJJJJJJJGJIFDGIFACEECC
+    # KJ660346	1003	A	75	,$,,,,,,,$,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,	@@FDFDD@HHHHHHJIJIIJJJJJJHIJFIIJHJHIIJJHHJJJ@HHHHIHJIFIIIJIIJGIJDHHIDCCEAC>
+
+
+    # A Poor man's SNP caller.
+    # SNP calling with simple one-liner.
+    samtools mpileup -f $REF bwa.bam | tr -d '$^],.' | awk -F '\t' 'length($5)>5 { print $0 }'
+
+    # The poor man's snp caller can generate a BED file
+    # that can be visualized in IGV.
+    samtools mpileup -f $REF bwa.bam | tr -d '$^],.' | awk -F '\t' 'length($5)>5 { OFS="\t";  print $1, $2-1, $2 }'  > snps.bed
+
+    # Building a command line alias from an awk script gets messy.
+    # Both bash and awk will want to execute the variables denoted with the $ sign.
+    # Best if we put the code into a separate file.
+    echo 'BEGIN { FS="\t"; OFS="\t" } length($5)>5 { OFS="\t";  print $1, $2-1, $2 }' > snpcaller.awk
+
+    alias poor_mans_snp="samtools mpileup -f $REF experiment.bam | tr -d '$^],.' | awk -f snpcaller.awk > snps.bed"
+
+    # make that into a megaton command.
+    alias megaton='generate_experimental_data; align_experimental_data; poor_mans_snp;'
+
 
 * [Pileup format specification][pileup-spec] on Wikipedia.
 * [5 Things to Know About SAMtools Mpileup][5things] on the MassGenomics blog.
@@ -73,9 +132,8 @@ Samtools can generate genotype likelhoods from these coverages.
 [5things]: http://massgenomics.org/2012/03/5-things-to-know-about-samtools-mpileup.html
 [pileup-spec]: https://en.wikipedia.org/wiki/Pileup_format
 
-Learn more about the pileup command in **{%  link "samtools_pileup.html" %}**
-
 - - -
+
 ### The Variant Call Format
 
 The variant call format (VCF) is a (suprisingly complex) data representation format used
@@ -95,6 +153,8 @@ KM034562v1  738     .       T       C      100     PASS    AF=1.0    GT      0/1
 [vcf-poster]: http://vcftools.sourceforge.net/VCF-poster.pdf
 
 - - -
+
+### SNP calling
 
 Samtools/BCFTools can be used to call SNPs like so:
 
