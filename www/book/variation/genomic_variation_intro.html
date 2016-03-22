@@ -51,8 +51,17 @@ To generate a pileup first we need to align data:
     # Obtain the data
     fastq-dump -X 20000 --split-files SRR1972739
 
-    # Align the reads.
-    bwa mem $REF $R1 $R2 | bam > bwa.bam
+    # Create shortcuts to the data.
+    R1=SRR1972739_1.fastq
+    R2=SRR1972739_2.fastq
+
+    # We will tag our reads by sample.
+    TAG='@RG\tID:mydata\tSM:ebola\tLB:library1'
+
+    # Perform the alignment.
+    bwa mem -R $TAG $REF $R1 $R2 | bam > bwa.bam
+
+    # Index the alignment file.
     samtools index bwa.bam
 
 
@@ -86,16 +95,21 @@ KM034562v1  738     .       T       C      100     PASS    AF=1.0    GT      0/1
 [vcf-poster]: http://vcftools.sourceforge.net/VCF-poster.pdf
 
 - - -
+
+Samtools/BCFTools can be used to call SNPs like so:
+
+	samtools mpileup -uvf $REF bwa.bam | bcftools call -vm -O v > bcftools.vcf
+
+The FreeBayes SNP caller may be invoked as:
+
+	freebayes -f $REF bwa.bam > freebayes.vcf
+
+The Genome Analysis Tookit could be used as:
+
+	gatk -T HaplotypeCaller -R $REF -I bwa1.bam -o gatk.vcf
+
 ### SNP calling with bcftools
 
-`bcftools` relies on `samtools` for computing the genotype likelihoods (the probabilty for
-each base to be at a given position). It then uses this likelhood to call variations:
-
-```
-samtools mpileup -uvf reference.fa alignment.bam | bcftools call -vm -O v > variants.vcf
-```
-
-Learn more about using `bcftools` in **{%  link "bcftools/bcftools_snpcalling.html" %}**
 
 - - -
 ### SNP calling with Freebayes
