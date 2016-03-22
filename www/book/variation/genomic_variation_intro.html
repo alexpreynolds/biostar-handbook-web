@@ -95,7 +95,7 @@ Pileups are a data representation that show the base composition over at a given
     # KJ660346	1004	C	134	,$.,,.,,,.$.,,,,,,........,,,,,,....,,,,,,,,..,,,,,,,,,,,.,,,..,,,,,,,,,,,....,,,.....,.,,,,...,.,.........,......,.....,,,,.........,.,	@DCFDFFF2CHHHFFGDmkDDDDDJIJJJIEA@EJJJJJJJJFeIJIJJJJIIJJnJIJHHJHHIJJIJJJGhGIIrJJIIIJJJ?JJIJCJIJiFIIDJJIHJJIIIJJIJJJJJIFI@CEHHFFFFFFFCCC
     # KJ660346	1005	A	135	.,,.,,,.,,,,,,........,,,,,,....,,,,,,,,..,,,,,,,,,,,.,,,..,,,,,,,,,,,....,,,.....,.,,,,...,.,.........,......,.....,,,,.........,.,^].^].^].	gCCDFFFDFHHHHHDlkDCCCDJJJJJJECCEJJJJJJIJFeIJEJJIJIJJJjJIJHHJEEIJJIJJJDjGIJsJJJJIJJJ@JJJJFiGJjFIJEJJIIJJIkJJJIJJJJJJBG@EEHGFFFFGFFCFA@<B
 
-
+"
     # Pileups can take SAM flags in the --rf (required flag) or --ff (filtering flag)
     #
     # Pileup from reads on reverse strand.
@@ -106,25 +106,7 @@ Pileups are a data representation that show the base composition over at a given
     # KJ660346	1002	T	76	,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,$,,,,,,,,,,,,,,,,,,,,,^],	@BFFFFH@HFHHDHJIIIJJJJJJJIJJHIGJHJIIIJJICDJJEHIIIIIJJ;HJJJJJJJGJIFDGIFACEECC
     # KJ660346	1003	A	75	,$,,,,,,,$,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,	@@FDFDD@HHHHHHJIJIIJJJJJJHIJFIIJHJHIIJJHHJJJ@HHHHIHJIFIIIJIIJGIJDHHIDCCEAC>
 
-
-    # A Poor man's SNP caller.
-    # SNP calling with simple one-liner.
-    samtools mpileup -f $REF bwa.bam | tr -d '$^],.' | awk -F '\t' 'length($5)>5 { print $0 }'
-
-    # The poor man's snp caller can generate a BED file
-    # that can be visualized in IGV.
-    samtools mpileup -f $REF bwa.bam | tr -d '$^],.' | awk -F '\t' 'length($5)>5 { OFS="\t";  print $1, $2-1, $2 }'  > snps.bed
-
-    # Building a command line alias from an awk script gets messy.
-    # Both bash and awk will want to execute the variables denoted with the $ sign.
-    # Best if we put the code into a separate file.
-    echo 'BEGIN { FS="\t"; OFS="\t" } length($5)>5 { OFS="\t";  print $1, $2-1, $2 }' > snpcaller.awk
-
-    alias poor_mans_snp="samtools mpileup -f $REF experiment.bam | tr -d '$^],.' | awk -f snpcaller.awk > snps.bed"
-
-    # make that into a megaton command.
-    alias megaton='generate_experimental_data; align_experimental_data; poor_mans_snp;'
-
+More information on pileups
 
 * [Pileup format specification][pileup-spec] on Wikipedia.
 * [5 Things to Know About SAMtools Mpileup][5things] on the MassGenomics blog.
@@ -156,6 +138,13 @@ KM034562v1  738     .       T       C      100     PASS    AF=1.0    GT      0/1
 
 ### SNP calling
 
+The poor man's snp caller is a simple piece of code that generate a BED file that can be visualized in IGV.
+
+    samtools mpileup -f $REF bwa.bam | tr -d '$^],.' | awk -F '\t' 'length($5)>25 { OFS="\t";  print $1, $2-1, $2 }' > poor-snps.bed
+
+the results that this produces are not so bad, that's because most SNPs in this data are well defined
+and well covered.
+
 Samtools/BCFTools can be used to call SNPs like so:
 
 	samtools mpileup -uvf $REF bwa.bam | bcftools call -vm -O v > bcftools.vcf
@@ -168,53 +157,13 @@ The Genome Analysis Tookit could be used as:
 
 	gatk -T HaplotypeCaller -R $REF -I bwa1.bam -o gatk.vcf
 
-### SNP calling with bcftools
+As described in the book, SNP calling is a lot more complicated process than invoking these tools
+with default paramters. Each of these tools is an domain of its own with many
+different usecases and applications.
 
+The resulting VCF files are shown below:
 
-- - -
-### SNP calling with Freebayes
-
-Example:
-
-```
-freebayes -f reference.fa alignment.bam > variants.vcf
-```
-Learn more about using `freebayes` in **{%  link "freebayes/freebayes_snpcalling.html" %}** (TODO)
-
-- - -
-### SNP calling with GATK
-
-Example:
-
-```
-gatk -T HaplotypeCaller -R reference.fa -I alignment.bam -o variants.vcf
-```
-
-Learn more about using `gatk` in **{%  link "gatk/gatk_snpcalling.html" %}**
-
-- - -
-### How misalignment causes incorrect SNP calls.
-
-Low complexity regions may produce counfounding alignments that are difficult to resolve.
-For example a mutation with two insertions flanked by homopolymers may be very challenging to
-resolve:
-
-    CCAAACCCCCCC-T-CCCCCGCTTC
-    CCAAACCCCCCCCTCCCCCCGCTTC
-
-Align and investigate the two outputs:
-
-    local-align.sh CCAAACCCCCCCTCCCCCGCTTC CCAAACCCCCCCCTCCCCCCGCTTC
-    local-align.sh CCAAACCCCCCCTCCCCCGCTTC CCAAACCCCCCCCTCCCCCCGCTTC -gapopen 9
-
-We will work through this problem in **{%  link "snp/snpcalling_homopolymers.html" %}**
-
-- - -
-### Additional reading
-
-* [Validating multiple cancer variant callers and prioritization in tumor-only samples][blue-collar] on Blue Collar Bioinformatics.
-
-[blue-collar]: https://bcbio.wordpress.com/2015/03/05/cancerval/
+{% img "img/screenshot44.png" css="img-responsive"  %}
 
 {%  endmarkdown %}
 
