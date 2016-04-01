@@ -1,0 +1,61 @@
+{% extends "unitbase.html" %}
+{% load pytags %}
+{# title = Genome Assemblies #}
+{# subtitle = building new genomes #}
+{# name = Genome Assemblies. Building new genomes #}
+
+{% block body %}
+
+{% markdown %}
+### Genome Assembly
+
+(please note this section is unfinished)
+
+Genome assembly is more of an art as well as an exercise of trial and error.
+Assemblers are also more impenetrable in the way they work than aligners.
+They often feel like a black box that we have little control over.
+
+    # Obtain the sequencing data
+    fastq-dump SRR1553425 -X 100000 --split-files
+
+    # For assembling genomes high quality data is important
+    # to avoid creating dead ens.
+    trimmomatic PE -baseout trimmed.fq SRR1553425_1.fastq SRR1553425_2.fastq  SLIDINGWINDOW:4:30 MINLEN:35 TRAILING:3
+
+    # Build hashes of size 31
+    # put the results into directory d31
+    velveth d31 31 -fastq  -short trimmed_1P.fq
+
+    # Use velvetg to assemble the genome hashed into directory d31
+    # The automatic covertage cutoff computation should produce the ideal paramters
+    velvetg d31  -cov_cutoff auto
+
+    # But the results above are blatantly wrong. The N50 is 24!!!! that is
+    # obviously and blatantly wrong. After all the read lenght is 100bp! Why????
+    # That will stay a mystery I am afraid.
+
+    #
+    # We need to tune velvetg and figure out the right cutoff.
+    # Basically we are rerunning it and observing what happens
+    #
+    velvetg d31 -cov_cutoff 5
+    velvetg d31 -cov_cutoff 10
+    velvetg d31 -cov_cutoff 50
+    velvetg d31 -cov_cutoff 100
+
+    # Whoa! this last one works really well! N50 is 18K
+
+Note how above we could hash genomes at different sizes 41, 51 etc and redo
+the assembly. There is a connection (and tradeoff) between the hash size
+and the performance of the assembler.
+
+Visualize the resulting contig file:
+
+    # Create an alignment from the contigs that you got.
+    # A "shortcut" to create a bam file right out of an alignment.
+    bwa mem ~/refs/1976.fa d31/contigs.fa | samtools view -Sb - | samtools sort > out.bam
+    samtools index out.bam
+
+{%  endmarkdown %}
+
+{% endblock %}

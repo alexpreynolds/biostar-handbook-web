@@ -11,6 +11,7 @@ https://www.biostarhandbook.com/book/alignments/sam-format.html
 https://www.biostarhandbook.com/book/alignments/sam-visualization.html
 https://www.biostarhandbook.com/book/alignments/sequence-alignment.html
 https://www.biostarhandbook.com/book/alignments/short-read-aligners.html
+https://www.biostarhandbook.com/book/assembly/assembly_intro.html
 https://www.biostarhandbook.com/book/computer/computer-setup.html
 https://www.biostarhandbook.com/book/computer/get-ready.html
 https://www.biostarhandbook.com/book/computer/have-you-nuked-the-path.html
