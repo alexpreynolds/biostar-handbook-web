@@ -20,11 +20,11 @@ counts = read.table("stdin", header=TRUE, row.names=1 )
 # The two lines below need to match the column identities in the file.
 #
 # First three columns are UHR the second three are HBR
-cond_1 = c("control", "control", "control")
-cond_2 = c("treatment", "treatment", "treatment")
+control = rep("control", 3)
+treatment = rep("treatment", 3)
 
 # Code does not need to change below.
-conditions  = factor(c(cond_1, cond_2))
+conditions = factor(c(control, treatment))
 
 # Create a count table
 cds = newCountDataSet(counts, conditions)
