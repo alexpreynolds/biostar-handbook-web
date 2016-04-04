@@ -1,12 +1,95 @@
 {% extends "unitbase.html" %}
 {% load pytags %}
-{# title = RNA-Seq data analysis #}
-{# subtitle = quantifying gene expression #}
-{# name = RNA-Seq data analysis. Quantifying gene expression levels #}
+{# title = Introduction to RNA-Seq data analysis #}
+{# subtitle = quantifying gene expression with DESeq 1#}
+{# name = Introduction to RNA-Seq data analysis. Quantifying gene expression levels #}
 
 {% block body %}
 
 {% markdown %}
+
+{%include_markdown "code/rnaseq1_data_install.md" %}
+
+Set up a few shortcuts to facilitate data exploration:
+
+    # Convert SAM to BAM.
+	alias sam2bam='samtools view -b - | samtools sort'
+
+	# This is the reference genome.
+	REF=annot/22.fa
+
+	# This will be the name of the index
+	IDX=annot/22
+
+	# These are the coordinates of the genes.
+	GTF=annot/22.gtf
+
+	# The sequencing data that contain the first in pair
+	R1=data/UHR_1_R1.fq
+
+	# The sequencing data that contain the second in pair
+	R2=data/UHR_1_R2.fq
+
+	# We also need to build an index out of the genome
+	hisat2-build $REF $IDX
+
+    hisat2 $IDX -1 $R1 -2 $R2 | head
+
+Running the hisat2 aligner is then as simple as:
+
+	hisat2 $IDX -1 $R1 -2 $R2 | head
+
+By default it produces SAM files, to convert and sort as BAM format
+
+	mkdir -p bam
+	hisat2 $IDX -1 $R1 -2 $R2 | sam2bam > bam/UHR_1.bam
+
+
+Automate the execution with a script. Place this into `run.sh`:
+
+    # Create output folder
+	mkdir -p bam
+
+	set -eu
+
+	for SAMPLE in UHR HBR;
+	do
+		for REPLICATE in 1 2 3;
+		do
+			LABEL=${SAMPLE}_${REPLICATE}
+			hisat2 annot/22 -1 data/${LABEL}_R1.fq -2 data/${LABEL}_R2.fq > bam/${LABEL}.sam
+			samtools view -b bam/${LABEL}.sam | samtools sort > bam/${LABEL}.bam
+			samtools index bam/${LABEL}.bam
+		done
+	done
+
+Execute it all:
+
+    bash run.sh
+
+Run the feature counts:
+
+    featureCounts -a $GTF -g gene_name -o gene_counts.txt bam/U*.bam  bam/H*.bam
+
+Simplify the file by keeping only the count columns:
+
+    cat gene_counts.txt | cut -f 1,7-12 > counts.txt
+
+Obtain the DESeq1 code:
+
+    curl -O https://www.biostarhandbook.com/book/rnaseq/code/deseq1.r
+
+Pass the file through the DESeq caller:
+
+    cat counts.txt | Rscript deseq1.r > output.txt
+
+Our output file contains the differentially expressed genes sorted by adjusted p-values.
+List the gene names and fold changes for genes that pass the 0.05% filter:
+
+    cat output.txt | awk ' $8 < 0.05 { print $0 }' | cut -f 1,6 | head
+
+
+
 
 {%  endmarkdown %}
 
