@@ -20,11 +20,11 @@ counts = read.table("stdin", header=TRUE, row.names=1 )
 # The two lines below need to match the column identities in the file.
 #
 # First three columns are UHR the second three are HBR
-control = rep("control", 3)
-treatment = rep("treatment", 3)
+cond_1 = c("control", "control", "control")
+cond_2 = c("treatment", "treatment", "treatment")
 
 # Code does not need to change below.
-conditions = factor(c(control, treatment))
+conditions  = factor(c(cond_1, cond_2))
 
 # Create a count table
 cds = newCountDataSet(counts, conditions)
@@ -40,6 +40,9 @@ results = nbinomTest(cds, "control", "treatment")
 
 # Sort the results data frame by the padj and foldChange columns.
 sorted = results[with(results, order(padj, -foldChange)), ]
+
+# Round the numbers more nicely
+#sorted = format(sorted, digits=2)
 
 # Write the results to the standard output
 write.table(sorted, file="", sep="\t", row.name=FALSE, quote=FALSE)
