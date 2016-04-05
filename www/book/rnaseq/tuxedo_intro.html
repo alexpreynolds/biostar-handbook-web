@@ -1,15 +1,67 @@
 {% extends "unitbase.html" %}
 {% load pytags %}
-{# title = RNA-Seq data analysis #}
-{# subtitle = quantifying gene expression #}
-{# name = RNA-Seq data analysis. Quantifying gene expression levels #}
+{# title = Tophat/Cuffdiff #}
+{# subtitle = quantifying gene expression with the Tuxedo Suite#}
+{# name = RNA-Seq data analysis with the Tuxedo Suite #}
 
 {% block body %}
 
 {% markdown %}
 
+{%include_markdown "code/rnaseq1_data_install.md" %}
 
+Set up your shortcuts:
 
+    # Shortcut to various files.
+    # This is the reference genome.
+	REF=annot/22.fa
+
+	# This will be the name of the index
+	IDX=annot/22
+
+	# These are the coordinates of the genes.
+	GTF=annot/22.gtf
+
+    # The sequencing data that contain the first in pair
+	R1=data/HBR_1_R1.fq
+
+The results of the TopHat run placed
+
+    # Build a bowtie2 index
+    bowtie2-build $REF $IDX
+
+    # Run TopHat and place results into the tophat_uhr1 directory
+    tophat2 -G $GTF -o tophat_hbr1 $IDX $R1
+
+    # Tophat generates file names automatically.
+    mkdir -p bam
+    cp tophat_hbr1/accepted_hits.bam bam/HBR_1.bam
+    samtools index bam/HBR_1.bam
+
+There are several interesting files in the `tophat_UHR_1` directory:
+
+* `junctions.bed`
+* `insertions.bed`
+* `deletions.bed`
+
+Visualizing the alignment and the `BED` files
+against the `hg38` human genome build for gene name `MAPK8IP2`:
+
+{% img "img/tuxedo_intro_1.png" css="img-responsive"  %}
+
+Note how above we only aligned a single file, the reads in the so called file `R1`.
+The protocol that was used is a so called "stranded" protocol where the reads
+in file `R1` align to the reverse of the transcript. This is a bit
+counterintuitive and depends on the library preparation. Note
+here what happens, all alignments are directed the opposite of the
+gene direction. The gene goes left to right whereas the alignments point
+right to left:
+
+{% img "img/tuxedo_intro_2.png" css="img-responsive"  %}
+
+When we align both files the internal organization of the reads is less obvious.
+
+    
 {%  endmarkdown %}
 
 {% endblock %}

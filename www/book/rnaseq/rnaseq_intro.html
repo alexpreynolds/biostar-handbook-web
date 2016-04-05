@@ -33,8 +33,6 @@ Set up a few shortcuts to facilitate data exploration:
 	# We also need to build an index out of the genome
 	hisat2-build $REF $IDX
 
-    hisat2 $IDX -1 $R1 -2 $R2 | head
-
 Running the hisat2 aligner is then as simple as:
 
 	hisat2 $IDX -1 $R1 -2 $R2 | head
@@ -43,7 +41,6 @@ By default it produces SAM files, to convert and sort as BAM format
 
 	mkdir -p bam
 	hisat2 $IDX -1 $R1 -2 $R2 | sam2bam > bam/UHR_1.bam
-
 
 Automate the execution with a script. Place this into `run.sh`:
 
@@ -66,6 +63,10 @@ Automate the execution with a script. Place this into `run.sh`:
 Execute it all:
 
     bash run.sh
+
+Visualize the results against the `hg38` human genome build for gene name `MAPK8IP2`:
+
+{% img "img/rnaseq_intro_1.png" css="img-responsive"  %}
 
 Run the feature counts:
 
