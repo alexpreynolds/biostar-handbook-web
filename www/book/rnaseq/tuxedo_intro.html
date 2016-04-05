@@ -1,7 +1,7 @@
 {% extends "unitbase.html" %}
 {% load pytags %}
-{# title = Tophat/Cuffdiff #}
-{# subtitle = quantifying gene expression with the Tuxedo Suite#}
+{# title = Tophat/Cuffdiff introduction #}
+{# subtitle = quantifying gene expression the Tuxedo Suite #}
 {# name = RNA-Seq data analysis with the Tuxedo Suite #}
 
 {% block body %}
@@ -61,7 +61,35 @@ right to left:
 
 When we align both files the internal organization of the reads is less obvious.
 
-    
+Align all of our samples, this time in a paired end mode:
+
+    # Create output folder
+    mkdir -p bam
+
+    set -eu
+
+    IDX=annot/22
+    GTF=annot/22.gtf
+
+    for SAMPLE in UHR HBR;
+    do
+        for REPLICATE in 1 2 3;
+        do
+            LABEL=${SAMPLE}_${REPLICATE}
+            tophat2 -G $GTF -o tophat_${LABEL} $IDX data/${LABEL}_R1.fq  data/${LABEL}_R2.fq
+            cp tophat_${LABEL}/accepted_hits.bam bam/${LABEL}.bam
+            samtools index bam/${LABEL}.bam
+        done
+    done
+
+{% img "img/tuxedo_intro_3.png" css="img-responsive"  %}
+
+Differential expression with `cuffdiff`:
+
+    cuffdiff -o results $GTF bam/UHR_1.bam,bam/UHR_2.bam,bam/UHR_3.bam bam/HBR_1.bam,bam/HBR_2.bam,bam/HBR_3.bam
+
+Comparing the results with those obtained via {%  link 'rnaseq_intro.html' %}
+
 {%  endmarkdown %}
 
 {% endblock %}
