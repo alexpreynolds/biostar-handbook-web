@@ -82,13 +82,124 @@ Align all of our samples, this time in a paired end mode:
         done
     done
 
-{% img "img/tuxedo_intro_3.png" css="img-responsive"  %}
+This will produce all the files in the `bam` folder:
+
+    ls bam
 
 Differential expression with `cuffdiff`:
 
-    cuffdiff -o results $GTF bam/UHR_1.bam,bam/UHR_2.bam,bam/UHR_3.bam bam/HBR_1.bam,bam/HBR_2.bam,bam/HBR_3.bam
+    cuffdiff -o cuffdiff_output $GTF bam/UHR_1.bam,bam/UHR_2.bam,bam/UHR_3.bam bam/HBR_1.bam,bam/HBR_2.bam,bam/HBR_3.bam
 
-Comparing the results with those obtained via {%  link 'rnaseq_intro.html' %}
+This run will create files in the `cuffdiff_output` folder:
+
+    ls cuffdiff_output/
+
+    # The Gene level differential expression can be seen in
+    head cuffdiff_output/gene_exp.diff
+
+will produce:
+
+    test_id    gene_id gene  locus   sample_1  sample_2  status  value_1  value_2  log2(fold_change)  test_stat  p_value q_value significant
+    ENSG00000008735.13      ENSG00000008735.13      MAPK8IP2   chr22:50568860-50613981 q1   q2   OK   61.8108 3065.76  5.63224    7.21919     5e-05    0.00014     yes
+    ENSG00000015475.18      ENSG00000015475.18      BID        chr22:17734137-17774770 q1   q2   OK   1719.95 876.279 -0.972901  -1.99275     5e-05    0.00014     yes
+    ENSG00000025708.12      ENSG00000025708.12      TYMP       chr22:50523567-50532580 q1   q2   OK   381.412 330.405 -0.207114  -0.354974    0.47205  0.528807    no
+    ENSG00000025770.18      ENSG00000025770.18      NCAPH2     chr22:50508215-50523472 q1   q2   OK   1929.37 1139.62 -0.759585  -2.80244     5e-05    0.00014     yes
+    ENSG00000040608.13      ENSG00000040608.13      RTN4R      chr22:20241414-20283246 q1   q2   OK   124.515 1157.97  3.21721    2.85563     5e-05    0.00014     yes
+    ENSG00000054611.13      ENSG00000054611.13      TBC1D22A   chr22:46762616-47175699 q1   q2   OK   500.343 415.63  -0.267616  -0.543656    0.24845  0.310157    no
+
+This step combines both abundance estimatation as well as differential expression into a single process.
+The last column of this file indicates the differential expression of the gene (`YES`/`NO`).
+
+How many genes are differentially expressed:
+
+    cat  cuffdiff_output/gene_exp.diff | grep 'yes' | wc -l
+    # 232
+
+So cuffdiff sees 232 differentiall expressed genes are differentially expressed:
+
+    cat  cuffdiff_output/gene_exp.diff | cut -f 3 | head
+
+Shows:
+
+    gene
+    MAPK8IP2
+    BID
+    TYMP
+    NCAPH2
+    RTN4R
+    TBC1D22A
+    PHF21B
+    GSC2
+
+### How consistent is the data?
+
+Let's comparing these results with those obtained via {%  link 'rnaseq_intro.html' %}.
+
+    You can run the same tutorial in this folder as well. Just change the output `bam` directory
+so that you don't overwrite the same bam files.
+In that case we had a file called ingeniously called `output.txt`
+
+    cat output.txt | cut -f 1,8 | more
+
+The file is sorted by adjusted p-values and the `0.05` cutoff is around 300 elements. You can find
+that in many ways, from the command line for example:
+
+    cat output.txt | cut -f 1,8 | awk ' $2 < 0.05 { print $0 } '| wc -l
+    # 293
+
+DESeq finds 293 differentially expressed genes.
+
+Compare the two. There is a command to compare sorted lists called `comm`.
+First we make the two sorted files that contain gene symbols
+
+    cat  cuffdiff_output/gene_exp.diff | grep yes |  cut -f 3 | sort > CUFFDIFF
+    cat output.txt | cut -f 1,8 | awk ' $2 < 0.05 { print $1 } '| sort > DESEQ
+
+What is in them:
+
+    head -3 CUFFDIFF DESEQ
+
+This is just  sanity check to see that the files are correct:
+
+    ==> CUFFDIFF <==
+    A4GALT
+    ACO2
+    ADRBK2
+
+    ==> DESEQ <==
+    A4GALT
+    AC000095.11
+    AC007326.9
+
+The `comm file1 file2` command produces three text columns as output: lines only in file1; lines only in
+ file2; and lines in both files. We can supress printing column 1 with `-1` column 2 with `-2` and column
+3 with `-3`.
+
+Genes present in both outputs:
+
+    comm -1 -2 CUFFDIFF DESEQ | wc -l
+    # 199
+
+    # See the genes in detected by both methods.
+    comm -1 -2 CUFFDIFF DESEQ | more
+
+Both methods discovered 199 genes. That is pretty good.
+
+Genes present only in `cuffdiff`:
+
+    comm -2 -3 CUFFDIFF DESEQ | wc -l
+    # 33
+
+    # See the genes in cuffdiff alone.
+    comm -2 -3 CUFFDIFF DESEQ | more
+
+Genes detected by `deseq` only:
+
+    comm -1 -3 CUFFDIFF DESEQ | wc -l
+    # 99
+
+    # See the genes detected deseq alone.
+    comm -1 -3 CUFFDIFF DESEQ | more
 
 {%  endmarkdown %}
 

@@ -7,11 +7,8 @@
 {% block body %}
 
 {% markdown %}
-### Genome Assembly
-
-
-Genome assembly is more of an art and an exercise of trial and error.
-Multiple parameter settings need to be explored,
+Genome assembly is sort of an art - other see it as an exercise of trial and error.
+Multiple parameter settings need to be explored.
 
 Assemblers are also more impenetrable in the way they work than aligners.
 They often feel like a black box that we have little control over.
@@ -45,10 +42,24 @@ They often feel like a black box that we have little control over.
     # Still look at what new files have been created there.
     ls d31
 
-    #
-    # We need to tune velvetg and figure out the right cutoff.
-    # Basically we are rerunning it and observing what happens
-    #
+Within the `d31` folder the `contigs.fa` file contains the assembly
+
+    more d31/contigs.fa
+    infoseq d31/contigs.fa
+
+Will produce:
+
+    USA                      Database  Name           Accession      Type Length %GC    Organism            Description
+    fasta::d31/contigs.fa:NODE_1_length_1948_cov_351.566742 -  NODE_1_length_1948_cov_351.566742 -  N    1978   41.61
+    fasta::d31/contigs.fa:NODE_2_length_1065_cov_326.629120 -  NODE_2_length_1065_cov_326.629120 -  N    1095   43.11
+    fasta::d31/contigs.fa:NODE_3_length_992_cov_374.435486  -  NODE_3_length_992_cov_374.435486  -  N    1022   40.41
+    fasta::d31/contigs.fa:NODE_5_length_405_cov_369.839508  -  NODE_5_length_405_cov_369.839508  -  N    435    40.46
+
+
+We need to tune velvetg and figure out the right cutoff.
+Basically we are rerunning it and observing what happens
+
+
     velvetg d31 -cov_cutoff 5
     # Final graph has 1038 nodes and n50 of 28, max 310, total 27557, using 0/90977 reads
 
@@ -61,14 +72,19 @@ They often feel like a black box that we have little control over.
     velvetg d31 -cov_cutoff 100
     # Final graph has 1 nodes and n50 of 18515, max 18515, total 18515, using 0/90977 reads
 
-Whoa! Jackpot! This last parameter works better than anyone would have imagined.
-It produces just one node, meaning the entire virus and the maximum lenght is right there with the
-expected genome size.
+**Whoa!** **Jackpot!**
+
+This last parameter works better than anyone would have expected.
+It produces just one node, meaning it might just be the entire virus and the maximum length
+is right there with the expected genome size.
 
 But sometimes we can't afford to rerun with so many alternatives. Could we figure out the
 cutoff ourselves? The has directory has tracking files in them `d31`
 
     more d31/stats.txt
+
+We study this and other log files and with trial and error and some experience we try to
+figure out what works.
 
 Note how above we could hash genomes at different sizes 41, 51 etc and redo
 the assembly. There is a connection (and tradeoff) between the hash size
