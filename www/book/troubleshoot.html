@@ -1,0 +1,25 @@
+{% extends "unitbase.html" %}
+{% load pytags %}
+{# title = Troubleshooting #}
+{# subtitle = sooner or later everyone reads this #}
+{# navtab = index #}
+{# name = How to fix computer problems #}
+
+{% block body %}
+
+{% markdown %}
+
+Sooner or later you may encounter confusing situations.
+Refer to the pages below:
+
+* {% link "how-to-set-the-path.html" %}
+* {% link "set-bash-profile.html" %}
+* {% link "minimal-bash-profile.html" %}
+* {% link "have-you-nuked-the-path.html" %}
+
+[book]: https://leanpub.com/biostarhandbook
+
+{%  endmarkdown %}
+
+
+{% endblock %}

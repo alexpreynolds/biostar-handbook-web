@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% load pytags %}
 {# title = Biostar Handbook Online #}
-{# subtitle = bioinformatics survival guide #}
+{# subtitle = supporting materials for the book #}
 {# navtab = index #}
 {# name = Biostar Handbook Online #}
 
@@ -9,106 +9,93 @@
 
 {% markdown %}
 
-#### Computer Setup
+The pages below contain supporting materials for the
+<a href="https://leanpub.com/biostarhandbook">
+        <span class="glyphicon glyphicon-book" aria-hidden="true"></span> Biostar Handbook</a>
 
-{%  cover 2 %}
+- - -
+
+### Computer Setup
 
 Bioinformatics would not exists without computers. The first
 step is to turn your system into a computational powerhouse.
 
-* {% link 'get-ready.html' %}
-* {% link 'how-to-install-everything.html' %}
-
-
-- - -
-
-#### Troubleshooting
-
-Sooner or later you may encounter confusing situations.
-Refer to the pages below:
-
-* {% link "how-to-set-the-path.html" %}
-* {% link "set-bash-profile.html" %}
-* {% link "minimal-bash-profile.html" %}
-* {% link "have-you-nuked-the-path.html" %}
+{%  thumb "setup.png" link='get-ready.html' %}
+{%  thumb "install.png" link='how-to-install-everything.html' %}
+{%  thumb "troubleshoot.png" link='troubleshoot.html' clearfix=1 %}
 
 - - -
 
-#### Using the Unix command line
+### Using the Unix command line
+
 
 The ability to use Unix commands is required to perform bioinformatics data
 analysis with command line tools.
 
-* {% link "unix-shell-intro" %}
-* {% link "unix-intro.html" %}
+{%  thumb "unix-intro.png" link='unix-shell-intro' %}
+{%  thumb "unix-skills.png" link='unix-intro.html' clearfix=1 %}
 
 - - -
 
-#### Biological Data Sources
+### Biological Data Sources
 
 Automating data access is an important skill for a bioinformatician.
 
-* {% link 'ncbi-entrez.html' %}
+{%  thumb "ncbi-intro.png" link='ncbi-entrez.html' clearfix=1 %}
 
 - - -
 
-#### Data quality control and post processing
+### Data quality control and post processing
 
 Quality control (abbreviated as QC) is the process of improving
 data by removing identifiable errors from it.
 
-* {% link 'fastq-quality-control.html' %}
+{%  thumb "qc-intro.png" link='fastq-quality-control.html' clearfix=1 %}
+
 
 - - -
 
-#### Sequence Alignments
+### Sequence Alignments
 
 Local and global alignments.
 
-* {% link 'sequence-alignment.html' %}
+{%  thumb "pairwise.png" link='sequence-alignment.html' %}
+{%  thumb "nextgen.png" link='short-read-aligners.html' clearfix=1 %}
 
-Running short read mappers.
+{%  thumb "sam.png" link='SAM-format.html' %}
+{%  thumb "cigar.png" link='SAM-examples.html' %}
+{%  thumb "flags.png" link='SAM-filtering.html' clearfix=1%}
 
-* {% link 'short-read-aligners.html' %}
-
-The SAM (Sequence Alignment Map) format.
-
-* {% link 'SAM-format.html' %}
-
-Simple examples that demonstrate how the SAM format works:
-
-* {%  link 'SAM-examples.html' %}
-
-Manipulating and filtering alignments in the SAM format.
-
-* {% link 'SAM-filtering.html' %}
 
 - - -
 
-#### Genomic Variation
+### Genomic Variation
 
 An introduction to detecting genomic variation
 
-* {% link 'genomic_variation_intro.html' %}
+{%  thumb "snp.png" link='genomic_variation_intro.html' clearfix=1%}
+
 
 - - -
 
-#### Genome Assemblies
+### Genome Assemblies
 
 An introduction to assembling genomes
 
-* {% link 'assembly_intro.html' %}
+{%  thumb "velvet-intro.png" link='assembly_intro.html' clearfix=1 %}
 
 - - -
 
-#### RNA-Seq Analysis
+### RNA-Seq Analysis
 
-An introduction to assembling genomes
+Gene expression quantification via sequencing
 
-* {% link 'rnaseq_intro.html' %}
-* {% link 'tuxedo_intro.html' %}
+{%  thumb "rnaseq-intro.png" link='rnaseq_intro.html' %}
+{%  thumb "tuxedo-intro.png" link='tuxedo_intro.html' clearfix=1 %}
 
 [book]: https://leanpub.com/biostarhandbook
+
+- - -
 
 {%  endmarkdown %}
 

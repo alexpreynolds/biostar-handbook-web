@@ -29,6 +29,7 @@ TOOL_INSTALL = find("tools", "_install.md")
 
 NAVBAR = [
     ("index.html", '<span class="glyphicon glyphicon-home" aria-hidden="true"></span> Home'),
+    ("book/index.html", '<span class="glyphicon glyphicon-book" aria-hidden="true"></span> Book'),
     ("search.html", '<span class="glyphicon glyphicon-search" aria-hidden="true"></span> Search'),
     ("about.html", '<span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span> Info'),
 ]

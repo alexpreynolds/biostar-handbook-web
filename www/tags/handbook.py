@@ -73,8 +73,8 @@ def anchor(name):
     return '<a name="%s">&nbsp;</a>' % name
 
 @register.simple_tag
-def img(src, css):
-    return '<img src="{}" class="{}">'.format(src, css)
+def clearfix():
+    return '<div class="clearfix visible-xs-block"></div>'
 
 @register.simple_tag
 def cover(size=4, css="pull-right"):
