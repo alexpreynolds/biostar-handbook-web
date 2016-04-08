@@ -1,0 +1,70 @@
+{% extends "unitbase.html" %}
+{% load pytags %}
+{# title =  Unix Confessions #}
+{# subtitle = mastering the command line #}
+{# name = Confessions of a Unix power user #}
+
+{% block body %}
+
+{% markdown %}
+
+* I will not click on buttons instead I will write oddly shortened words.
+* I like my analyses run fast and in parallel.
+* I avoid repeating things and I write programs to automate that.
+* Instead of writing file names I try to make the computer find them for me
+* I always press tab in bash to avoid typos and force the computer to fill in the names for me.
+
+- - -
+
+Simple constructs that save time:
+
+    # Recursively find all files by name.
+    find . -name '*.fastq'
+
+    # Find files and execute a command on each.
+    # In this case the ls command
+    find . -name '*.fastq' | xargs ls -l
+
+    # The previous example won't work if file names
+    # have spaces in them. Extra arguments are needed then.
+    find . -name '*.fastq' -print0 | xargs -0 -n 1 ls -l
+
+- - -
+
+### GNU Parallel
+
+GNU Parallel allows us to maximally utilize our computers by running
+as many jobs as compute cores that we have.
+The creator of GNU Paralell, Ole Tange has written a post on Biostars
+demonstrating the usage of the tool that contains a large number of examples
+with bioinformatics relevance:
+
+* [Gnu Parallel - Parallelize Serial Command Line Programs Without Changing Them](https://www.biostars.org/p/63816/)
+
+A few of the most interesting snippets:
+
+**Blast on multiple machines**
+
+Assume you have a 1 GB fasta file that you want blast, GNU Parallel can then split the fasta file into 100 KB chunks and run 1 jobs per CPU core:
+
+    cat 1gb.fasta | parallel --block 100k --recstart '>' --pipe blastp -evalue 0.01 -outfmt 6 -db db.fa -query - > results
+
+If you have access to the local machine, server1 and server2, GNU Parallel can distribute the jobs to each of the servers. It will automatically detect how many CPU cores are on each of the servers:
+
+    cat 1gb.fasta | parallel -S :,server1,server2 --block 100k --recstart '>' --pipe blastp -evalue 0.01 -outfmt 6 -db db.fa -query - > result
+
+- - -
+
+**Running experiments**
+
+Experiments often have several parameters where every combination should be tested. Assume we have a program called experiment that takes 3 arguments: --age --sex --chr:
+
+    experiment --age 18 --sex M --chr 22
+
+Now we want to run experiment for every combination of ages 1..80, sex M/F, chr 1..22+XY:
+
+    parallel experiment --age {1} --sex {2} --chr {3} ::: {1..80} ::: M F ::: {1..22} X Y
+
+{% endmarkdown %}
+
+{%  endblock %}
