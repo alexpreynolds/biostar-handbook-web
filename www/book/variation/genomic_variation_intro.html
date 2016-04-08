@@ -75,7 +75,9 @@ that make it more realistic
 
 ### Pileups
 
-Pileups are a data representation that show the base composition over at a given coordinate:
+Pileups are a data representation that show the base composition over at a given coordinate.
+A SNP caller operates on this type of data, that of a consensus over coordinate or a
+region in the genome. 
 
     # Pileup with a reference file.
     samtools mpileup -f $REF bwa.bam | head
@@ -95,8 +97,8 @@ Pileups are a data representation that show the base composition over at a given
     # KJ660346	1004	C	134	,$.,,.,,,.$.,,,,,,........,,,,,,....,,,,,,,,..,,,,,,,,,,,.,,,..,,,,,,,,,,,....,,,.....,.,,,,...,.,.........,......,.....,,,,.........,.,	@DCFDFFF2CHHHFFGDmkDDDDDJIJJJIEA@EJJJJJJJJFeIJIJJJJIIJJnJIJHHJHHIJJIJJJGhGIIrJJIIIJJJ?JJIJCJIJiFIIDJJIHJJIIIJJIJJJJJIFI@CEHHFFFFFFFCCC
     # KJ660346	1005	A	135	.,,.,,,.,,,,,,........,,,,,,....,,,,,,,,..,,,,,,,,,,,.,,,..,,,,,,,,,,,....,,,.....,.,,,,...,.,.........,......,.....,,,,.........,.,^].^].^].	gCCDFFFDFHHHHHDlkDCCCDJJJJJJECCEJJJJJJIJFeIJEJJIJIJJJjJIJHHJEEIJJIJJJDjGIJsJJJJIJJJ@JJJJFiGJjFIJEJJIIJJIkJJJIJJJJJJBG@EEHGFFFFGFFCFA@<B
 
-"
-    # Pileups can take SAM flags in the --rf (required flag) or --ff (filtering flag)
+Pileups can take SAM flags in the `--rf` (required flag) or `--ff` (filtering flag)
+
     #
     # Pileup from reads on reverse strand.
     samtools mpileup --rf 16 -f $REF bwa.bam -r KJ660346:1,000-1,003
@@ -138,28 +140,29 @@ KM034562v1  738     .       T       C      100     PASS    AF=1.0    GT      0/1
 
 ### SNP calling
 
-The poor man's snp caller is a simple piece of code that generate a BED file that can be visualized in IGV.
-
-    samtools mpileup -f $REF bwa.bam | tr -d '$^],.' | awk -F '\t' 'length($5)>25 { OFS="\t";  print $1, $2-1, $2 }' > poor-snps.bed
-
-the results that this produces are not so bad, that's because most SNPs in this data are well defined
-and well covered.
-
-Samtools/BCFTools can be used to call SNPs like so:
-
-	samtools mpileup -uvf $REF bwa.bam | bcftools call -vm -O v > bcftools.vcf
-
-The FreeBayes SNP caller may be invoked as:
+The easiest to use SNP caller is **FreeBayes** it may be invoked as:
 
 	freebayes -f $REF bwa.bam > freebayes.vcf
 
-The Genome Analysis Tookit could be used as:
+**Samtools/BCFTools** can be used to call SNPs like so:
+
+	samtools mpileup -uvf $REF bwa.bam | bcftools call -vm -O v > bcftools.vcf
+
+
+The **Genome Analysis Tookit** could be used as:
 
 	gatk -T HaplotypeCaller -R $REF -I bwa1.bam -o gatk.vcf
 
+The poor man's snp caller is a simple piece of code that generates a BED file that can be visualized in IGV.
+
+    samtools mpileup -f $REF bwa.bam | tr -d '$^],.' | awk -F '\t' 'length($5)>25 { OFS="\t";  print $1, $2-1, $2 }' > poor-snps.bed
+
+the results that this produces are ok, but that's because most SNPs in this data are well defined
+and well covered.
+
 As described in the book, SNP calling is a lot more complicated process than invoking these tools
-with default paramters. Each of these tools is an domain of its own with many
-different usecases and applications.
+with default parameters. Each of these tools is an domain of its own with many
+different use cases and applications.
 
 The resulting VCF files are shown below:
 
